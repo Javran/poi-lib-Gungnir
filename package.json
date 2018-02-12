@@ -1,0 +1,37 @@
+{
+  "name": "poi-lib-gungnir",
+  "version": "0.0.1",
+  "description": "Battle Prophet",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "mocha -r @babel/register --recursive test/**/*.ts",
+    "build": "babel src --out-dir lib --extensions \".ts,.tsx\"",
+    "type-check": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Javran/poi-lib-gungnir.git"
+  },
+  "keywords": [
+    "kancolle"
+  ],
+  "author": "Javran Cheng <Javran.C@gmail.com> (https://github.com/Javran)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Javran/poi-lib-gungnir/issues"
+  },
+  "homepage": "https://github.com/Javran/poi-lib-gungnir#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.32",
+    "@babel/core": "^7.0.0-beta.32",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.32",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.32",
+    "@babel/preset-env": "^7.0.0-beta.32",
+    "@babel/preset-typescript": "^7.0.0-beta.32",
+    "@babel/register": "^7.0.0-beta.32",
+    "@types/mocha": "^2.2.48",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "mocha": "^5.0.0",
+    "typescript": "^2.6.2"
+  }
+}
