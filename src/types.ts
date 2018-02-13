@@ -4,7 +4,7 @@
 
   [<nowHP, maxHP>]
  */
-type HP = [number, number]
+type HP = [number, number];
 
 /*
 
@@ -16,12 +16,12 @@ type HP = [number, number]
   - to avoid confusion, value 0 and -1 should never be used when EquipId is expected
 
  */
-type EquipId = number | null | 'n/a'
+type EquipId = number | null | 'n/a';
 
 interface Ship {
     hp: HP;
-    slots: Array<EquipId>;
-    slotEx: EquipId
+    // slots: Array<EquipId>;
+    // slotEx: EquipId;
 }
 
 /*
@@ -33,11 +33,11 @@ type Fleet = Array<Ship>
   generalized fleet to unify single & combined fleet
  */
 interface GFleet {
-    main?: Fleet;
-    escort?: Fleet;
+    main: Fleet | null;
+    escort: Fleet | null;
 }
 
 interface BattleState {
     ourFleets: GFleet;
-    enemyFleets: GFleet
+    enemyFleets: GFleet;
 }

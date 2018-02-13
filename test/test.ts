@@ -1,8 +1,13 @@
-import assert from 'assert'
+import { readJsonSync } from 'fs-extra'
+import * as assert from 'assert'
+import { 
+
 const spec = it
 
 describe('basic', () => {
     const a : number = 1
-    spec('dummy', () => assert(true))
-    // spec('false', () => assert(false))
+    spec('dummy', () => assert(1 === 1));
+    const x : any = 1
+    const y : any = 2
+    spec('aaa', () => assert(x !== y))
 })
