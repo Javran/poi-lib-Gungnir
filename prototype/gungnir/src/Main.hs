@@ -13,6 +13,7 @@ import qualified Data.Text as T
 import Data.Scientific
 import Data.Maybe
 import qualified Data.IntSet as IS
+import qualified Data.Set as S
 
 {-
 
@@ -30,6 +31,7 @@ data KC3RawRecord = KC3RawRecord
 
 data KC3BattleRecord = KC3BattleRecord
   { sortieId :: Int
+  , bKeys :: [T.Text]
   } deriving Show
 
 instance FromJSON KC3RawRecord where
@@ -41,7 +43,7 @@ fromRawRecord raw
     | table raw == "battle" = do
         (Number sci) <- HM.lookup "sortie_id" (record raw)
         n <- toBoundedInteger sci
-        pure (KC3BattleRecord n)
+        pure (KC3BattleRecord n (HM.keys (record raw)))
     | otherwise = Nothing
 
 kc3Loader :: [String] -> IO ()
@@ -54,9 +56,11 @@ kc3Loader args = case args of
             eCount = length (lefts decodedRaws) :: Int
             battleRaws = mapMaybe fromRawRecord parsed
             sortieIdSet = IS.fromList (map sortieId battleRaws)
+            allKeys = foldr (\r -> S.union (S.fromList $ bKeys r)) S.empty battleRaws
         putStrLn $ "(success, error) = " ++ show (sCount, eCount)
         putStrLn $ "battle count: (valid, all) = " ++ show (length battleRaws, length parsed)
-        putStrLn $ "sortie id uniqueness: " ++ show (length battleRaws, IS.size sortieIdSet)
+        putStrLn $ "unique sortie id count: " ++ show (IS.size sortieIdSet)
+        putStrLn $ "keys: " ++ show allKeys
         pure ()
     _ -> do
         putStrLn "gungnir kc3 <filename>"
