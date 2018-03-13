@@ -8,7 +8,11 @@ import qualified Data.ByteString.Lazy.Char8 as BSLC
 import Data.Aeson
 import Data.Aeson.Types
 import Data.Either
+import qualified Data.HashMap.Strict as HM
 import qualified Data.Text as T
+import Data.Scientific
+import Data.Maybe
+import qualified Data.IntSet as IS
 
 {-
 
@@ -24,9 +28,21 @@ data KC3RawRecord = KC3RawRecord
   , record :: Object
   } deriving Show
 
+data KC3BattleRecord = KC3BattleRecord
+  { sortieId :: Int
+  } deriving Show
+
 instance FromJSON KC3RawRecord where
     parseJSON (Object v) = KC3RawRecord <$> v .: "table" <*> v .: "record"
     parseJSON invalid = typeMismatch "KC3RawRecord" invalid
+
+fromRawRecord :: KC3RawRecord -> Maybe KC3BattleRecord
+fromRawRecord raw
+    | table raw == "battle" = do
+        (Number sci) <- HM.lookup "sortie_id" (record raw)
+        n <- toBoundedInteger sci
+        pure (KC3BattleRecord n)
+    | otherwise = Nothing
 
 kc3Loader :: [String] -> IO ()
 kc3Loader args = case args of
@@ -36,11 +52,11 @@ kc3Loader args = case args of
             parsed = rights decodedRaws
             sCount = length parsed :: Int
             eCount = length (lefts decodedRaws) :: Int
-            battleRaws = filter isBattle parsed
-              where
-                isBattle d = table d == "battle"
+            battleRaws = mapMaybe fromRawRecord parsed
+            sortieIdSet = IS.fromList (map sortieId battleRaws)
         putStrLn $ "(success, error) = " ++ show (sCount, eCount)
-        putStrLn $ "battle count = " ++ show (length battleRaws)
+        putStrLn $ "battle count: (valid, all) = " ++ show (length battleRaws, length parsed)
+        putStrLn $ "sortie id uniqueness: " ++ show (length battleRaws, IS.size sortieIdSet)
         pure ()
     _ -> do
         putStrLn "gungnir kc3 <filename>"
