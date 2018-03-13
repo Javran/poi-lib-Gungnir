@@ -14,6 +14,7 @@ import Data.Scientific
 import Data.Maybe
 import qualified Data.IntSet as IS
 import qualified Data.Set as S
+import qualified Data.Vector as V
 
 {-
 
@@ -32,6 +33,7 @@ data KC3RawRecord = KC3RawRecord
 data KC3BattleRecord = KC3BattleRecord
   { sortieId :: Int
   , bKeys :: [T.Text]
+  , bRaw :: Object
   } deriving Show
 
 instance FromJSON KC3RawRecord where
@@ -41,15 +43,16 @@ instance FromJSON KC3RawRecord where
 fromRawRecord :: KC3RawRecord -> Maybe KC3BattleRecord
 fromRawRecord raw
     | table raw == "battle" = do
-        (Number sci) <- HM.lookup "sortie_id" (record raw)
+        let bRawx = record raw
+        (Number sci) <- HM.lookup "sortie_id" bRawx
         n <- toBoundedInteger sci
-        pure (KC3BattleRecord n (HM.keys (record raw)))
+        pure (KC3BattleRecord n (HM.keys bRawx) bRawx)
     | otherwise = Nothing
 
 kc3Loader :: [String] -> IO ()
 kc3Loader args = case args of
-    fname:_ -> do
-        raws <- BSLC.lines <$> BSLC.readFile fname
+    ["pack",srcName,dstName] -> do
+        raws <- BSLC.lines <$> BSLC.readFile srcName
         let decodedRaws = eitherDecode <$> raws :: [Either String KC3RawRecord]
             parsed = rights decodedRaws
             sCount = length parsed :: Int
@@ -61,9 +64,11 @@ kc3Loader args = case args of
         putStrLn $ "battle count: (valid, all) = " ++ show (length battleRaws, length parsed)
         putStrLn $ "unique sortie id count: " ++ show (IS.size sortieIdSet)
         putStrLn $ "keys: " ++ show allKeys
-        pure ()
+        let encoded = encode (Array (V.fromList (map (Object . bRaw) battleRaws) :: V.Vector Value))
+        BSLC.writeFile dstName encoded
+        putStrLn "Written."
     _ -> do
-        putStrLn "gungnir kc3 <filename>"
+        putStrLn "gungnir kc3 pack <input> <output>"
         exitFailure
 
 poiLoader :: [String] -> IO ()

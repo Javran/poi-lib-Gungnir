@@ -24,6 +24,7 @@ executable gungnir
                      , unordered-containers
                      , scientific
                      , containers
+                     , vector
   default-language:    Haskell2010
 
 source-repository head
