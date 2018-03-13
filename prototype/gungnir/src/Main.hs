@@ -21,6 +21,10 @@ import qualified Data.Vector as V
 TODO: battle data loader
 
 - from kc3 exports
+
+  - use misc tools to create merged jsonlines
+  - "kc3 pack" combines all together to create a big chunk (TODO: group by sortie_id)
+
 - from poi battle details
 
 -}
