@@ -1,5 +1,8 @@
-import { testStr } from './index'
+import { readJsonSync } from 'fs-extra'
 
-test('stuff', () => {
-    expect(testStr).toBe('a test string')
+import { fromPoiBattleDetail, BattleDetailData } from './index'
+
+test('sample0', () => {
+    const raw = readJsonSync('./sample/sample0.json')
+    expect(fromPoiBattleDetail(raw as BattleDetailData).length).toBe(1)
 })

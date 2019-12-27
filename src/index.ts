@@ -1,19 +1,9 @@
-// import { } from './types'
-
-const id = (x: Ship) => x
-
-function getBattleState(raw: any): BattleState {
-    const placeholder = { main: null, escort: null }
-    return {
-        ourFleets: placeholder,
-        enemyFleets: placeholder,
-    }
+export interface BattleDetailData {
+    version: string
+    desc?: string
+    packet: Array<Packet>
 }
 
-const testStr = 'a test string'
+export type Packet = object
 
-export {
-    id,
-    getBattleState,
-    testStr,
-}
+export const fromPoiBattleDetail = (raw: BattleDetailData): Array<Packet> => raw.packet
