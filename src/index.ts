@@ -1,7 +1,7 @@
 export interface BattleDetailData {
-    version: string
-    desc?: string
-    packet: Array<Packet>
+  version: string
+  desc?: string
+  packet: Array<Packet>
 }
 
 export type Packet = object
