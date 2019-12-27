@@ -4,6 +4,7 @@
     "module": "commonjs",
     "noEmit": true,
     "strict": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "outDir": "dist"
   }
 }
