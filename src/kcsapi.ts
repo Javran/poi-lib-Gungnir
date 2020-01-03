@@ -8,10 +8,10 @@
 
 // 1=単縦陣, 2=複縦陣, 3=輪形陣, 4=梯形陣, 5=単横陣, 6=警戒陣
 // "11"-"14"=第n警戒航行序列
-type Formation = number | string
+export type Formation = number | string
 
 // 1=同航戦, 2=反航戦, 3=T字有利, 4=T字不利
-type Engagement = number
+export type Engagement = number
 
 // 1=成功, 2=失敗?, 5=失敗
 type Detection = number
