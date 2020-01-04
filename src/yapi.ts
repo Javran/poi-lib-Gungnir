@@ -41,12 +41,12 @@ export interface ShipAttributes {
   armor: number,
 }
 
-interface ShipInfoCommon {
+export interface ShipInfoCommon {
   // api_fParam & api_eParam
   attrib: ShipAttributes,
 }
 
-interface ShipInfoExtra {
+export interface ShipInfoExtra {
   // api_ship_ke
   mstId: number,
   // api_ship_lv
@@ -71,7 +71,7 @@ export interface Battle {
   formation: TwoSides<Formation>
   hps: TwoSides<Array<HP>>
   shipInfo: {
-    friend: ShipInfoFriend,
-    enemy: ShipInfoEnemy,
+    friend: Array<ShipInfoFriend>,
+    enemy: Array<ShipInfoEnemy>,
   }
 }

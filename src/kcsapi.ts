@@ -109,7 +109,7 @@ interface RaigekiEnemy {
 type Raigeki = RaigekiFriend & RaigekiEnemy
 
 // [<火力>, <雷装>, <対空>, <装甲>]
-type ShipParam = [number, number, number, number]
+export type ShipParam = [number, number, number, number]
 
 export interface Battle {
   api_deck_id: number

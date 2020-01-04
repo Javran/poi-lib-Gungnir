@@ -36,14 +36,28 @@ export const convertHps = (rawCurHps: Array<number>, rawMaxHps: Array<number>): 
   return _.zip(rawCurHps, rawMaxHps) as Array<HP>
 }
 
+export const convertShipInfoCommon = ([firepower, torpedo, antiAir, armor]: kcsapi.ShipParam): yapi.ShipInfoCommon =>
+  ({ attrib: { firepower, torpedo, antiAir, armor } })
+
+export const convertShipInfoExtra = (mstId: number, level: number, equips: Array<number>): yapi.ShipInfoExtra =>
+  ({ mstId, level, equips })
+
+export const convertShipInfoFriend = convertShipInfoCommon
+export const convertShipInfoEnemy =
+  (xParam: kcsapi.ShipParam, mstId: number, level: number, equips: Array<number>): yapi.ShipInfoEnemy =>
+    ({ ...convertShipInfoCommon(xParam), ...convertShipInfoExtra(mstId, level, equips) })
+
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   const [fForm, eForm, engagement] = raw.api_formation
-  /*
-    TODO: Some missing fields:
+  // IIFE for now, until do-expression becomes available.
+  const enemyShipInfo = (() => {
+    const l = raw.api_eParam.length
+    if ([raw.api_ship_ke, raw.api_ship_lv, raw.api_eSlot].some(arr => arr.length !== l)) {
+      throw new Error(`Cannot convert enemy ship info, some array lengths are mismatching.`)
+    }
+    return _.zipWith(raw.api_eParam, raw.api_ship_ke, raw.api_ship_lv, raw.api_eSlot, convertShipInfoEnemy)
+  })()
 
-    fParam, ship_ke, ship_lv, eSlot, eParam.
-
-   */
   return {
     deckId: raw.api_deck_id,
     engagement: convertEngagement(engagement),
@@ -56,8 +70,8 @@ export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
       enemy: convertHps(raw.api_e_nowhps, raw.api_e_maxhps),
     },
     shipInfo: {
-      friend: undefined as unknown as yapi.ShipInfoFriend, // TODO
-      enemy: undefined as unknown as yapi.ShipInfoEnemy, // TODO
+      friend: _.map(raw.api_fParam, convertShipInfoFriend),
+      enemy: enemyShipInfo,
     },
   }
 }
