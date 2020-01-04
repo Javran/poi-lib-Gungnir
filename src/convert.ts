@@ -1,6 +1,12 @@
 import * as kcsapi from './kcsapi'
 import * as yapi from './yapi'
 
+/*
+  TODO: non-critical conversion errors should fail gracefully.
+  It's expected that the API changes from time to time, but it should not crash
+  the whole conversion. Cases include a unknown engagement or formation etc.
+ */
+
 export const convertEngagement = (raw: kcsapi.Engagement): yapi.Engagement => {
   if (raw >= 1 && raw <= 4) {
     return raw as yapi.Engagement
