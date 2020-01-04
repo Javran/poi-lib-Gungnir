@@ -38,13 +38,26 @@ export const convertHps = (rawCurHps: Array<number>, rawMaxHps: Array<number>): 
 
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   const [fForm, eForm, engagement] = raw.api_formation
+  /*
+    TODO: Some missing fields:
+
+    fParam, ship_ke, ship_lv, eSlot, eParam.
+
+   */
   return {
     deckId: raw.api_deck_id,
     engagement: convertEngagement(engagement),
-    formation: { friend: convertFormation(fForm), enemy: convertFormation(eForm) },
+    formation: {
+      friend: convertFormation(fForm),
+      enemy: convertFormation(eForm),
+    },
     hps: {
       friend: convertHps(raw.api_f_nowhps, raw.api_f_maxhps),
       enemy: convertHps(raw.api_e_nowhps, raw.api_e_maxhps),
+    },
+    shipInfo: {
+      friend: undefined as unknown as yapi.ShipInfoFriend, // TODO
+      enemy: undefined as unknown as yapi.ShipInfoEnemy, // TODO
     },
   }
 }

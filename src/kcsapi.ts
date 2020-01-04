@@ -112,7 +112,6 @@ type Raigeki = RaigekiFriend & RaigekiEnemy
 type ShipParam = [number, number, number, number]
 
 export interface Battle {
-
   api_deck_id: number
   api_formation: [Formation, Formation, Engagement]
 

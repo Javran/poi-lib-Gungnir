@@ -34,9 +34,44 @@ export enum Formation {
 
 export type HP = [number, number] // current and max.
 
+export interface ShipAttributes {
+  firepower: number,
+  torpedo: number,
+  antiAir: number,
+  armor: number,
+}
+
+interface ShipInfoCommon {
+  // api_fParam & api_eParam
+  attrib: ShipAttributes,
+}
+
+interface ShipInfoExtra {
+  // api_ship_ke
+  mstId: number,
+  // api_ship_lv
+  level: number,
+  /*
+    the equipment array, if present, will be kept as it is.
+    this is because number 0, -1 can be used to indicate
+    that a slot is available but is unequipped.
+    maybe there is something more clever we can do,
+    but for now let's just make sure the conversion does not drop any info.
+   */
+  // api_eSlot
+  equips: Array<number>,
+}
+
+export type ShipInfoFriend = ShipInfoCommon
+export type ShipInfoEnemy = ShipInfoCommon & ShipInfoExtra
+
 export interface Battle {
   deckId: number
   engagement: Engagement
   formation: TwoSides<Formation>
   hps: TwoSides<Array<HP>>
+  shipInfo: {
+    friend: ShipInfoFriend,
+    enemy: ShipInfoEnemy,
+  }
 }
