@@ -1,3 +1,5 @@
+import * as _ from 'lodash'
+
 import * as kcsapi from './kcsapi'
 import * as yapi from './yapi'
 
@@ -27,12 +29,22 @@ export const convertFormation = (raw: kcsapi.Formation): yapi.Formation => {
   }
 }
 
+export const convertHps = (rawCurHps: Array<number>, rawMaxHps: Array<number>): Array<HP> => {
+  if (rawCurHps.length !== rawMaxHps.length) {
+    throw new Error(`Cannot convert Hps, length mismatched: cur=${rawCurHps.length}, max=${rawMaxHps.length}.`)
+  }
+  return _.zip(rawCurHps, rawMaxHps) as Array<HP>
+}
+
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   const [fForm, eForm, engagement] = raw.api_formation
   return {
-    deck_id: raw.api_deck_id,
+    deckId: raw.api_deck_id,
     engagement: convertEngagement(engagement),
     formation: { friend: convertFormation(fForm), enemy: convertFormation(eForm) },
-    hps: { friend: [], enemy: [] }, // TODO
+    hps: {
+      friend: convertHps(raw.api_f_nowhps, raw.api_f_maxhps),
+      enemy: convertHps(raw.api_e_nowhps, raw.api_e_maxhps),
+    },
   }
 }

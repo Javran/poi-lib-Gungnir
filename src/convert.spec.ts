@@ -1,7 +1,7 @@
 import * as kcsapi from './kcsapi'
 import * as yapi from './yapi'
 
-import { convertEngagement, convertFormation } from './convert'
+import { convertEngagement, convertFormation, convertHps } from './convert'
 
 describe('convertEngagement', () => {
   test('samples', () => {
@@ -31,5 +31,12 @@ describe('convertFormation', () => {
     testCase('12', yapi.Formation.CruisingFormation2)
     testCase('13', yapi.Formation.CruisingFormation3)
     testCase('14', yapi.Formation.CruisingFormation4)
+  })
+})
+
+describe('convertHps', () => {
+  test('samples', () => {
+    expect(convertHps([44, 45, 54], [184, 185, 318])).toStrictEqual([[44, 184], [45, 185], [54, 318]])
+    expect(() => convertHps([44, 45, 54], [184, 185, 318, 1])).toThrow()
   })
 })

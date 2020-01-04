@@ -35,7 +35,7 @@ export enum Formation {
 export type HP = [number, number] // current and max.
 
 export interface Battle {
-  deck_id: number
+  deckId: number
   engagement: Engagement
   formation: TwoSides<Formation>
   hps: TwoSides<Array<HP>>
