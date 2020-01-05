@@ -1,7 +1,7 @@
 import * as kcsapi from './kcsapi'
 import * as yapi from './yapi'
 
-import { convertEngagement, convertFormation, convertHps } from './convert'
+import { convertEngagement, convertFormation, convertHps, convertIntFlag } from './convert'
 
 describe('convertEngagement', () => {
   test('samples', () => {
@@ -38,5 +38,12 @@ describe('convertHps', () => {
   test('samples', () => {
     expect(convertHps([44, 45, 54], [184, 185, 318])).toStrictEqual([[44, 184], [45, 185], [54, 318]])
     expect(() => convertHps([44, 45, 54], [184, 185, 318, 1])).toThrow()
+  })
+})
+
+describe('convertIntFlag', () => {
+  test('samples', () => {
+    expect(convertIntFlag(0)).toBe(false)
+    expect(convertIntFlag(1)).toBe(true)
   })
 })

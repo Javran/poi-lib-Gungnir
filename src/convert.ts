@@ -47,6 +47,8 @@ export const convertShipInfoEnemy =
   (xParam: kcsapi.ShipParam, mstId: number, level: number, equips: Array<number>): yapi.ShipInfoEnemy =>
     ({ ...convertShipInfoCommon(xParam), ...convertShipInfoExtra(mstId, level, equips) })
 
+export const convertIntFlag = (v: kcsapi.IntFlag) => Boolean(v)
+
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   const [fForm, eForm, engagement] = raw.api_formation
   // IIFE for now, until do-expression becomes available.
