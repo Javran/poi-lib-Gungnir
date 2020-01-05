@@ -19,7 +19,6 @@ describe('samples', () => {
         friend: yapi.Formation.Vanguard,
         enemy: yapi.Formation.LineAhead,
       },
-      canPursue: true,
       hps: {
         friend: [[37, 37], [37, 37], [42, 59], [35, 38], [45, 45]],
         enemy: [[57, 57], [37, 37], [37, 37], [20, 20], [20, 20]],
@@ -64,6 +63,11 @@ describe('samples', () => {
             equips: [501, -1, -1, -1, -1],
           },
         ],
+      },
+      canPursue: true,
+      detection: {
+        friend: { success: true, planeReturned: null },
+        enemy: { success: true, planeReturned: true },
       },
     })
   })

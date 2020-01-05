@@ -65,10 +65,17 @@ export interface ShipInfoExtra {
 export type ShipInfoFriend = ShipInfoCommon
 export type ShipInfoEnemy = ShipInfoCommon & ShipInfoExtra
 
+export interface Detection {
+  success: boolean,
+  // true: plane returned
+  // false: plane not returned
+  // null: without plane
+  planeReturned: boolean | null,
+}
+
 /*
   TODO: some "bare minimal"s to be converted:
 
-  api_search
   api_stage_flag
   api_kouku
 
@@ -97,4 +104,5 @@ export interface Battle {
     enemy: Array<ShipInfoEnemy>,
   },
   canPursue: boolean,
+  detection: TwoSides<Detection>,
 }

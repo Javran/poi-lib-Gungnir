@@ -1,7 +1,7 @@
 import * as kcsapi from './kcsapi'
 import * as yapi from './yapi'
 
-import { convertEngagement, convertFormation, convertHps, convertIntFlag } from './convert'
+import { convertEngagement, convertFormation, convertHps, convertIntFlag, convertDetection } from './convert'
 
 describe('convertEngagement', () => {
   test('samples', () => {
@@ -45,5 +45,17 @@ describe('convertIntFlag', () => {
   test('samples', () => {
     expect(convertIntFlag(0)).toBe(false)
     expect(convertIntFlag(1)).toBe(true)
+  })
+})
+
+describe('convertDetection', () => {
+  test('samples', () => {
+    expect(convertDetection(1)).toStrictEqual({ success: true, planeReturned: true })
+    expect(convertDetection(2)).toStrictEqual({ success: true, planeReturned: false })
+    expect(convertDetection(5)).toStrictEqual({ success: true, planeReturned: null })
+
+    expect(convertDetection(4)).toStrictEqual({ success: false, planeReturned: true })
+    expect(convertDetection(3)).toStrictEqual({ success: false, planeReturned: false })
+    expect(convertDetection(6)).toStrictEqual({ success: false, planeReturned: null })
   })
 })

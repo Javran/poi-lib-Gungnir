@@ -49,6 +49,18 @@ export const convertShipInfoEnemy =
 
 export const convertIntFlag = (v: kcsapi.IntFlag) => Boolean(v)
 
+export const convertDetection = (v: number): yapi.Detection => {
+  switch (v) {
+    case 1: return { success: true, planeReturned: true }
+    case 2: return { success: true, planeReturned: false }
+    case 3: return { success: false, planeReturned: false }
+    case 4: return { success: false, planeReturned: true }
+    case 5: return { success: true, planeReturned: null }
+    case 6: return { success: false, planeReturned: null }
+    default: throw new Error(`Cannot convert Detection: ${v}.`)
+  }
+}
+
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   const [fForm, eForm, engagement] = raw.api_formation
   // IIFE for now, until do-expression becomes available.
@@ -58,6 +70,14 @@ export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
       throw new Error(`Cannot convert enemy ship info, some array lengths are mismatching.`)
     }
     return _.zipWith(raw.api_eParam, raw.api_ship_ke, raw.api_ship_lv, raw.api_eSlot, convertShipInfoEnemy)
+  })()
+
+  const detection = (() => {
+    const [f, e] = raw.api_search
+    return {
+      friend: convertDetection(f),
+      enemy: convertDetection(e),
+    }
   })()
 
   return {
@@ -76,5 +96,6 @@ export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
       enemy: enemyShipInfo,
     },
     canPursue: convertIntFlag(raw.api_midnight_flag),
+    detection,
   }
 }
