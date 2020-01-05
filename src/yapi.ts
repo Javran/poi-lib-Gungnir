@@ -65,6 +65,28 @@ export interface ShipInfoExtra {
 export type ShipInfoFriend = ShipInfoCommon
 export type ShipInfoEnemy = ShipInfoCommon & ShipInfoExtra
 
+/*
+  TODO: some "bare minimal"s to be converted:
+
+  api_search
+  api_stage_flag
+  api_kouku
+
+  api_support_flag
+  api_support_info
+  api_opening_taisen_flag
+  api_opening_taisen
+  api_opening_flag
+  api_opening_attack
+
+  api_hourai_flag
+  api_hougeki1
+  api_hougeki2
+  api_hougeki3
+  api_raigeki
+
+ */
+
 export interface Battle {
   deckId: number
   engagement: Engagement
@@ -73,5 +95,6 @@ export interface Battle {
   shipInfo: {
     friend: Array<ShipInfoFriend>,
     enemy: Array<ShipInfoEnemy>,
-  }
+  },
+  canPursue: boolean,
 }

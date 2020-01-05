@@ -16,7 +16,7 @@ export type Engagement = number
 // 1=成功, 2=失敗?, 5=失敗
 type Detection = number
 
-type IntFlag = 0 | 1
+export type IntFlag = 0 | 1
 type Contact = number
 type Airpower = number
 type ShipIndex = number
