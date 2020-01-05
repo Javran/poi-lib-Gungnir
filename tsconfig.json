@@ -1,10 +1,11 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    "noEmit": true,
-    "strict": true,
-    "outDir": "dist",
-    "moduleResolution": "node"
-  }
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "commonjs",
+        "noEmit": true,
+        "strict": true,
+        "outDir": "dist",
+        "moduleResolution": "node",
+        "noImplicitAny": false,
+    }
 }

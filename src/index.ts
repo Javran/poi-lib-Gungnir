@@ -3,9 +3,9 @@ import { Battle } from './kcsapi'
 export interface BattleDetailData {
   version: string
   desc?: string
-  packet: Array<Packet>
+  packet: Packet
 }
 
 export type Packet = Array<Battle>
 
-export const fromPoiBattleDetail = (raw: BattleDetailData): Array<Packet> => raw.packet
+export const fromPoiBattleDetail = (raw: BattleDetailData): Packet => raw.packet
