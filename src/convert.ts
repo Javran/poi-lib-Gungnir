@@ -108,7 +108,7 @@ export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
       friend: _.map(raw.api_fParam, convertShipInfoFriend),
       enemy: enemyShipInfo,
     },
-    canPursue: convertIntFlag(raw.api_midnight_flag),
+    pursueFlag: convertIntFlag(raw.api_midnight_flag),
     detection,
   }
 }

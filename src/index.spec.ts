@@ -64,7 +64,7 @@ describe('samples', () => {
           },
         ],
       },
-      canPursue: true,
+      pursueFlag: true,
       detection: {
         friend: { success: true, planeReturned: null },
         enemy: { success: true, planeReturned: true },

@@ -142,6 +142,7 @@ export interface HougekiDamage {
   target: ShipIndex,
   // equips: number, TODO: not sure about this one
   critical: Critical,
+  // TODO: to extract the flag: null != e && (!(e.length <= t) && e[t] % 1 != 0)
   protectFlag: boolean,
   damage: number,
 }
@@ -178,6 +179,6 @@ export interface Battle {
     friend: Array<ShipInfoFriend>,
     enemy: Array<ShipInfoEnemy>,
   },
-  canPursue: boolean, // TODO: change to pursueFlag?
+  pursueFlag: boolean,
   detection: TwoSides<Detection>,
 }
