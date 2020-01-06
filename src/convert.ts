@@ -61,6 +61,19 @@ export const convertDetection = (v: number): yapi.Detection => {
   }
 }
 
+export const convertHougeki =
+  (
+    atEflag: kcsapi.IntFlag,
+    atList: kcsapi.ShipIndex,
+    atType: kcsapi.AttackType,
+    dfList: Array<kcsapi.ShipIndex>,
+    siList: Array<number>,
+    clList: Array<kcsapi.CriticalFlag>,
+    damage: Array<kcsapi.DamageE>,
+  ) => {
+    return 'TODO'
+  }
+
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   const [fForm, eForm, engagement] = raw.api_formation
   // IIFE for now, until do-expression becomes available.

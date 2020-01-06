@@ -19,16 +19,21 @@ type Detection = number
 export type IntFlag = 0 | 1
 type Contact = number
 type Airpower = number
-type ShipIndex = number
-type AttackType = number
+
+// the convension here is that XXXIndex starts with 0,
+// and XXXId starts with 1.
+export type ShipIndex = number
+
+export type AttackType = number
+
 // Damage with escort flag
 // escort flag is present when there is a ".1" bit
 // e.g. 10.1 instead of just 10.
-type DamageE = number
+export type DamageE = number
 type Damage = number
 
 // 0=miss, 1=hit, 2=critical
-type CriticalFlag = number
+export type CriticalFlag = number
 
 interface KoukuPlaneInfo {
   api_f_count: number

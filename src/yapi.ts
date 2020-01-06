@@ -93,6 +93,62 @@ export interface Detection {
   api_raigeki
 
  */
+export enum Side {
+  Friend = 0,
+  Enemy = 1,
+}
+
+export type ShipIndex = number
+
+export enum AttackType {
+  // 0=通常攻撃
+  Normal = 0,
+  // 1=レーザー攻撃
+  Lazer = 1,
+  // 2=連続射撃
+  Double = 2,
+  // 3=カットイン(主砲/副砲)
+  PrimarySecondaryCutin = 3,
+  // 4=カットイン(主砲/電探)
+  PrimaryRadarCutin = 4,
+  // 5=カットイン(主砲/徹甲)
+  PrimaryApCutin = 5,
+  // 6=カットイン(主砲/主砲)
+  PrimaryPrimaryCutin = 6,
+  // 7=空母カットイン
+  CarrierCutin = 7,
+  // 100=Nelson Touch
+  NelsonTouch = 100,
+  // 101=一斉射かッ…胸が熱いな！
+  NagatoCutin = 101,
+  // 102=長門、いい？ いくわよ！ 主砲一斉射ッ！
+  MutsuCutin = 102,
+  // 103=Colorado (_colorado_cutin)
+  ColoardoCutin = 103,
+  // 200=瑞雲立体攻撃
+  ZuiunCutin = 200,
+  // 201=海空立体攻撃
+  SuiseiCutin = 201,
+}
+
+export interface HougekiTurn {
+  source: {
+    side: Side,
+    index: ShipIndex,
+  },
+  attackType: AttackType,
+}
+
+export interface Hougeki {
+  type: 'Hougeki'
+  turns: Array<HougekiTurn>
+}
+
+export interface Raigeki {
+  type: 'Raigeki'
+}
+
+export type ShellingPhase = Array<Hougeki | Raigeki>
 
 export interface Battle {
   deckId: number
