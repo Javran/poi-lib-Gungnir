@@ -100,6 +100,7 @@ export enum Side {
 
 export type ShipIndex = number
 
+// TODO: tolerate unknown attack type.
 export enum AttackType {
   // 0=通常攻撃
   Normal = 0,
@@ -131,12 +132,30 @@ export enum AttackType {
   SuiseiCutin = 201,
 }
 
+export enum Critical {
+  Miss = 0,
+  Hit = 1,
+  Critical = 2,
+}
+
+export interface HougekiDamage {
+  target: ShipIndex,
+  // equips: number, TODO: not sure about this one
+  critical: Critical,
+  protectFlag: boolean,
+  damage: number,
+}
+
+// A Kanmusu starts her shelling turn of attack,
+// in which multiple damages can be dealt
+// with a fixed attack type.
 export interface HougekiTurn {
   source: {
     side: Side,
     index: ShipIndex,
   },
   attackType: AttackType,
+  damages: Array<HougekiDamage>
 }
 
 export interface Hougeki {
@@ -148,7 +167,7 @@ export interface Raigeki {
   type: 'Raigeki'
 }
 
-export type ShellingPhase = Array<Hougeki | Raigeki>
+export type HouraiPhases = Array<Hougeki | Raigeki>
 
 export interface Battle {
   deckId: number
@@ -159,6 +178,6 @@ export interface Battle {
     friend: Array<ShipInfoFriend>,
     enemy: Array<ShipInfoEnemy>,
   },
-  canPursue: boolean,
+  canPursue: boolean, // TODO: change to pursueFlag?
   detection: TwoSides<Detection>,
 }
