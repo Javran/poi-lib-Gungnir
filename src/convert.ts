@@ -61,6 +61,18 @@ export const convertDetection = (v: number): yapi.Detection => {
   }
 }
 
+/*
+  damage with protect flag (if there's an extra `.1`)
+
+  main.js extracts these two piece of info using:
+
+  - Math.floor(v)
+  - v % 1 != 0
+
+ */
+export const convertDamageE = (v: kcsapi.DamageE): yapi.DamageE =>
+  ({ protectFlag: v % 1 !== 0, damage: Math.floor(v) })
+
 export const convertHougeki =
   (
     atEflag: kcsapi.IntFlag,

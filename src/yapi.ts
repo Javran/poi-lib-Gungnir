@@ -138,6 +138,11 @@ export enum Critical {
   Critical = 2,
 }
 
+export interface DamageE {
+  protectFlag: boolean,
+  damage: number,
+}
+
 export interface HougekiDamage {
   target: ShipIndex,
   // equips: number, TODO: not sure about this one
