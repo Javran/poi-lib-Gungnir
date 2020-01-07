@@ -81,8 +81,8 @@ export const convertCritical = (v: kcsapi.CriticalFlag) => {
   }
 }
 
-export const convertHougeki =
-  (
+export const convertHougeki = (raw: kcsapi.Hougeki): yapi.Hougeki => {
+  const convertTurn = (
     atEflag: kcsapi.IntFlag,
     atList: kcsapi.ShipIndex,
     atType: kcsapi.AttackType,
@@ -90,8 +90,46 @@ export const convertHougeki =
     siList: Array<number>,
     clList: Array<kcsapi.CriticalFlag>,
     damage: Array<kcsapi.DamageE>,
-  ) => {
-    return 'TODO'
+  ) => 'TODO'
+
+  const turns = (_.zipWith as any)(
+    raw.api_at_eflag,
+    raw.api_at_list,
+    raw.api_at_type,
+    raw.api_df_list,
+    raw.api_si_list,
+    raw.api_cl_list,
+    raw.api_damage,
+    convertTurn,
+  )
+  return { type: 'Hougeki', turns }
+}
+
+export const convertRaigeki =
+  // TODO
+  _ignored => ({ type: 'Raigeki' })
+
+// NOTE: this ordering is only true for normal battles
+// combined fleets are more involved.
+export const convertHouraiPhases =
+  (
+    [f0, f1, f2, f3]: Array<kcsapi.IntFlag>,
+    hougeki1: kcsapi.Hougeki | null,
+    hougeki2: kcsapi.Hougeki | null,
+    hougeki3: kcsapi.Hougeki | null,
+    raigeki: kcsapi.Raigeki | null,
+  ): yapi.HouraiPhases => {
+    const ret: yapi.HouraiPhases = []
+    // TODO: there should be some way to figure out key ordering
+    // even if JSON is intentionally ignoring key orders.
+    if (f0) {
+      if (hougeki1 === null) {
+        throw new Error(`Cannnot convert hougeki1: null`)
+      }
+      ret.push(convertHougeki(hougeki1))
+    }
+    // TODO: remaining hougeki2,3 and raigeki.
+    return ret
   }
 
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
@@ -130,5 +168,12 @@ export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
     },
     pursueFlag: convertIntFlag(raw.api_midnight_flag),
     detection,
+    houraiPhases: convertHouraiPhases(
+      raw.api_hourai_flag,
+      raw.api_hougeki1,
+      raw.api_hougeki2,
+      raw.api_hougeki3,
+      raw.api_raigeki,
+    ),
   }
 }

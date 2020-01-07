@@ -84,7 +84,7 @@ interface KoukuLbas extends Kouku {
   api_squadron_plane: any
 }
 
-interface Hougeki {
+export interface Hougeki {
   // Note: all those top-level arrays are of the same length.
   api_at_eflag: Array<IntFlag>
   api_at_list: Array<ShipIndex>
@@ -111,7 +111,7 @@ interface RaigekiEnemy {
   api_eydam: Array<Damage>
 }
 
-type Raigeki = RaigekiFriend & RaigekiEnemy
+export type Raigeki = RaigekiFriend & RaigekiEnemy
 
 // [<火力>, <雷装>, <対空>, <装甲>]
 export type ShipParam = [number, number, number, number]

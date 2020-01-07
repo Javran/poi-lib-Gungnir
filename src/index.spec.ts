@@ -69,6 +69,9 @@ describe('samples', () => {
         friend: { success: true, planeReturned: null },
         enemy: { success: true, planeReturned: true },
       },
+      houraiPhases: [
+        { type: 'Hougeki', turns: ['TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO'] },
+      ],
     })
   })
 })

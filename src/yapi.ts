@@ -166,7 +166,7 @@ export interface HougekiTurn {
 
 export interface Hougeki {
   type: 'Hougeki'
-  turns: Array<HougekiTurn>
+  turns: Array<HougekiTurn | 'TODO'>
 }
 
 export interface Raigeki {
@@ -186,4 +186,5 @@ export interface Battle {
   },
   pursueFlag: boolean,
   detection: TwoSides<Detection>,
+  houraiPhases: HouraiPhases,
 }
