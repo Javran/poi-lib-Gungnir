@@ -73,6 +73,14 @@ export const convertDetection = (v: number): yapi.Detection => {
 export const convertDamageE = (v: kcsapi.DamageE): yapi.DamageE =>
   ({ protectFlag: v % 1 !== 0, damage: Math.floor(v) })
 
+export const convertCritical = (v: kcsapi.CriticalFlag) => {
+  switch (v) {
+    case 0: return yapi.Critical.Miss
+    case 1: return yapi.Critical.Hit
+    case 2: return yapi.Critical.Critical
+  }
+}
+
 export const convertHougeki =
   (
     atEflag: kcsapi.IntFlag,

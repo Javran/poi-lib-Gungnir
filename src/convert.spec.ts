@@ -3,7 +3,7 @@ import * as yapi from './yapi'
 
 import {
   convertEngagement, convertFormation, convertHps, convertIntFlag,
-  convertDetection, convertDamageE,
+  convertDetection, convertDamageE, convertCritical,
 } from './convert'
 
 describe('convertEngagement', () => {
@@ -69,5 +69,16 @@ describe('convertDamageE', () => {
     expect(convertDamageE(0.1)).toStrictEqual({ protectFlag: true, damage: 0 })
     expect(convertDamageE(123.1)).toStrictEqual({ protectFlag: true, damage: 123 })
     expect(convertDamageE(456)).toStrictEqual({ protectFlag: false, damage: 456 })
+  })
+})
+
+describe('convertCritical', () => {
+  test('samples', () => {
+    const testCase = (inp: any, expected: yapi.Critical) =>
+      expect(convertCritical(inp as kcsapi.CriticalFlag)).toBe(expected)
+
+    testCase(0, yapi.Critical.Miss)
+    testCase(1, yapi.Critical.Hit)
+    testCase(2, yapi.Critical.Critical)
   })
 })
