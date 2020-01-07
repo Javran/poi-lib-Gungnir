@@ -111,6 +111,9 @@ export const convertRaigeki =
 
 // NOTE: this ordering is only true for normal battles
 // combined fleets are more involved.
+// instead of using the unguaranteed ordering,
+// we should use other clues to figoure out the type
+// thus the ordering of these 4 phases instead of guessing the ordering.
 export const convertHouraiPhases =
   (
     [f0, f1, f2, f3]: Array<kcsapi.IntFlag>,
@@ -120,8 +123,6 @@ export const convertHouraiPhases =
     raigeki: kcsapi.Raigeki | null,
   ): yapi.HouraiPhases => {
     const ret: yapi.HouraiPhases = []
-    // TODO: there should be some way to figure out key ordering
-    // even if JSON is intentionally ignoring key orders.
     if (f0) {
       if (hougeki1 === null) {
         throw new Error(`Cannnot convert hougeki1: null`)
