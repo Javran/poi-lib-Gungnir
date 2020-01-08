@@ -81,8 +81,14 @@ export const convertCritical = (v: kcsapi.CriticalFlag) => {
   }
 }
 
-export const convertHougeki = (raw: kcsapi.Hougeki): yapi.Hougeki => {
-  const convertTurn = (
+// TODO: being a bit sloppy here.
+export const convertAttackType = (v: kcsapi.AttackType): yapi.AttackType =>
+  (v as yapi.AttackType)
+
+export const convertSide = (v: kcsapi.IntFlag): yapi.Side => (v as yapi.Side)
+
+export const convertHougekiTurn =
+  (
     atEflag: kcsapi.IntFlag,
     atList: kcsapi.ShipIndex,
     atType: kcsapi.AttackType,
@@ -90,8 +96,18 @@ export const convertHougeki = (raw: kcsapi.Hougeki): yapi.Hougeki => {
     siList: Array<number>,
     clList: Array<kcsapi.CriticalFlag>,
     damage: Array<kcsapi.DamageE>,
-  ) => 'TODO'
+  ): yapi.HougekiTurn => {
+    return {
+      source: {
+        side: convertSide(atEflag),
+        index: atList,
+      },
+      attackType: convertAttackType(atType),
+      damages: [],
+    }
+  }
 
+export const convertHougeki = (raw: kcsapi.Hougeki): yapi.Hougeki => {
   const turns = (_.zipWith as any)(
     raw.api_at_eflag,
     raw.api_at_list,
@@ -100,7 +116,7 @@ export const convertHougeki = (raw: kcsapi.Hougeki): yapi.Hougeki => {
     raw.api_si_list,
     raw.api_cl_list,
     raw.api_damage,
-    convertTurn,
+    convertHougekiTurn,
   )
   return { type: 'Hougeki', turns }
 }
