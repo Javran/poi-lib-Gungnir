@@ -186,7 +186,126 @@ describe('samples', () => {
             },
           ],
         },
-        { type: 'Raigeki' },
+        {
+          type: 'Raigeki',
+          friend: [
+            {
+              target: 0,
+              critical: yapi.Critical.Hit,
+              damage: {
+                taken: { damage: 0, protectFlag: false },
+                dealt: { damage: 62, protectFlag: false },
+              },
+            },
+            {
+              target: 4,
+              critical: yapi.Critical.Hit,
+              damage: {
+                taken: { damage: 0, protectFlag: false },
+                dealt: { damage: 93, protectFlag: false },
+              },
+            },
+            {
+              target: 4,
+              critical: yapi.Critical.Hit,
+              damage: {
+                taken: { damage: 0, protectFlag: false },
+                dealt: { damage: 71, protectFlag: false },
+              },
+            },
+            {
+              target: 4,
+              critical: yapi.Critical.Hit,
+              damage: {
+                taken: { damage: 0, protectFlag: false },
+                dealt: { damage: 89, protectFlag: false },
+              },
+            },
+            {
+              target: 4,
+              critical: yapi.Critical.Hit,
+              damage: {
+                taken: { damage: 0, protectFlag: false },
+                dealt: { damage: 69, protectFlag: false },
+              },
+            },
+            {
+              target: -1,
+              critical: yapi.Critical.Miss,
+              damage: {
+                taken: { damage: 0, protectFlag: false },
+                dealt: { damage: 0, protectFlag: false },
+              },
+            },
+            {
+              target: -1,
+              critical: yapi.Critical.Miss,
+              damage: {
+                taken: { damage: 0, protectFlag: false },
+                dealt: { damage: 0, protectFlag: false },
+              },
+            },
+          ],
+          enemy: [
+            {
+              target: -1,
+              critical: yapi.Critical.Miss,
+              damage: {
+                taken: { damage: 62, protectFlag: false },
+                dealt: { damage: 0, protectFlag: false },
+              },
+            },
+            {
+              target: -1,
+              critical: yapi.Critical.Miss,
+              damage: {
+                taken: { damage: 0, protectFlag: false },
+                dealt: { damage: 0, protectFlag: false },
+              },
+            },
+            {
+              target: -1,
+              critical: yapi.Critical.Miss,
+              damage: {
+                taken: { damage: 0, protectFlag: false },
+                dealt: { damage: 0, protectFlag: false },
+              },
+            },
+            {
+              target: -1,
+              critical: yapi.Critical.Miss,
+              damage: {
+                taken: { damage: 0, protectFlag: false },
+                dealt: { damage: 0, protectFlag: false },
+              },
+            },
+            {
+              target: 1,
+              critical: yapi.Critical.Miss,
+              damage: {
+                taken: { damage: 322, protectFlag: true },
+                dealt: { damage: 0, protectFlag: false },
+              },
+            },
+            {
+              target: -1,
+              critical: yapi.Critical.Miss,
+              damage: {
+                taken: { damage: 0, protectFlag: false },
+                dealt: { damage: 0, protectFlag: false },
+              },
+            },
+            {
+              target: -1,
+              critical: yapi.Critical.Miss,
+              damage: {
+                taken: { damage: 0, protectFlag: false },
+                dealt: { damage: 0, protectFlag: false },
+              },
+            },
+
+          ],
+        },
       ],
     })
   })

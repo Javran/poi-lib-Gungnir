@@ -162,16 +162,25 @@ export interface HougekiTurn {
     index: ShipIndex,
   },
   attackType: AttackType,
-  damages: Array<HougekiDamage>
+  damages: Array<HougekiDamage>,
 }
 
 export interface Hougeki {
   type: 'Hougeki'
-  turns: Array<HougekiTurn>
+  turns: Array<HougekiTurn>,
 }
 
-export interface Raigeki {
-  type: 'Raigeki'
+export interface RaigekiTurn {
+  target: ShipIndex,
+  critical: Critical,
+  damage: {
+    taken: DamageE,
+    dealt: DamageE,
+  },
+}
+
+export interface Raigeki extends TwoSides<Array<RaigekiTurn>> {
+  type: 'Raigeki',
 }
 
 export type HouraiPhases = Array<Hougeki | Raigeki>

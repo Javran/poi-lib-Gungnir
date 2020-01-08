@@ -137,9 +137,44 @@ export const convertHougeki = (raw: kcsapi.Hougeki): yapi.Hougeki => {
   return { type: 'Hougeki', turns }
 }
 
-// TODO
-export const convertRaigeki = (raw: kcsapi.Raigeki): yapi.Raigeki =>
-  ({ type: 'Raigeki' })
+export const convertRaigekiTurn =
+  (
+    rai: kcsapi.ShipIndex,
+    cl: kcsapi.CriticalFlag,
+    dam: kcsapi.DamageE,
+    ydam: kcsapi.DamageE,
+  ): yapi.RaigekiTurn => {
+    return {
+      target: rai,
+      critical: convertCritical(cl),
+      damage: {
+        taken: convertDamageE(dam),
+        dealt: convertDamageE(ydam),
+      },
+    }
+  }
+
+export const convertRaigeki = (raw: kcsapi.Raigeki): yapi.Raigeki => {
+  return {
+    type: 'Raigeki',
+    friend:
+      (_.zipWith as any)(
+        raw.api_frai,
+        raw.api_fcl,
+        raw.api_fdam,
+        raw.api_fydam,
+        convertRaigekiTurn,
+      ),
+    enemy:
+      (_.zipWith as any)(
+        raw.api_erai,
+        raw.api_ecl,
+        raw.api_edam,
+        raw.api_eydam,
+        convertRaigekiTurn,
+      ),
+  }
+}
 
 // NOTE: this ordering is only true for normal battles
 // combined fleets are more involved.
