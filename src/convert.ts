@@ -137,9 +137,9 @@ export const convertHougeki = (raw: kcsapi.Hougeki): yapi.Hougeki => {
   return { type: 'Hougeki', turns }
 }
 
-export const convertRaigeki =
-  // TODO
-  _ignored => ({ type: 'Raigeki' })
+// TODO
+export const convertRaigeki = (raw: kcsapi.Raigeki): yapi.Raigeki =>
+  ({ type: 'Raigeki' })
 
 // NOTE: this ordering is only true for normal battles
 // combined fleets are more involved.
@@ -155,13 +155,31 @@ export const convertHouraiPhases =
     raigeki: kcsapi.Raigeki | null,
   ): yapi.HouraiPhases => {
     const ret: yapi.HouraiPhases = []
+    // this looks stupid, anything better?
     if (f0) {
       if (hougeki1 === null) {
         throw new Error(`Cannnot convert hougeki1: null`)
       }
       ret.push(convertHougeki(hougeki1))
     }
-    // TODO: remaining hougeki2,3 and raigeki.
+    if (f1) {
+      if (hougeki2 === null) {
+        throw new Error(`Cannnot convert hougeki2: null`)
+      }
+      ret.push(convertHougeki(hougeki2))
+    }
+    if (f2) {
+      if (hougeki3 === null) {
+        throw new Error(`Cannnot convert hougeki3: null`)
+      }
+      ret.push(convertHougeki(hougeki3))
+    }
+    if (f3) {
+      if (raigeki === null) {
+        throw new Error(`Cannnot convert raigeki: null`)
+      }
+      ret.push(convertRaigeki(raigeki))
+    }
     return ret
   }
 

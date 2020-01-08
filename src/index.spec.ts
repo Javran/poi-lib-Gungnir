@@ -186,6 +186,7 @@ describe('samples', () => {
             },
           ],
         },
+        { type: 'Raigeki' },
       ],
     })
   })
