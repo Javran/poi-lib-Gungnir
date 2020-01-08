@@ -70,7 +70,122 @@ describe('samples', () => {
         enemy: { success: true, planeReturned: true },
       },
       houraiPhases: [
-        { type: 'Hougeki', turns: ['TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO', 'TODO'] },
+        {
+          type: 'Hougeki',
+          turns: [
+            {
+              source: { side: yapi.Side.Friend, index: 4 },
+              attackType: yapi.AttackType.Normal,
+              damages: [
+                {
+                  target: 1,
+                  slotitem: 282,
+                  critical: yapi.Critical.Hit,
+                  protectFlag: false,
+                  damage: 50,
+                },
+              ],
+            },
+            {
+              source: { side: yapi.Side.Enemy, index: 0 },
+              attackType: yapi.AttackType.Normal,
+              damages: [
+                {
+                  target: 4,
+                  slotitem: 506,
+                  critical: yapi.Critical.Miss,
+                  protectFlag: false,
+                  damage: 0,
+                },
+              ],
+
+            },
+            {
+              source: { side: yapi.Side.Friend, index: 2 },
+              attackType: yapi.AttackType.Normal,
+              damages: [
+                {
+                  target: 3,
+                  slotitem: 341,
+                  critical: yapi.Critical.Hit,
+                  protectFlag: false,
+                  damage: 88,
+                },
+              ],
+
+            },
+            {
+              source: { side: yapi.Side.Friend, index: 1 },
+              attackType: yapi.AttackType.Normal,
+              damages: [
+                {
+                  target: 2,
+                  slotitem: 63,
+                  critical: yapi.Critical.Hit,
+                  protectFlag: false,
+                  damage: 22,
+                },
+              ],
+
+            },
+            {
+              source: { side: yapi.Side.Friend, index: 3 },
+              attackType: yapi.AttackType.Normal,
+              damages: [
+                {
+                  target: 0,
+                  slotitem: 267,
+                  critical: yapi.Critical.Hit,
+                  protectFlag: false,
+                  damage: 40,
+                },
+              ],
+
+            },
+            {
+              source: { side: yapi.Side.Enemy, index: 2 },
+              attackType: yapi.AttackType.Normal,
+              damages: [
+                {
+                  target: 2,
+                  slotitem: 502,
+                  critical: yapi.Critical.Miss,
+                  protectFlag: false,
+                  damage: 0,
+                },
+              ],
+
+            },
+            {
+              source: { side: yapi.Side.Friend, index: 0 },
+              attackType: yapi.AttackType.Normal,
+              damages: [
+                {
+                  target: 0,
+                  slotitem: -1,
+                  critical: yapi.Critical.Hit,
+                  protectFlag: false,
+                  damage: 4,
+                },
+              ],
+
+            },
+            {
+              source: { side: yapi.Side.Enemy, index: 4 },
+              attackType: yapi.AttackType.Normal,
+              damages: [
+                {
+                  target: 4,
+                  slotitem: 501,
+                  critical: yapi.Critical.Miss,
+                  protectFlag: false,
+                  damage: 0,
+                },
+              ],
+
+            },
+          ],
+        },
       ],
     })
   })

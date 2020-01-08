@@ -73,11 +73,12 @@ export const convertDetection = (v: number): yapi.Detection => {
 export const convertDamageE = (v: kcsapi.DamageE): yapi.DamageE =>
   ({ protectFlag: v % 1 !== 0, damage: Math.floor(v) })
 
-export const convertCritical = (v: kcsapi.CriticalFlag) => {
+export const convertCritical = (v: kcsapi.CriticalFlag): yapi.Critical => {
   switch (v) {
     case 0: return yapi.Critical.Miss
     case 1: return yapi.Critical.Hit
     case 2: return yapi.Critical.Critical
+    default: throw new Error(`Cannot convert critical flag: ${v}`)
   }
 }
 
@@ -86,6 +87,21 @@ export const convertAttackType = (v: kcsapi.AttackType): yapi.AttackType =>
   (v as yapi.AttackType)
 
 export const convertSide = (v: kcsapi.IntFlag): yapi.Side => (v as yapi.Side)
+
+export const convertHougekiDamage =
+  (
+    df: kcsapi.ShipIndex,
+    si: number,
+    cl: kcsapi.CriticalFlag,
+    damage: kcsapi.DamageE,
+  ): yapi.HougekiDamage => {
+    return {
+      target: df,
+      slotitem: si,
+      critical: convertCritical(cl),
+      ...convertDamageE(damage),
+    }
+  }
 
 export const convertHougekiTurn =
   (
@@ -103,7 +119,7 @@ export const convertHougekiTurn =
         index: atList,
       },
       attackType: convertAttackType(atType),
-      damages: [],
+      damages: (_.zipWith as any)(dfList, siList, clList, damage, convertHougekiDamage),
     }
   }
 
