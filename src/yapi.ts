@@ -4,6 +4,27 @@
  */
 
 /*
+  a class for indicating unknown values that
+  are not recognized but its value is not critically important.
+ */
+export class Unknown {
+  public val: any
+  // context is some optional piece of info that would be useful for debugging.
+  public context: any
+
+  constructor(val: any, context: any = null) {
+    this.val = val
+    this.context = context
+  }
+
+  public toString = (): string => `?${this.val}?`
+}
+
+// Wrapper a type so it can fallback
+// to store arbitrary data in Unknown rather than throwing errors.
+export type Unk<T> = T | Unknown
+
+/*
   For information that can be organized into "friend" side
   and "enemy" side.
  */
@@ -147,7 +168,7 @@ export interface HougekiDamage {
   target: ShipIndex,
   // TODO: SI is for slotitem, but I'm not sure what this one does...
   slotitem: number,
-  critical: Critical,
+  critical: Unk<Critical>,
   // TODO: to extract the flag: null != e && (!(e.length <= t) && e[t] % 1 != 0)
   protectFlag: boolean,
   damage: number,
@@ -172,7 +193,7 @@ export interface Hougeki {
 
 export interface RaigekiTurn {
   target: ShipIndex,
-  critical: Critical,
+  critical: Unk<Critical>,
   damage: {
     taken: DamageE,
     dealt: DamageE,
@@ -186,15 +207,15 @@ export interface Raigeki extends TwoSides<Array<RaigekiTurn>> {
 export type HouraiPhases = Array<Hougeki | Raigeki>
 
 export interface Battle {
-  deckId: number
-  engagement: Engagement
-  formation: TwoSides<Formation>
-  hps: TwoSides<Array<HP>>
+  deckId: number,
+  engagement: Unk<Engagement>,
+  formation: TwoSides<Unk<Formation>>,
+  hps: TwoSides<Array<HP>>,
   shipInfo: {
     friend: Array<ShipInfoFriend>,
     enemy: Array<ShipInfoEnemy>,
   },
   pursueFlag: boolean,
-  detection: TwoSides<Detection>,
+  detection: TwoSides<Unk<Detection>>,
   houraiPhases: HouraiPhases,
 }

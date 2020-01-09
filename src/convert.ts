@@ -9,14 +9,14 @@ import * as yapi from './yapi'
   the whole conversion. Cases include a unknown engagement or formation etc.
  */
 
-export const convertEngagement = (raw: kcsapi.Engagement): yapi.Engagement => {
+export const convertEngagement = (raw: kcsapi.Engagement): yapi.Unk<yapi.Engagement> => {
   if (raw >= 1 && raw <= 4) {
     return raw as yapi.Engagement
   }
-  throw new Error(`Cannot convert Engagement ${raw}.`)
+  return new yapi.Unknown(raw, 'Engagement')
 }
 
-export const convertFormation = (raw: kcsapi.Formation): yapi.Formation => {
+export const convertFormation = (raw: kcsapi.Formation): yapi.Unk<yapi.Formation> => {
   if (raw >= 1 && raw <= 6) {
     return raw as yapi.Formation
   }
@@ -25,7 +25,7 @@ export const convertFormation = (raw: kcsapi.Formation): yapi.Formation => {
     case '12': return yapi.Formation.CruisingFormation2
     case '13': return yapi.Formation.CruisingFormation3
     case '14': return yapi.Formation.CruisingFormation4
-    default: throw new Error(`Cannot convert Formation ${raw}.`)
+    default: return new yapi.Unknown(raw, 'Formation')
   }
 }
 
@@ -49,7 +49,7 @@ export const convertShipInfoEnemy =
 
 export const convertIntFlag = (v: kcsapi.IntFlag) => Boolean(v)
 
-export const convertDetection = (v: number): yapi.Detection => {
+export const convertDetection = (v: number): yapi.Unk<yapi.Detection> => {
   switch (v) {
     case 1: return { success: true, planeReturned: true }
     case 2: return { success: true, planeReturned: false }
@@ -57,7 +57,7 @@ export const convertDetection = (v: number): yapi.Detection => {
     case 4: return { success: false, planeReturned: true }
     case 5: return { success: true, planeReturned: null }
     case 6: return { success: false, planeReturned: null }
-    default: throw new Error(`Cannot convert Detection: ${v}.`)
+    default: return new yapi.Unknown(v, 'Detection')
   }
 }
 
@@ -73,12 +73,12 @@ export const convertDetection = (v: number): yapi.Detection => {
 export const convertDamageE = (v: kcsapi.DamageE): yapi.DamageE =>
   ({ protectFlag: v % 1 !== 0, damage: Math.floor(v) })
 
-export const convertCritical = (v: kcsapi.CriticalFlag): yapi.Critical => {
+export const convertCritical = (v: kcsapi.CriticalFlag): yapi.Unk<yapi.Critical> => {
   switch (v) {
     case 0: return yapi.Critical.Miss
     case 1: return yapi.Critical.Hit
     case 2: return yapi.Critical.Critical
-    default: throw new Error(`Cannot convert critical flag: ${v}`)
+    default: return new yapi.Unknown(v, 'Critical')
   }
 }
 
