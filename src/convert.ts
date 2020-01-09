@@ -91,13 +91,11 @@ export const convertSide = (v: kcsapi.IntFlag): yapi.Side => (v as yapi.Side)
 export const convertHougekiDamage =
   (
     df: kcsapi.ShipIndex,
-    si: number,
     cl: kcsapi.CriticalFlag,
     damage: kcsapi.DamageE,
   ): yapi.HougekiDamage => {
     return {
       target: df,
-      slotitem: si,
       critical: convertCritical(cl),
       ...convertDamageE(damage),
     }
@@ -109,7 +107,7 @@ export const convertHougekiTurn =
     atList: kcsapi.ShipIndex,
     atType: kcsapi.AttackType,
     dfList: Array<kcsapi.ShipIndex>,
-    siList: Array<number>,
+    si: any,
     clList: Array<kcsapi.CriticalFlag>,
     damage: Array<kcsapi.DamageE>,
   ): yapi.HougekiTurn => {
@@ -119,7 +117,8 @@ export const convertHougekiTurn =
         index: atList,
       },
       attackType: convertAttackType(atType),
-      damages: (_.zipWith as any)(dfList, siList, clList, damage, convertHougekiDamage),
+      slotitems: si,
+      damages: (_.zipWith as any)(dfList, clList, damage, convertHougekiDamage),
     }
   }
 

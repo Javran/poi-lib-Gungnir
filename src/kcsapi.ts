@@ -90,7 +90,7 @@ export interface Hougeki {
   api_at_list: Array<ShipIndex>
   api_at_type: Array<AttackType>
   api_df_list: Array<Array<ShipIndex>>
-  api_si_list: Array<Array<number>>
+  api_si_list: Array<any>
   api_cl_list: Array<Array<CriticalFlag>>
   api_damage: Array<Array<DamageE>>
 }

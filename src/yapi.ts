@@ -166,8 +166,6 @@ export interface DamageE {
 
 export interface HougekiDamage {
   target: ShipIndex,
-  // TODO: SI is for slotitem, but I'm not sure what this one does...
-  slotitem: number,
   critical: Unk<Critical>,
   // TODO: to extract the flag: null != e && (!(e.length <= t) && e[t] % 1 != 0)
   protectFlag: boolean,
@@ -183,6 +181,7 @@ export interface HougekiTurn {
     index: ShipIndex,
   },
   attackType: AttackType,
+  slotitems: any,
   damages: Array<HougekiDamage>,
 }
 
