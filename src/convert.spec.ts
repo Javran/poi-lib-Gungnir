@@ -8,19 +8,21 @@ import {
 
 describe('convertEngagement', () => {
   test('samples', () => {
-    const testCase = (inp: any, expected: yapi.Engagement) =>
+    const testCase = (inp: any, expected: yapi.Unk<yapi.Engagement>) =>
       expect(convertEngagement(inp as kcsapi.Engagement)).toBe(expected)
 
     testCase(1, yapi.Engagement.Parallel)
     testCase(2, yapi.Engagement.HeadOn)
     testCase(3, yapi.Engagement.TAdvantage)
     testCase(4, yapi.Engagement.TDisadvantage)
+
+    expect(convertEngagement(1234 as kcsapi.Engagement)).toBeInstanceOf(yapi.Unknown)
   })
 })
 
 describe('convertFormation', () => {
   test('samples', () => {
-    const testCase = (inp: any, expected: yapi.Formation) =>
+    const testCase = (inp: any, expected: yapi.Unk<yapi.Formation>) =>
       expect(convertFormation(inp as kcsapi.Formation)).toBe(expected)
 
     testCase(1, yapi.Formation.LineAhead)
@@ -34,6 +36,8 @@ describe('convertFormation', () => {
     testCase('12', yapi.Formation.CruisingFormation2)
     testCase('13', yapi.Formation.CruisingFormation3)
     testCase('14', yapi.Formation.CruisingFormation4)
+
+    expect(convertFormation(1551 as kcsapi.Formation)).toBeInstanceOf(yapi.Unknown)
   })
 })
 
