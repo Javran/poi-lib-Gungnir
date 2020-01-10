@@ -84,13 +84,15 @@ interface KoukuLbas extends Kouku {
   api_squadron_plane: any
 }
 
+export type HougekiSlotitems = Array<number | string> | null
+
 export interface Hougeki {
   // Note: all those top-level arrays are of the same length.
   api_at_eflag: Array<IntFlag>
   api_at_list: Array<ShipIndex>
   api_at_type: Array<AttackType>
   api_df_list: Array<Array<ShipIndex>>
-  api_si_list: Array<any>
+  api_si_list: Array<HougekiSlotitems>
   api_cl_list: Array<Array<CriticalFlag>>
   api_damage: Array<Array<DamageE>>
 }

@@ -377,7 +377,7 @@ describe('samples', () => {
             {
               source: { side: 0, index: 0 },
               attackType: 7,
-              slotitems: ['157', '292', '343'],
+              slotitems: [157, 292, 343],
               damages: [
                 { target: 2, critical: 2, protectFlag: true, damage: 351 },
               ],

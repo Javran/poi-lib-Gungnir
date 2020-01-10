@@ -101,13 +101,20 @@ export const convertHougekiDamage =
     }
   }
 
+export const convertHougekiSlotitems = (raw: kcsapi.HougekiSlotitems): yapi.HougekiSlotitems => {
+  if (raw === null || raw.length === 0) {
+    return null
+  }
+  return raw.map(x => typeof x === 'string' ? parseInt(x, 10) : x)
+}
+
 export const convertHougekiTurn =
   (
     atEflag: kcsapi.IntFlag,
     atList: kcsapi.ShipIndex,
     atType: kcsapi.AttackType,
     dfList: Array<kcsapi.ShipIndex>,
-    si: any,
+    si: kcsapi.HougekiSlotitems,
     clList: Array<kcsapi.CriticalFlag>,
     damage: Array<kcsapi.DamageE>,
   ): yapi.HougekiTurn => {
@@ -117,7 +124,7 @@ export const convertHougekiTurn =
         index: atList,
       },
       attackType: convertAttackType(atType),
-      slotitems: si,
+      slotitems: convertHougekiSlotitems(si),
       damages: (_.zipWith as any)(dfList, clList, damage, convertHougekiDamage),
     }
   }

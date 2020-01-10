@@ -175,6 +175,9 @@ export interface HougekiDamage {
   damage: number,
 }
 
+// either a non-empty list or null
+export type HougekiSlotitems = Array<number> | null
+
 // A Kanmusu starts her shelling turn of attack,
 // in which multiple damages can be dealt
 // with a fixed attack type.
@@ -184,7 +187,7 @@ export interface HougekiTurn {
     index: ShipIndex,
   },
   attackType: AttackType,
-  slotitems: any,
+  slotitems: HougekiSlotitems,
   damages: Array<HougekiDamage>,
 }
 
