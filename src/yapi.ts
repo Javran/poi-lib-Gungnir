@@ -20,6 +20,9 @@ export class Unknown {
   public toString = (): string => `?${this.val}?`
 }
 
+Object.defineProperty(Unknown, 'val', { enumerable: true })
+Object.defineProperty(Unknown, 'context', { enumerable: true })
+
 // Wrapper a type so it can fallback
 // to store arbitrary data in Unknown rather than throwing errors.
 export type Unk<T> = T | Unknown
