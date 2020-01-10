@@ -92,7 +92,7 @@ export const convertHougekiDamage =
   (
     df: kcsapi.ShipIndex,
     cl: kcsapi.CriticalFlag,
-    damage: kcsapi.DamageE,
+    damage: kcsapi.DamageE
   ): yapi.HougekiDamage => {
     return {
       target: df,
@@ -116,7 +116,7 @@ export const convertHougekiTurn =
     dfList: Array<kcsapi.ShipIndex>,
     si: kcsapi.HougekiSlotitems,
     clList: Array<kcsapi.CriticalFlag>,
-    damage: Array<kcsapi.DamageE>,
+    damage: Array<kcsapi.DamageE>
   ): yapi.HougekiTurn => {
     return {
       source: {
@@ -138,7 +138,7 @@ export const convertHougeki = (raw: kcsapi.Hougeki): yapi.Hougeki => {
     raw.api_si_list,
     raw.api_cl_list,
     raw.api_damage,
-    convertHougekiTurn,
+    convertHougekiTurn
   )
   return { type: 'Hougeki', turns }
 }
@@ -148,7 +148,7 @@ export const convertRaigekiTurn =
     rai: kcsapi.ShipIndex,
     cl: kcsapi.CriticalFlag,
     dam: kcsapi.DamageE,
-    ydam: kcsapi.DamageE,
+    ydam: kcsapi.DamageE
   ): yapi.RaigekiTurn => {
     return {
       target: rai,
@@ -169,7 +169,7 @@ export const convertRaigeki = (raw: kcsapi.Raigeki): yapi.Raigeki => {
         raw.api_fcl,
         raw.api_fdam,
         raw.api_fydam,
-        convertRaigekiTurn,
+        convertRaigekiTurn
       ),
     enemy:
       (_.zipWith as any)(
@@ -177,7 +177,7 @@ export const convertRaigeki = (raw: kcsapi.Raigeki): yapi.Raigeki => {
         raw.api_ecl,
         raw.api_edam,
         raw.api_eydam,
-        convertRaigekiTurn,
+        convertRaigekiTurn
       ),
   }
 }
@@ -193,7 +193,7 @@ export const convertHouraiPhases =
     hougeki1: kcsapi.Hougeki | null,
     hougeki2: kcsapi.Hougeki | null,
     hougeki3: kcsapi.Hougeki | null,
-    raigeki: kcsapi.Raigeki | null,
+    raigeki: kcsapi.Raigeki | null
   ): yapi.HouraiPhases => {
     const ret: yapi.HouraiPhases = []
     // this looks stupid, anything better?
@@ -265,7 +265,7 @@ export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
       raw.api_hougeki1,
       raw.api_hougeki2,
       raw.api_hougeki3,
-      raw.api_raigeki,
+      raw.api_raigeki
     ),
   }
 }
