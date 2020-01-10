@@ -110,12 +110,6 @@ export interface Detection {
   api_opening_flag
   api_opening_attack
 
-  api_hourai_flag
-  api_hougeki1
-  api_hougeki2
-  api_hougeki3
-  api_raigeki
-
  */
 export enum Side {
   Friend = 0,
