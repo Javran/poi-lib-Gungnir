@@ -18,7 +18,7 @@ type Detection = number
 
 export type IntFlag = 0 | 1
 type Contact = number
-type Airpower = number
+export type Airpower = number
 
 // the convension here is that XXXIndex starts with 0,
 // and XXXId starts with 1.

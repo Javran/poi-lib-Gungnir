@@ -215,8 +215,8 @@ export interface KoukuStagePlaneCount {
 
 export enum Airpower {
   AirParity = 0,
-  AirSuperiority = 1,
-  AirSupremacy = 2,
+  AirSupremacy = 1,
+  AirSuperiority = 2,
   AirDenial = 3,
   AirIncapability = 4,
 }

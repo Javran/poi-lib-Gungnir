@@ -3,7 +3,7 @@ import * as yapi from './yapi'
 
 import {
   convertEngagement, convertFormation, convertHps, convertIntFlag,
-  convertDetection, convertDamageE, convertCritical, convertKoukuPlaneFrom,
+  convertDetection, convertDamageE, convertCritical, convertKoukuPlaneFrom, convertAirpower,
 } from './convert'
 
 describe('convertEngagement', () => {
@@ -98,5 +98,18 @@ describe('convertKoukuPlaneFrom', () => {
     testCase([null], { friend: [], enemy: [] })
     testCase([[1, 2, 3], null], { friend: [0, 1, 2], enemy: [] })
     testCase([[1, 2, 3], [2, 3]], { friend: [0, 1, 2], enemy: [1, 2] })
+  })
+})
+
+describe('convertAirpower', () => {
+  test('samples', () => {
+    const testCase = (inp: any, expected: yapi.Airpower) =>
+      expect(convertAirpower(inp as kcsapi.Airpower)).toBe(expected)
+
+    testCase(0, yapi.Airpower.AirParity)
+    testCase(1, yapi.Airpower.AirSupremacy)
+    testCase(2, yapi.Airpower.AirSuperiority)
+    testCase(3, yapi.Airpower.AirDenial)
+    testCase(4, yapi.Airpower.AirIncapability)
   })
 })

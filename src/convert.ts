@@ -234,6 +234,14 @@ export const convertKoukuPlaneFrom = (raw: kcsapi.KoukuPlaneFrom): yapi.KoukuPla
   }
 }
 
+export const convertAirpower = (v: kcsapi.Airpower): yapi.Unk<yapi.Airpower> => {
+  if (v >= 0 && v <= 4) {
+    return v as yapi.Airpower
+  } else {
+    return new yapi.Unknown(v, 'Airpower')
+  }
+}
+
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   // IIFE for now, until do-expression becomes available.
   const [fForm, eForm, engagement] = raw.api_formation
