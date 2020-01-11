@@ -42,17 +42,19 @@ interface KoukuPlaneInfo {
   api_e_lostcount: number
 }
 
-interface KoukuStage1 extends KoukuPlaneInfo {
+export interface KoukuStage1 extends KoukuPlaneInfo {
   api_disp_seiku: Airpower
   api_touch_plane?: any // TODO
 }
 
-interface KoukuStage2 extends KoukuPlaneInfo {
-  api_air_fire?: {
-    api_idx: number,
-    api_kind: number,
-    api_use_items: any, // TODO
-  }
+export interface AACI {
+  api_idx: number,
+  api_kind: number,
+  api_use_items: Array<number>, // TODO
+}
+
+export interface KoukuStage2 extends KoukuPlaneInfo {
+  api_air_fire?: AACI
 }
 
 interface KoukuStage3Enemy {
@@ -69,7 +71,7 @@ interface KoukuStage3Friend {
   api_fdam: Array<number> | null
 }
 
-type KoukuStage3 = KoukuStage3Friend & KoukuStage3Enemy
+export type KoukuStage3 = KoukuStage3Friend & KoukuStage3Enemy
 
 // there are in total 3 stages per air battle,
 // this flag is used as an indicate whether a particular stage exists
