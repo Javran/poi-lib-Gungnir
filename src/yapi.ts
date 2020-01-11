@@ -28,6 +28,24 @@ Object.defineProperty(Unknown, 'context', { enumerable: true })
 export type Unk<T> = T | Unknown
 
 /*
+
+  TODO: for enum + Unknown cases, we have:
+
+  enum Foo = { FooA, FooB }
+
+  and all user facing apis are Unk<Foo>.
+  I'm thinking about redefining Foo so that:
+
+  enum FooE = { FooA, FooB }
+  type Foo = Unk<FooE>
+
+  We can simplify types a bit this way. drawbacks being:
+
+  - We'll have a global meaning for XxxxE, so better to rename DamageE.
+  - Foo.FooA needs to be changed to FooE.FooA
+ */
+
+/*
   For information that can be organized into "friend" side
   and "enemy" side.
  */
