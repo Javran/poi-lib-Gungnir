@@ -3,7 +3,7 @@ import * as yapi from './yapi'
 
 import {
   convertEngagement, convertFormation, convertHps, convertIntFlag,
-  convertDetection, convertDamageE, convertCritical,
+  convertDetection, convertDamageE, convertCritical, convertKoukuPlaneFrom,
 } from './convert'
 
 describe('convertEngagement', () => {
@@ -84,5 +84,19 @@ describe('convertCritical', () => {
     testCase(0, yapi.Critical.Miss)
     testCase(1, yapi.Critical.Hit)
     testCase(2, yapi.Critical.Critical)
+  })
+})
+
+describe('convertKoukuPlaneFrom', () => {
+  test('samples', () => {
+    const testCase = (inp: any, expected: any) =>
+      expect(
+        convertKoukuPlaneFrom(inp as kcsapi.KoukuPlaneFrom)
+      ).toStrictEqual(expected)
+
+    testCase(null, { friend: [], enemy: [] })
+    testCase([null], { friend: [], enemy: [] })
+    testCase([[1, 2, 3], null], { friend: [0, 1, 2], enemy: [] })
+    testCase([[1, 2, 3], [2, 3]], { friend: [0, 1, 2], enemy: [1, 2] })
   })
 })

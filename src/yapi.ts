@@ -116,6 +116,7 @@ export enum Side {
   Enemy = 1,
 }
 
+// a ShipIndex always starts with 0.
 export type ShipIndex = number
 
 // TODO: tolerate unknown attack type.
@@ -203,6 +204,16 @@ export interface Raigeki extends TwoSides<Array<RaigekiTurn>> {
 }
 
 export type HouraiPhases = Array<Hougeki | Raigeki>
+
+export type KoukuPlaneFromSide = Array<ShipIndex>
+export type KoukuPlaneFrom = TwoSides<KoukuPlaneFromSide>
+
+export interface KoukuStages {
+  planeFrom: KoukuPlaneFrom,
+  stage1: any,
+  stage2: any,
+  stage3: any,
+}
 
 export interface Battle {
   deckId: number,

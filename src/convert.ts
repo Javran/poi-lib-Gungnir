@@ -224,6 +224,16 @@ export const convertHouraiPhases =
     return ret
   }
 
+export const convertKoukuPlaneFrom = (raw: kcsapi.KoukuPlaneFrom): yapi.KoukuPlaneFrom => {
+  const convert =
+    (xs: any): Array<yapi.ShipIndex> =>
+      Array.isArray(xs) ? xs.map(x => x - 1) : []
+  return {
+    friend: convert(_.get(raw, '0')),
+    enemy: convert(_.get(raw, '1')),
+  }
+}
+
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   // IIFE for now, until do-expression becomes available.
   const [fForm, eForm, engagement] = raw.api_formation

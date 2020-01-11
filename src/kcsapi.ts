@@ -70,8 +70,10 @@ type KoukuStage3 = KoukuStage3Friend & KoukuStage3Enemy
 // (a non-existing one has that corresponding stage set to null)
 type KoukuStageFlags = [IntFlag, IntFlag, IntFlag]
 
-interface Kouku {
-  api_plane_from: any // TODO?
+export type KoukuPlaneFrom = Array<Array<number> | null> | null
+
+export interface Kouku {
+  api_plane_from: KoukuPlaneFrom
   api_stage1: KoukuStage1 | null
   api_stage2: KoukuStage2 | null
   api_stage3: KoukuStage3 | null
