@@ -225,8 +225,9 @@ export const convertHouraiPhases =
   }
 
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
-  const [fForm, eForm, engagement] = raw.api_formation
   // IIFE for now, until do-expression becomes available.
+  const [fForm, eForm, engagement] = raw.api_formation
+
   const enemyShipInfo = (() => {
     const l = raw.api_eParam.length
     if ([raw.api_ship_ke, raw.api_ship_lv, raw.api_eSlot].some(arr => arr.length !== l)) {

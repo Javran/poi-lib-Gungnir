@@ -164,7 +164,6 @@ export interface DamageE {
 export interface HougekiDamage {
   target: ShipIndex,
   critical: Unk<Critical>,
-  // TODO: to extract the flag: null != e && (!(e.length <= t) && e[t] % 1 != 0)
   protectFlag: boolean,
   damage: number,
 }
