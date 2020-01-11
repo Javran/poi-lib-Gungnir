@@ -242,6 +242,11 @@ export const convertAirpower = (v: kcsapi.Airpower): yapi.Unk<yapi.Airpower> => 
   }
 }
 
+export const convertAaci = (raw: kcsapi.Aaci): yapi.Aaci => {
+  const { api_idx: source, api_kind: kind, api_use_items: equips } = raw
+  return { source, kind, equips }
+}
+
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   // IIFE for now, until do-expression becomes available.
   const [fForm, eForm, engagement] = raw.api_formation

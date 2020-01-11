@@ -3,7 +3,7 @@ import * as yapi from './yapi'
 
 import {
   convertEngagement, convertFormation, convertHps, convertIntFlag,
-  convertDetection, convertDamageE, convertCritical, convertKoukuPlaneFrom, convertAirpower,
+  convertDetection, convertDamageE, convertCritical, convertKoukuPlaneFrom, convertAirpower, convertAaci,
 } from './convert'
 
 describe('convertEngagement', () => {
@@ -113,5 +113,13 @@ describe('convertAirpower', () => {
     testCase(4, yapi.Airpower.AirIncapability)
 
     expect(convertAirpower(9999)).toBeInstanceOf(yapi.Unknown)
+  })
+})
+
+describe('convertAaci', () => {
+  test('samples', () => {
+    expect(
+      convertAaci({ api_idx: 5, api_kind: 8, api_use_items: [308, 307] })
+    ).toStrictEqual({ source: 5, kind: 8, equips: [308, 307] })
   })
 })

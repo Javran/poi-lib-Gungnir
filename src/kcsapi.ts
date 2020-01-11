@@ -47,14 +47,14 @@ export interface KoukuStage1 extends KoukuPlaneInfo {
   api_touch_plane?: any // TODO
 }
 
-export interface AACI {
+export interface Aaci {
   api_idx: number,
   api_kind: number,
   api_use_items: Array<number>, // TODO
 }
 
 export interface KoukuStage2 extends KoukuPlaneInfo {
-  api_air_fire?: AACI
+  api_air_fire?: Aaci
 }
 
 interface KoukuStage3Enemy {

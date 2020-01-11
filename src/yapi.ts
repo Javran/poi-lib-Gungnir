@@ -225,14 +225,14 @@ export interface KoukuStage1 extends KoukuStagePlaneCount {
   airpower: Unk<Airpower>
 }
 
-export interface AACI {
+export interface Aaci {
   source: ShipIndex,
   kind: number,
   equips: Array<number>,
 }
 
 export interface KoukuStage2 extends KoukuStagePlaneCount {
-  aaci: AACI | null,
+  aaci: Aaci | null,
 }
 
 export interface KoukuStages {
