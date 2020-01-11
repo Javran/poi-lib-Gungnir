@@ -14,10 +14,10 @@ describe('samples', () => {
         ({ attrib: { firepower, torpedo, antiAir, armor } })
     expect(convert.convertBattle(battleRaw)).toStrictEqual({
       deckId: 1,
-      engagement: yapi.Engagement.Parallel,
+      engagement: yapi.EngagementE.Parallel,
       formation: {
-        friend: yapi.Formation.Vanguard,
-        enemy: yapi.Formation.LineAhead,
+        friend: yapi.FormationE.Vanguard,
+        enemy: yapi.FormationE.LineAhead,
       },
       hps: {
         friend: [[37, 37], [37, 37], [42, 59], [35, 38], [45, 45]],
@@ -75,12 +75,12 @@ describe('samples', () => {
           turns: [
             {
               source: { side: yapi.Side.Friend, index: 4 },
-              attackType: yapi.AttackType.Normal,
+              attackType: yapi.AttackTypeE.Normal,
               slotitems: [282],
               damages: [
                 {
                   target: 1,
-                  critical: yapi.Critical.Hit,
+                  critical: yapi.CriticalE.Hit,
                   protectFlag: false,
                   damage: 50,
                 },
@@ -88,12 +88,12 @@ describe('samples', () => {
             },
             {
               source: { side: yapi.Side.Enemy, index: 0 },
-              attackType: yapi.AttackType.Normal,
+              attackType: yapi.AttackTypeE.Normal,
               slotitems: [506],
               damages: [
                 {
                   target: 4,
-                  critical: yapi.Critical.Miss,
+                  critical: yapi.CriticalE.Miss,
                   protectFlag: false,
                   damage: 0,
                 },
@@ -102,12 +102,12 @@ describe('samples', () => {
             },
             {
               source: { side: yapi.Side.Friend, index: 2 },
-              attackType: yapi.AttackType.Normal,
+              attackType: yapi.AttackTypeE.Normal,
               slotitems: [341],
               damages: [
                 {
                   target: 3,
-                  critical: yapi.Critical.Hit,
+                  critical: yapi.CriticalE.Hit,
                   protectFlag: false,
                   damage: 88,
                 },
@@ -116,12 +116,12 @@ describe('samples', () => {
             },
             {
               source: { side: yapi.Side.Friend, index: 1 },
-              attackType: yapi.AttackType.Normal,
+              attackType: yapi.AttackTypeE.Normal,
               slotitems: [63],
               damages: [
                 {
                   target: 2,
-                  critical: yapi.Critical.Hit,
+                  critical: yapi.CriticalE.Hit,
                   protectFlag: false,
                   damage: 22,
                 },
@@ -130,12 +130,12 @@ describe('samples', () => {
             },
             {
               source: { side: yapi.Side.Friend, index: 3 },
-              attackType: yapi.AttackType.Normal,
+              attackType: yapi.AttackTypeE.Normal,
               slotitems: [267],
               damages: [
                 {
                   target: 0,
-                  critical: yapi.Critical.Hit,
+                  critical: yapi.CriticalE.Hit,
                   protectFlag: false,
                   damage: 40,
                 },
@@ -144,12 +144,12 @@ describe('samples', () => {
             },
             {
               source: { side: yapi.Side.Enemy, index: 2 },
-              attackType: yapi.AttackType.Normal,
+              attackType: yapi.AttackTypeE.Normal,
               slotitems: [502],
               damages: [
                 {
                   target: 2,
-                  critical: yapi.Critical.Miss,
+                  critical: yapi.CriticalE.Miss,
                   protectFlag: false,
                   damage: 0,
                 },
@@ -158,12 +158,12 @@ describe('samples', () => {
             },
             {
               source: { side: yapi.Side.Friend, index: 0 },
-              attackType: yapi.AttackType.Normal,
+              attackType: yapi.AttackTypeE.Normal,
               slotitems: [-1],
               damages: [
                 {
                   target: 0,
-                  critical: yapi.Critical.Hit,
+                  critical: yapi.CriticalE.Hit,
                   protectFlag: false,
                   damage: 4,
                 },
@@ -172,12 +172,12 @@ describe('samples', () => {
             },
             {
               source: { side: yapi.Side.Enemy, index: 4 },
-              attackType: yapi.AttackType.Normal,
+              attackType: yapi.AttackTypeE.Normal,
               slotitems: [501],
               damages: [
                 {
                   target: 4,
-                  critical: yapi.Critical.Miss,
+                  critical: yapi.CriticalE.Miss,
                   protectFlag: false,
                   damage: 0,
                 },
@@ -191,7 +191,7 @@ describe('samples', () => {
           friend: [
             {
               target: 0,
-              critical: yapi.Critical.Hit,
+              critical: yapi.CriticalE.Hit,
               damage: {
                 taken: { damage: 0, protectFlag: false },
                 dealt: { damage: 62, protectFlag: false },
@@ -199,7 +199,7 @@ describe('samples', () => {
             },
             {
               target: 4,
-              critical: yapi.Critical.Hit,
+              critical: yapi.CriticalE.Hit,
               damage: {
                 taken: { damage: 0, protectFlag: false },
                 dealt: { damage: 93, protectFlag: false },
@@ -207,7 +207,7 @@ describe('samples', () => {
             },
             {
               target: 4,
-              critical: yapi.Critical.Hit,
+              critical: yapi.CriticalE.Hit,
               damage: {
                 taken: { damage: 0, protectFlag: false },
                 dealt: { damage: 71, protectFlag: false },
@@ -215,7 +215,7 @@ describe('samples', () => {
             },
             {
               target: 4,
-              critical: yapi.Critical.Hit,
+              critical: yapi.CriticalE.Hit,
               damage: {
                 taken: { damage: 0, protectFlag: false },
                 dealt: { damage: 89, protectFlag: false },
@@ -223,7 +223,7 @@ describe('samples', () => {
             },
             {
               target: 4,
-              critical: yapi.Critical.Hit,
+              critical: yapi.CriticalE.Hit,
               damage: {
                 taken: { damage: 0, protectFlag: false },
                 dealt: { damage: 69, protectFlag: false },
@@ -231,7 +231,7 @@ describe('samples', () => {
             },
             {
               target: -1,
-              critical: yapi.Critical.Miss,
+              critical: yapi.CriticalE.Miss,
               damage: {
                 taken: { damage: 0, protectFlag: false },
                 dealt: { damage: 0, protectFlag: false },
@@ -239,7 +239,7 @@ describe('samples', () => {
             },
             {
               target: -1,
-              critical: yapi.Critical.Miss,
+              critical: yapi.CriticalE.Miss,
               damage: {
                 taken: { damage: 0, protectFlag: false },
                 dealt: { damage: 0, protectFlag: false },
@@ -249,7 +249,7 @@ describe('samples', () => {
           enemy: [
             {
               target: -1,
-              critical: yapi.Critical.Miss,
+              critical: yapi.CriticalE.Miss,
               damage: {
                 taken: { damage: 62, protectFlag: false },
                 dealt: { damage: 0, protectFlag: false },
@@ -257,7 +257,7 @@ describe('samples', () => {
             },
             {
               target: -1,
-              critical: yapi.Critical.Miss,
+              critical: yapi.CriticalE.Miss,
               damage: {
                 taken: { damage: 0, protectFlag: false },
                 dealt: { damage: 0, protectFlag: false },
@@ -265,7 +265,7 @@ describe('samples', () => {
             },
             {
               target: -1,
-              critical: yapi.Critical.Miss,
+              critical: yapi.CriticalE.Miss,
               damage: {
                 taken: { damage: 0, protectFlag: false },
                 dealt: { damage: 0, protectFlag: false },
@@ -273,7 +273,7 @@ describe('samples', () => {
             },
             {
               target: -1,
-              critical: yapi.Critical.Miss,
+              critical: yapi.CriticalE.Miss,
               damage: {
                 taken: { damage: 0, protectFlag: false },
                 dealt: { damage: 0, protectFlag: false },
@@ -281,7 +281,7 @@ describe('samples', () => {
             },
             {
               target: 1,
-              critical: yapi.Critical.Miss,
+              critical: yapi.CriticalE.Miss,
               damage: {
                 taken: { damage: 322, protectFlag: true },
                 dealt: { damage: 0, protectFlag: false },
@@ -289,7 +289,7 @@ describe('samples', () => {
             },
             {
               target: -1,
-              critical: yapi.Critical.Miss,
+              critical: yapi.CriticalE.Miss,
               damage: {
                 taken: { damage: 0, protectFlag: false },
                 dealt: { damage: 0, protectFlag: false },
@@ -297,7 +297,7 @@ describe('samples', () => {
             },
             {
               target: -1,
-              critical: yapi.Critical.Miss,
+              critical: yapi.CriticalE.Miss,
               damage: {
                 taken: { damage: 0, protectFlag: false },
                 dealt: { damage: 0, protectFlag: false },

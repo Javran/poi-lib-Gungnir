@@ -3,7 +3,8 @@ import * as yapi from './yapi'
 
 import {
   convertEngagement, convertFormation, convertHps, convertIntFlag,
-  convertDetection, convertDamageE, convertCritical, convertKoukuPlaneFrom, convertAirpower, convertAaci,
+  convertDetection, convertDamageWithFlag,
+  convertCritical, convertKoukuPlaneFrom, convertAirpower, convertAaci,
 } from './convert'
 
 describe('convertEngagement', () => {
@@ -11,10 +12,10 @@ describe('convertEngagement', () => {
     const testCase = (inp: any, expected: yapi.Unk<yapi.Engagement>) =>
       expect(convertEngagement(inp as kcsapi.Engagement)).toBe(expected)
 
-    testCase(1, yapi.Engagement.Parallel)
-    testCase(2, yapi.Engagement.HeadOn)
-    testCase(3, yapi.Engagement.TAdvantage)
-    testCase(4, yapi.Engagement.TDisadvantage)
+    testCase(1, yapi.EngagementE.Parallel)
+    testCase(2, yapi.EngagementE.HeadOn)
+    testCase(3, yapi.EngagementE.TAdvantage)
+    testCase(4, yapi.EngagementE.TDisadvantage)
 
     expect(convertEngagement(1234 as kcsapi.Engagement)).toBeInstanceOf(yapi.Unknown)
   })
@@ -25,17 +26,17 @@ describe('convertFormation', () => {
     const testCase = (inp: any, expected: yapi.Unk<yapi.Formation>) =>
       expect(convertFormation(inp as kcsapi.Formation)).toBe(expected)
 
-    testCase(1, yapi.Formation.LineAhead)
-    testCase(2, yapi.Formation.DoubleLine)
-    testCase(3, yapi.Formation.Diamond)
-    testCase(4, yapi.Formation.Echelon)
-    testCase(5, yapi.Formation.LineAbreast)
-    testCase(6, yapi.Formation.Vanguard)
+    testCase(1, yapi.FormationE.LineAhead)
+    testCase(2, yapi.FormationE.DoubleLine)
+    testCase(3, yapi.FormationE.Diamond)
+    testCase(4, yapi.FormationE.Echelon)
+    testCase(5, yapi.FormationE.LineAbreast)
+    testCase(6, yapi.FormationE.Vanguard)
 
-    testCase('11', yapi.Formation.CruisingFormation1)
-    testCase('12', yapi.Formation.CruisingFormation2)
-    testCase('13', yapi.Formation.CruisingFormation3)
-    testCase('14', yapi.Formation.CruisingFormation4)
+    testCase('11', yapi.FormationE.CruisingFormation1)
+    testCase('12', yapi.FormationE.CruisingFormation2)
+    testCase('13', yapi.FormationE.CruisingFormation3)
+    testCase('14', yapi.FormationE.CruisingFormation4)
 
     expect(convertFormation(1551 as kcsapi.Formation)).toBeInstanceOf(yapi.Unknown)
   })
@@ -67,12 +68,12 @@ describe('convertDetection', () => {
   })
 })
 
-describe('convertDamageE', () => {
+describe('convertDamageWithFlag', () => {
   test('samples', () => {
-    expect(convertDamageE(0)).toStrictEqual({ protectFlag: false, damage: 0 })
-    expect(convertDamageE(0.1)).toStrictEqual({ protectFlag: true, damage: 0 })
-    expect(convertDamageE(123.1)).toStrictEqual({ protectFlag: true, damage: 123 })
-    expect(convertDamageE(456)).toStrictEqual({ protectFlag: false, damage: 456 })
+    expect(convertDamageWithFlag(0)).toStrictEqual({ protectFlag: false, damage: 0 })
+    expect(convertDamageWithFlag(0.1)).toStrictEqual({ protectFlag: true, damage: 0 })
+    expect(convertDamageWithFlag(123.1)).toStrictEqual({ protectFlag: true, damage: 123 })
+    expect(convertDamageWithFlag(456)).toStrictEqual({ protectFlag: false, damage: 456 })
   })
 })
 
@@ -81,9 +82,9 @@ describe('convertCritical', () => {
     const testCase = (inp: any, expected: yapi.Critical) =>
       expect(convertCritical(inp as kcsapi.CriticalFlag)).toBe(expected)
 
-    testCase(0, yapi.Critical.Miss)
-    testCase(1, yapi.Critical.Hit)
-    testCase(2, yapi.Critical.Critical)
+    testCase(0, yapi.CriticalE.Miss)
+    testCase(1, yapi.CriticalE.Hit)
+    testCase(2, yapi.CriticalE.Critical)
   })
 })
 
@@ -106,11 +107,11 @@ describe('convertAirpower', () => {
     const testCase = (inp: any, expected: yapi.Airpower) =>
       expect(convertAirpower(inp as kcsapi.Airpower)).toBe(expected)
 
-    testCase(0, yapi.Airpower.AirParity)
-    testCase(1, yapi.Airpower.AirSupremacy)
-    testCase(2, yapi.Airpower.AirSuperiority)
-    testCase(3, yapi.Airpower.AirDenial)
-    testCase(4, yapi.Airpower.AirIncapability)
+    testCase(0, yapi.AirpowerE.AirParity)
+    testCase(1, yapi.AirpowerE.AirSupremacy)
+    testCase(2, yapi.AirpowerE.AirSuperiority)
+    testCase(3, yapi.AirpowerE.AirDenial)
+    testCase(4, yapi.AirpowerE.AirIncapability)
 
     expect(convertAirpower(9999)).toBeInstanceOf(yapi.Unknown)
   })

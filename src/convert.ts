@@ -3,15 +3,9 @@ import * as _ from 'lodash'
 import * as kcsapi from './kcsapi'
 import * as yapi from './yapi'
 
-/*
-  TODO: non-critical conversion errors should fail gracefully.
-  It's expected that the API changes from time to time, but it should not crash
-  the whole conversion. Cases include a unknown engagement or formation etc.
- */
-
 export const convertEngagement = (raw: kcsapi.Engagement): yapi.Unk<yapi.Engagement> => {
   if (raw >= 1 && raw <= 4) {
-    return raw as yapi.Engagement
+    return raw as yapi.EngagementE
   }
   return new yapi.Unknown(raw, 'Engagement')
 }
@@ -21,19 +15,19 @@ export const convertFormation = (raw: kcsapi.Formation): yapi.Unk<yapi.Formation
     return raw as yapi.Formation
   }
   switch (raw) {
-    case '11': return yapi.Formation.CruisingFormation1
-    case '12': return yapi.Formation.CruisingFormation2
-    case '13': return yapi.Formation.CruisingFormation3
-    case '14': return yapi.Formation.CruisingFormation4
+    case '11': return yapi.FormationE.CruisingFormation1
+    case '12': return yapi.FormationE.CruisingFormation2
+    case '13': return yapi.FormationE.CruisingFormation3
+    case '14': return yapi.FormationE.CruisingFormation4
     default: return new yapi.Unknown(raw, 'Formation')
   }
 }
 
-export const convertHps = (rawCurHps: Array<number>, rawMaxHps: Array<number>): Array<HP> => {
+export const convertHps = (rawCurHps: Array<number>, rawMaxHps: Array<number>): Array<yapi.Hp> => {
   if (rawCurHps.length !== rawMaxHps.length) {
     throw new Error(`Cannot convert Hps, length mismatched: cur=${rawCurHps.length}, max=${rawMaxHps.length}.`)
   }
-  return _.zip(rawCurHps, rawMaxHps) as Array<HP>
+  return _.zip(rawCurHps, rawMaxHps) as Array<yapi.Hp>
 }
 
 export const convertShipInfoCommon = ([firepower, torpedo, antiAir, armor]: kcsapi.ShipParam): yapi.ShipInfoCommon =>
@@ -49,7 +43,7 @@ export const convertShipInfoEnemy =
 
 export const convertIntFlag = (v: kcsapi.IntFlag) => Boolean(v)
 
-export const convertDetection = (v: number): yapi.Unk<yapi.Detection> => {
+export const convertDetection = (v: number): yapi.Detection => {
   switch (v) {
     case 1: return { success: true, planeReturned: true }
     case 2: return { success: true, planeReturned: false }
@@ -70,14 +64,14 @@ export const convertDetection = (v: number): yapi.Unk<yapi.Detection> => {
   - v % 1 != 0
 
  */
-export const convertDamageE = (v: kcsapi.DamageE): yapi.DamageE =>
+export const convertDamageWithFlag = (v: kcsapi.DamageE): yapi.DamageWithFlag =>
   ({ protectFlag: v % 1 !== 0, damage: Math.floor(v) })
 
-export const convertCritical = (v: kcsapi.CriticalFlag): yapi.Unk<yapi.Critical> => {
+export const convertCritical = (v: kcsapi.CriticalFlag): yapi.Critical => {
   switch (v) {
-    case 0: return yapi.Critical.Miss
-    case 1: return yapi.Critical.Hit
-    case 2: return yapi.Critical.Critical
+    case 0: return yapi.CriticalE.Miss
+    case 1: return yapi.CriticalE.Hit
+    case 2: return yapi.CriticalE.Critical
     default: return new yapi.Unknown(v, 'Critical')
   }
 }
@@ -97,7 +91,7 @@ export const convertHougekiDamage =
     return {
       target: df,
       critical: convertCritical(cl),
-      ...convertDamageE(damage),
+      ...convertDamageWithFlag(damage),
     }
   }
 
@@ -154,8 +148,8 @@ export const convertRaigekiTurn =
       target: rai,
       critical: convertCritical(cl),
       damage: {
-        taken: convertDamageE(dam),
-        dealt: convertDamageE(ydam),
+        taken: convertDamageWithFlag(dam),
+        dealt: convertDamageWithFlag(ydam),
       },
     }
   }
@@ -234,7 +228,7 @@ export const convertKoukuPlaneFrom = (raw: kcsapi.KoukuPlaneFrom): yapi.KoukuPla
   }
 }
 
-export const convertAirpower = (v: kcsapi.Airpower): yapi.Unk<yapi.Airpower> => {
+export const convertAirpower = (v: kcsapi.Airpower): yapi.Airpower => {
   if (v >= 0 && v <= 4) {
     return v as yapi.Airpower
   } else {

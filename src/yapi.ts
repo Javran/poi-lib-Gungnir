@@ -1,6 +1,16 @@
 /*
   yapi is the target representation that gungnir operates on.
   (in case you wonder, Y is for Yggdrasil)
+
+  Naming convensions:
+
+  - postfix "E" (e.g. FormationE) for enum types representing known API values.
+  - postfix "Inl" (e.g. DetectionInl) for non-enum types representing known API values
+  - Foo could be a wrapper type of FooE or FooInl, with the possibility to have a unknown value.
+    i.e. "type Foo = FooE | Unknown" or "type Foo = FooInl | Unknown"
+  - all cap abbrs should only keep the first character in upper case.
+    (AACI => Aaci)
+
  */
 
 /*
@@ -28,24 +38,6 @@ Object.defineProperty(Unknown, 'context', { enumerable: true })
 export type Unk<T> = T | Unknown
 
 /*
-
-  TODO: for enum + Unknown cases, we have:
-
-  enum Foo = { FooA, FooB }
-
-  and all user facing apis are Unk<Foo>.
-  I'm thinking about redefining Foo so that:
-
-  enum FooE = { FooA, FooB }
-  type Foo = Unk<FooE>
-
-  We can simplify types a bit this way. drawbacks being:
-
-  - We'll have a global meaning for XxxxE, so better to rename DamageE.
-  - Foo.FooA needs to be changed to FooE.FooA
- */
-
-/*
   For information that can be organized into "friend" side
   and "enemy" side.
  */
@@ -54,14 +46,16 @@ export interface TwoSides<T> {
   enemy: T,
 }
 
-export enum Engagement {
+export enum EngagementE {
   Parallel = 1,
   HeadOn = 2,
   TAdvantage = 3,
   TDisadvantage = 4,
 }
 
-export enum Formation {
+export type Engagement = Unk<EngagementE>
+
+export enum FormationE {
   LineAhead = 1,
   DoubleLine = 2,
   Diamond = 3,
@@ -74,7 +68,9 @@ export enum Formation {
   CruisingFormation4 = 14,
 }
 
-export type HP = [number, number] // current and max.
+export type Formation = Unk<FormationE>
+
+export type Hp = [number, number] // current and max.
 
 export interface ShipAttributes {
   firepower: number,
@@ -107,13 +103,15 @@ export interface ShipInfoExtra {
 export type ShipInfoFriend = ShipInfoCommon
 export type ShipInfoEnemy = ShipInfoCommon & ShipInfoExtra
 
-export interface Detection {
+export interface DetectionInl {
   success: boolean,
   // true: plane returned
   // false: plane not returned
   // null: without plane
   planeReturned: boolean | null,
 }
+
+export type Detection = Unk<DetectionInl>
 
 /*
   TODO: some "bare minimal"s to be converted:
@@ -137,8 +135,7 @@ export enum Side {
 // a ShipIndex always starts with 0.
 export type ShipIndex = number
 
-// TODO: tolerate unknown attack type.
-export enum AttackType {
+export enum AttackTypeE {
   // 0=通常攻撃
   Normal = 0,
   // 1=レーザー攻撃
@@ -169,13 +166,17 @@ export enum AttackType {
   SuiseiCutin = 201,
 }
 
-export enum Critical {
+export type AttackType = Unk<AttackTypeE>
+
+export enum CriticalE {
   Miss = 0,
   Hit = 1,
   Critical = 2,
 }
 
-export interface DamageE {
+export type Critical = Unk<CriticalE>
+
+export interface DamageWithFlag {
   protectFlag: boolean,
   damage: number,
 }
@@ -212,8 +213,8 @@ export interface RaigekiTurn {
   target: ShipIndex,
   critical: Unk<Critical>,
   damage: {
-    taken: DamageE,
-    dealt: DamageE,
+    taken: DamageWithFlag,
+    dealt: DamageWithFlag,
   },
 }
 
@@ -231,7 +232,7 @@ export interface KoukuStagePlaneCount {
   lost: number
 }
 
-export enum Airpower {
+export enum AirpowerE {
   AirParity = 0,
   AirSupremacy = 1,
   AirSuperiority = 2,
@@ -239,8 +240,10 @@ export enum Airpower {
   AirIncapability = 4,
 }
 
+export type Airpower = Unk<AirpowerE>
+
 export interface KoukuStage1 extends KoukuStagePlaneCount {
-  airpower: Unk<Airpower>
+  airpower: Airpower
 }
 
 export interface Aaci {
@@ -262,9 +265,9 @@ export interface KoukuStages {
 
 export interface Battle {
   deckId: number,
-  engagement: Unk<Engagement>,
-  formation: TwoSides<Unk<Formation>>,
-  hps: TwoSides<Array<HP>>,
+  engagement: Engagement,
+  formation: TwoSides<Formation>,
+  hps: TwoSides<Array<Hp>>,
   shipInfo: {
     friend: Array<ShipInfoFriend>,
     enemy: Array<ShipInfoEnemy>,
