@@ -43,11 +43,17 @@ interface KoukuPlaneInfo {
 }
 
 interface KoukuStage1 extends KoukuPlaneInfo {
-  api_disp_seiku?: Airpower
-  api_touch_plane: any // TODO
+  api_disp_seiku: Airpower
+  api_touch_plane?: any // TODO
 }
 
-type KoukuStage2 = KoukuPlaneInfo
+interface KoukuStage2 extends KoukuPlaneInfo {
+  api_air_fire?: {
+    api_idx: number,
+    api_kind: number,
+    api_use_items: any, // TODO
+  }
+}
 
 interface KoukuStage3Enemy {
   api_erai_flag: Array<IntFlag> | null

@@ -208,11 +208,38 @@ export type HouraiPhases = Array<Hougeki | Raigeki>
 export type KoukuPlaneFromSide = Array<ShipIndex>
 export type KoukuPlaneFrom = TwoSides<KoukuPlaneFromSide>
 
+export interface KoukuStagePlaneCount {
+  total: number
+  lost: number
+}
+
+export enum Airpower {
+  AirParity = 0,
+  AirSuperiority = 1,
+  AirSupremacy = 2,
+  AirDenial = 3,
+  AirIncapability = 4,
+}
+
+export interface KoukuStage1 extends KoukuStagePlaneCount {
+  airpower: Unk<Airpower>
+}
+
+export interface AACI {
+  source: ShipIndex,
+  kind: number,
+  equips: Array<number>,
+}
+
+export interface KoukuStage2 extends KoukuStagePlaneCount {
+  aaci: AACI | null,
+}
+
 export interface KoukuStages {
   planeFrom: KoukuPlaneFrom,
-  stage1: any,
-  stage2: any,
-  stage3: any,
+  stage1: KoukuStage1,
+  stage2: KoukuStage2,
+  stage3: 'TODO',
 }
 
 export interface Battle {
