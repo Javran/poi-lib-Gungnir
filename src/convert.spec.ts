@@ -111,5 +111,7 @@ describe('convertAirpower', () => {
     testCase(2, yapi.Airpower.AirSuperiority)
     testCase(3, yapi.Airpower.AirDenial)
     testCase(4, yapi.Airpower.AirIncapability)
+
+    expect(convertAirpower(9999)).toBeInstanceOf(yapi.Unknown)
   })
 })
