@@ -261,11 +261,23 @@ export interface KoukuStage2 extends KoukuStagePlaneCount {
   aaci: Aaci | null,
 }
 
+// every data of this type describes
+// how a ship is taking damage in stage3
+// (targeted by dive bomber / torpedo bomber, hit/miss/crit, etc.)
+// this data is indexed into an Array to match with ship info.
+export interface KoukuStage3Damage extends DamageWithFlag {
+  raiFlag: boolean,
+  bakFlag: boolean,
+  critical: Critical,
+}
+
+export type KoukuStage3 = TwoSides<Array<KoukuStage3Damage>>
+
 export interface KoukuStages {
   planeFrom: KoukuPlaneFrom,
   stage1: KoukuStage1,
   stage2: KoukuStage2,
-  stage3: 'TODO',
+  stage3: KoukuStage3,
 }
 
 export interface Battle {
