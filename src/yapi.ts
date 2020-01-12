@@ -290,6 +290,6 @@ export interface Battle {
     enemy: Array<ShipInfoEnemy>,
   },
   pursueFlag: boolean,
-  detection: TwoSides<Unk<Detection>>,
+  detection: TwoSides<Detection>,
   houraiPhases: HouraiPhases,
 }
