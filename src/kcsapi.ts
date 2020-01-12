@@ -17,7 +17,6 @@ export type Engagement = number
 type Detection = number
 
 export type IntFlag = 0 | 1
-type Contact = number
 export type Airpower = number
 
 // the convension here is that XXXIndex starts with 0,
@@ -42,9 +41,11 @@ export interface KoukuPlaneInfo {
   api_e_lostcount: number
 }
 
+export type ContactPlane = null | Array<number>
+
 export interface KoukuStage1 extends KoukuPlaneInfo {
   api_disp_seiku: Airpower
-  api_touch_plane?: any // TODO
+  api_touch_plane?: ContactPlane
 }
 
 export interface Aaci {

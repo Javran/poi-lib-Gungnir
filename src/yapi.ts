@@ -244,8 +244,11 @@ export enum AirpowerE {
 
 export type Airpower = Unk<AirpowerE>
 
+export type ContactPlane = TwoSides<number>
+
 export interface KoukuStage1 extends KoukuStagePlaneCount {
   airpower: Airpower
+  contactPlane: ContactPlane | null
 }
 
 export interface Aaci {

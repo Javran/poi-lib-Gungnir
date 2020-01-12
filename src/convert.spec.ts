@@ -4,7 +4,7 @@ import * as yapi from './yapi'
 import {
   convertEngagement, convertFormation, convertHps, convertIntFlag,
   convertDetection, convertDamageWithFlag,
-  convertCritical, convertKoukuPlaneFrom, convertAirpower, convertAaci, convertKoukuStagePlaneCount,
+  convertCritical, convertKoukuPlaneFrom, convertAirpower, convertAaci, convertKoukuStagePlaneCount, convertContactPlane,
 } from './convert'
 
 describe('convertEngagement', () => {
@@ -137,5 +137,21 @@ describe('convertKoukuStagePlaneCount', () => {
         friend: { total: 1234, lost: 234 },
         enemy: { total: 2000, lost: 1111 },
       })
+  })
+})
+
+describe('convertContactPlane', () => {
+  test('samples', () => {
+    const testCase = (inp: any, expected: yapi.ContactPlane) =>
+      expect(
+        convertContactPlane(inp as kcsapi.ContactPlane | undefined)
+      ).toStrictEqual(expected)
+
+    testCase(undefined, { friend: -1, enemy: -1 })
+    testCase(null, { friend: -1, enemy: -1 })
+    testCase(null, { friend: -1, enemy: -1 })
+    testCase([], { friend: -1, enemy: -1 })
+    testCase([343], { friend: 343, enemy: -1 })
+    testCase([343, 123], { friend: 343, enemy: 123 })
   })
 })

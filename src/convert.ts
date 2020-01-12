@@ -252,6 +252,15 @@ export const convertKoukuStagePlaneCount = (raw: kcsapi.KoukuPlaneInfo): yapi.Ko
   }
 }
 
+export const convertContactPlane = (raw?: kcsapi.ContactPlane): yapi.ContactPlane => {
+  if (raw) {
+    const convert = (ind: number) => _.get(raw, ind) || -1
+    return { friend: convert(0), enemy: convert(1) }
+  } else {
+    return { friend: -1, enemy: -1 }
+  }
+}
+
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   // IIFE for now, until do-expression becomes available.
   const [fForm, eForm, engagement] = raw.api_formation
