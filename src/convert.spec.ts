@@ -4,7 +4,8 @@ import * as yapi from './yapi'
 import {
   convertEngagement, convertFormation, convertHps, convertIntFlag,
   convertDetection, convertDamageWithFlag,
-  convertCritical, convertKoukuPlaneFrom, convertAirpower, convertAaci, convertKoukuStagePlaneCount, convertContactPlane,
+  convertCritical, convertKoukuPlaneFrom, convertAirpower, convertAaci,
+  convertKoukuStagePlaneCount, convertContactPlane, convertKoukuStage3Damage,
 } from './convert'
 
 describe('convertEngagement', () => {
@@ -153,5 +154,28 @@ describe('convertContactPlane', () => {
     testCase([], { friend: -1, enemy: -1 })
     testCase([343], { friend: 343, enemy: -1 })
     testCase([343, 123], { friend: 343, enemy: 123 })
+  })
+})
+
+describe('convertKoukuStage3Damage', () => {
+  test('samples', () => {
+    expect(
+      convertKoukuStage3Damage(1, 0, 2, 123.1)
+    ).toStrictEqual({
+      raiFlag: true,
+      bakFlag: false,
+      critical: yapi.CriticalE.Critical,
+      damage: 123,
+      protectFlag: true,
+    })
+    expect(
+      convertKoukuStage3Damage(undefined, null, 0, 0)
+    ).toStrictEqual({
+      raiFlag: false,
+      bakFlag: false,
+      critical: yapi.CriticalE.Miss,
+      damage: 0,
+      protectFlag: false,
+    })
   })
 })

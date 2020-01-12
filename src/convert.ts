@@ -261,6 +261,23 @@ export const convertContactPlane = (raw?: kcsapi.ContactPlane): yapi.ContactPlan
   }
 }
 
+export const convertKoukuStage3Damage =
+  (
+    raiFlag: kcsapi.IntFlag | null | undefined,
+    bakFlag: kcsapi.IntFlag | null | undefined,
+    clFlag: kcsapi.CriticalFlag,
+    dam: kcsapi.DamageE
+  ): yapi.KoukuStage3Damage => {
+    const convert = (v: kcsapi.IntFlag | null | undefined) =>
+      typeof v === 'number' && convertIntFlag(v)
+    return {
+      raiFlag: convert(raiFlag),
+      bakFlag: convert(bakFlag),
+      critical: convertCritical(clFlag),
+      ...convertDamageWithFlag(dam),
+    }
+  }
+
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   // IIFE for now, until do-expression becomes available.
   const [fForm, eForm, engagement] = raw.api_formation
