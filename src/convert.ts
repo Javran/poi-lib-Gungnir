@@ -241,6 +241,17 @@ export const convertAaci = (raw: kcsapi.Aaci): yapi.Aaci => {
   return { source, kind, equips }
 }
 
+export const convertKoukuStagePlaneCount = (raw: kcsapi.KoukuPlaneInfo): yapi.KoukuStagePlaneCount => {
+  const {
+    api_f_count: fTotal, api_f_lostcount: fLost,
+    api_e_count: eTotal, api_e_lostcount: eLost,
+  } = raw
+  return {
+    friend: { total: fTotal, lost: fLost },
+    enemy: { total: eTotal, lost: eLost },
+  }
+}
+
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   // IIFE for now, until do-expression becomes available.
   const [fForm, eForm, engagement] = raw.api_formation

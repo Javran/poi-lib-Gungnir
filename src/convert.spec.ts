@@ -4,7 +4,7 @@ import * as yapi from './yapi'
 import {
   convertEngagement, convertFormation, convertHps, convertIntFlag,
   convertDetection, convertDamageWithFlag,
-  convertCritical, convertKoukuPlaneFrom, convertAirpower, convertAaci,
+  convertCritical, convertKoukuPlaneFrom, convertAirpower, convertAaci, convertKoukuStagePlaneCount,
 } from './convert'
 
 describe('convertEngagement', () => {
@@ -122,5 +122,20 @@ describe('convertAaci', () => {
     expect(
       convertAaci({ api_idx: 5, api_kind: 8, api_use_items: [308, 307] })
     ).toStrictEqual({ source: 5, kind: 8, equips: [308, 307] })
+  })
+})
+
+describe('convertKoukuStagePlaneCount', () => {
+  test('samples', () => {
+    expect(
+      convertKoukuStagePlaneCount({
+        api_f_count: 1234,
+        api_f_lostcount: 234,
+        api_e_count: 2000,
+        api_e_lostcount: 1111,
+      })).toStrictEqual({
+        friend: { total: 1234, lost: 234 },
+        enemy: { total: 2000, lost: 1111 },
+      })
   })
 })

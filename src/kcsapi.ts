@@ -35,7 +35,7 @@ type Damage = number
 // 0=miss, 1=hit, 2=critical
 export type CriticalFlag = number
 
-interface KoukuPlaneInfo {
+export interface KoukuPlaneInfo {
   api_f_count: number
   api_f_lostcount: number
   api_e_count: number

@@ -227,10 +227,12 @@ export type HouraiPhases = Array<Hougeki | Raigeki>
 export type KoukuPlaneFromSide = Array<ShipIndex>
 export type KoukuPlaneFrom = TwoSides<KoukuPlaneFromSide>
 
-export interface KoukuStagePlaneCount {
-  total: number
-  lost: number
+export interface PlaneInfo {
+  total: number,
+  lost: number,
 }
+
+export type KoukuStagePlaneCount = TwoSides<PlaneInfo>
 
 export enum AirpowerE {
   AirParity = 0,
