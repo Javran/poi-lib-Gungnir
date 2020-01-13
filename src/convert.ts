@@ -374,6 +374,7 @@ export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
     },
     pursueFlag: convertIntFlag(raw.api_midnight_flag),
     detection,
+    koukuStages: convertKoukuStages(raw.api_stage_flag, raw.api_kouku),
     houraiPhases: convertHouraiPhases(
       raw.api_hourai_flag,
       raw.api_hougeki1,

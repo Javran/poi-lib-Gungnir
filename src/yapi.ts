@@ -113,20 +113,6 @@ export interface DetectionInl {
 
 export type Detection = Unk<DetectionInl>
 
-/*
-  TODO: some "bare minimal"s to be converted:
-
-  api_stage_flag
-  api_kouku
-
-  api_support_flag
-  api_support_info
-  api_opening_taisen_flag
-  api_opening_taisen
-  api_opening_flag
-  api_opening_attack
-
- */
 export enum Side {
   Friend = 0,
   Enemy = 1,
@@ -280,6 +266,18 @@ export interface KoukuStages {
   stage3: KoukuStage3 | null,
 }
 
+/*
+  TODO: some "bare minimal"s to be converted:
+
+  api_support_flag
+  api_support_info
+  api_opening_taisen_flag
+  api_opening_taisen
+  api_opening_flag
+  api_opening_attack
+
+ */
+
 export interface Battle {
   deckId: number,
   engagement: Engagement,
@@ -291,5 +289,6 @@ export interface Battle {
   },
   pursueFlag: boolean,
   detection: TwoSides<Detection>,
+  koukuStages: KoukuStages,
   houraiPhases: HouraiPhases,
 }

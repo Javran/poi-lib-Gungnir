@@ -69,6 +69,15 @@ describe('samples', () => {
         friend: { success: true, planeReturned: null },
         enemy: { success: true, planeReturned: true },
       },
+      koukuStages: {
+        planeFrom: { friend: [], enemy: [] },
+        stage1: {
+          airpower: yapi.AirpowerE.AirSupremacy, contactPlane: { friend: -1, enemy: -1 },
+          friend: { total: 0, lost: 0 }, enemy: { total: 0, lost: 0 },
+        },
+        stage2: null,
+        stage3: null,
+      },
       houraiPhases: [
         {
           type: 'Hougeki',
@@ -369,6 +378,38 @@ describe('samples', () => {
       detection: {
         friend: { success: true, planeReturned: true },
         enemy: { success: true, planeReturned: true },
+      },
+      koukuStages: {
+        planeFrom: { friend: [0, 1, 2], enemy: [0] },
+        stage1: {
+          airpower: 1,
+          contactPlane: { friend: 343, enemy: -1 },
+          friend: { total: 149, lost: 0 },
+          enemy: { total: 192, lost: 75 },
+        },
+        stage2: {
+          friend: { total: 140, lost: 10 },
+          enemy: { total: 30, lost: 5 },
+          aaci: { source: 5, kind: 8, equips: [308, 307] },
+        },
+        stage3: {
+          friend: [
+            { raiFlag: false, bakFlag: false, critical: 0, damage: 0, protectFlag: false },
+            { raiFlag: false, bakFlag: false, critical: 0, damage: 0, protectFlag: false },
+            { raiFlag: false, bakFlag: false, critical: 0, damage: 0, protectFlag: false },
+            { raiFlag: false, bakFlag: false, critical: 0, damage: 0, protectFlag: false },
+            { raiFlag: false, bakFlag: false, critical: 0, damage: 0, protectFlag: false },
+            { raiFlag: true, bakFlag: false, critical: 0, damage: 0, protectFlag: false },
+          ],
+          enemy: [
+            { raiFlag: true, bakFlag: true, critical: 1, damage: 110, protectFlag: false },
+            { raiFlag: true, bakFlag: false, critical: 1, damage: 211, protectFlag: false },
+            { raiFlag: false, bakFlag: false, critical: 0, damage: 0, protectFlag: false },
+            { raiFlag: true, bakFlag: true, critical: 1, damage: 484, protectFlag: false },
+            { raiFlag: true, bakFlag: true, critical: 1, damage: 104, protectFlag: true },
+            { raiFlag: false, bakFlag: false, critical: 0, damage: 0, protectFlag: false },
+          ],
+        },
       },
       houraiPhases: [
         {
