@@ -236,11 +236,6 @@ export const convertAirpower = (v: kcsapi.Airpower): yapi.Airpower => {
   }
 }
 
-export const convertAaci = (raw: kcsapi.Aaci): yapi.Aaci => {
-  const { api_idx: source, api_kind: kind, api_use_items: equips } = raw
-  return { source, kind, equips }
-}
-
 export const convertKoukuStagePlaneCount = (raw: kcsapi.KoukuPlaneInfo): yapi.KoukuStagePlaneCount => {
   const {
     api_f_count: fTotal, api_f_lostcount: fLost,
@@ -260,6 +255,24 @@ export const convertContactPlane = (raw?: kcsapi.ContactPlane): yapi.ContactPlan
     return { friend: -1, enemy: -1 }
   }
 }
+
+export const convertKoukuStage1 =
+  (raw: kcsapi.KoukuStage1): yapi.KoukuStage1 => ({
+    ...convertKoukuStagePlaneCount(raw),
+    airpower: convertAirpower(raw.api_disp_seiku),
+    contactPlane: convertContactPlane(raw.api_touch_plane),
+  })
+
+export const convertAaci = (raw: kcsapi.Aaci): yapi.Aaci => {
+  const { api_idx: source, api_kind: kind, api_use_items: equips } = raw
+  return { source, kind, equips }
+}
+
+export const convertKoukuStage2 =
+  (raw: kcsapi.KoukuStage2): yapi.KoukuStage2 => ({
+    ...convertKoukuStagePlaneCount(raw),
+    aaci: raw.api_air_fire ? convertAaci(raw.api_air_fire) : null,
+  })
 
 export const convertKoukuStage3Damage =
   (
