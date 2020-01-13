@@ -77,7 +77,7 @@ export type KoukuStage3 = KoukuStage3Friend & KoukuStage3Enemy
 // there are in total 3 stages per air battle,
 // this flag is used as an indicate whether a particular stage exists
 // (a non-existing one has that corresponding stage set to null)
-type KoukuStageFlags = [IntFlag, IntFlag, IntFlag]
+export type KoukuStageFlags = [IntFlag, IntFlag, IntFlag]
 
 export type KoukuPlaneFrom = Array<Array<number> | null> | null
 
@@ -86,7 +86,7 @@ export interface Kouku {
   api_stage1: KoukuStage1 | null
   api_stage2: KoukuStage2 | null
   api_stage3: KoukuStage3 | null
-  api_stage3_combined?: KoukuStage3 | null
+  // api_stage3_combined?: KoukuStage3 | null
 }
 
 interface KoukuLbas extends Kouku {

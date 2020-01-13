@@ -310,6 +310,33 @@ export const convertKoukuStage3 =
         convertKoukuStage3Damage),
   })
 
+export const convertKoukuStages =
+  ([f1, f2, f3]: kcsapi.KoukuStageFlags, raw: kcsapi.Kouku): yapi.KoukuStages => {
+    const ret: yapi.KoukuStages = {
+      planeFrom: convertKoukuPlaneFrom(raw.api_plane_from),
+      stage1: null, stage2: null, stage3: null,
+    }
+    if (f1) {
+      if (raw.api_stage1 === null) {
+        throw new Error(`Cannnot convert stage1: null`)
+      }
+      ret.stage1 = convertKoukuStage1(raw.api_stage1)
+    }
+    if (f2) {
+      if (raw.api_stage2 === null) {
+        throw new Error(`Cannnot convert stage2: null`)
+      }
+      ret.stage2 = convertKoukuStage2(raw.api_stage2)
+    }
+    if (f3) {
+      if (raw.api_stage3 === null) {
+        throw new Error(`Cannnot convert stage3: null`)
+      }
+      ret.stage3 = convertKoukuStage3(raw.api_stage3)
+    }
+    return ret
+  }
+
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   // IIFE for now, until do-expression becomes available.
   const [fForm, eForm, engagement] = raw.api_formation

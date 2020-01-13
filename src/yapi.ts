@@ -275,9 +275,9 @@ export type KoukuStage3 = TwoSides<Array<KoukuStage3Damage>>
 
 export interface KoukuStages {
   planeFrom: KoukuPlaneFrom,
-  stage1: KoukuStage1,
-  stage2: KoukuStage2,
-  stage3: KoukuStage3,
+  stage1: KoukuStage1 | null,
+  stage2: KoukuStage2 | null,
+  stage3: KoukuStage3 | null,
 }
 
 export interface Battle {
