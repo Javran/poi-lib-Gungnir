@@ -291,6 +291,25 @@ export const convertKoukuStage3Damage =
     }
   }
 
+export const convertKoukuStage3 =
+  (raw: kcsapi.KoukuStage3): yapi.KoukuStage3 => ({
+    friend:
+      (_.zipWith as any)(
+        raw.api_frai_flag || [],
+        raw.api_fbak_flag || [],
+        raw.api_fcl_flag || [],
+        raw.api_fdam || [],
+        convertKoukuStage3Damage
+      ),
+    enemy:
+      (_.zipWith as any)(
+        raw.api_erai_flag || [],
+        raw.api_ebak_flag || [],
+        raw.api_ecl_flag || [],
+        raw.api_edam || [],
+        convertKoukuStage3Damage),
+  })
+
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   // IIFE for now, until do-expression becomes available.
   const [fForm, eForm, engagement] = raw.api_formation

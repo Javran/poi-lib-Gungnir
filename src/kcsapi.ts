@@ -60,14 +60,14 @@ export interface KoukuStage2 extends KoukuPlaneInfo {
 
 interface KoukuStage3Enemy {
   api_erai_flag: Array<IntFlag> | null
-  api_ebak_flag: Array<IntFlag>
+  api_ebak_flag: Array<IntFlag> | null
   api_ecl_flag: Array<IntFlag> | null
   api_edam: Array<number> | null
 }
 
 interface KoukuStage3Friend {
   api_frai_flag: Array<IntFlag> | null
-  api_fbak_flag: Array<IntFlag>
+  api_fbak_flag: Array<IntFlag> | null
   api_fcl_flag: Array<IntFlag> | null
   api_fdam: Array<number> | null
 }
