@@ -78,6 +78,8 @@ describe('samples', () => {
         stage2: null,
         stage3: null,
       },
+      openingAntiSub: null,
+      openingTorpedo: null,
       houraiPhases: [
         {
           type: 'Hougeki',
@@ -410,6 +412,122 @@ describe('samples', () => {
             { raiFlag: false, bakFlag: false, critical: 0, damage: 0, protectFlag: false },
           ],
         },
+      },
+      openingAntiSub: {
+        type: 'Hougeki',
+        turns: [
+          {
+            attackType: 0,
+            slotitems: [343],
+            source: { index: 1, side: 0 },
+            damages: [{ critical: 1, protectFlag: false, target: 5, damage: 27 }],
+          },
+        ],
+      },
+      openingTorpedo: {
+        type: 'Raigeki',
+        friend: [
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: 0, critical: 1,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 27 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+        ],
+        enemy: [
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 27 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+        ],
       },
       houraiPhases: [
         {

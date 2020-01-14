@@ -337,6 +337,22 @@ export const convertKoukuStages =
     return ret
   }
 
+export const convertOpeningAntiSub = (flag: kcsapi.IntFlag, raw: kcsapi.Hougeki | null): yapi.Hougeki | null => {
+  // TODO: verify
+  if (convertIntFlag(flag) && raw) {
+    return convertHougeki(raw)
+  }
+  return null
+}
+
+export const convertOpeningTorpedo = (flag: kcsapi.IntFlag, raw: kcsapi.Raigeki | null): yapi.Raigeki | null => {
+  // TODO: verify
+  if (convertIntFlag(flag) && raw) {
+    return convertRaigeki(raw)
+  }
+  return null
+}
+
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   // IIFE for now, until do-expression becomes available.
   const [fForm, eForm, engagement] = raw.api_formation
@@ -375,6 +391,8 @@ export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
     pursueFlag: convertIntFlag(raw.api_midnight_flag),
     detection,
     koukuStages: convertKoukuStages(raw.api_stage_flag, raw.api_kouku),
+    openingAntiSub: convertOpeningAntiSub(raw.api_opening_taisen_flag, raw.api_opening_taisen || null),
+    openingTorpedo: convertOpeningTorpedo(raw.api_opening_flag, raw.api_opening_atack || null),
     houraiPhases: convertHouraiPhases(
       raw.api_hourai_flag,
       raw.api_hougeki1,

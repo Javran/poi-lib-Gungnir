@@ -165,9 +165,10 @@ export interface Battle {
   api_support_flag: IntFlag
   api_support_info: any | null // TODO
   api_opening_taisen_flag: IntFlag
-  api_opening_taisen: any | null // TODO
+  api_opening_taisen: Hougeki | null // TODO
   api_opening_flag: IntFlag
-  api_opening_attack: Raigeki | null
+  // No I'm not misspelling "atack", the API has been keeping it this way.
+  api_opening_atack: Raigeki | null
 
   api_hourai_flag: [IntFlag, IntFlag, IntFlag, IntFlag]
   // TODO:
