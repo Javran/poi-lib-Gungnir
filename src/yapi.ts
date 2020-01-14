@@ -271,10 +271,6 @@ export interface KoukuStages {
 
   api_support_flag
   api_support_info
-  api_opening_taisen_flag
-  api_opening_taisen
-  api_opening_flag
-  api_opening_attack
 
  */
 

@@ -3,6 +3,10 @@ import * as _ from 'lodash'
 import * as kcsapi from './kcsapi'
 import * as yapi from './yapi'
 
+/*
+  TODO: consider breaking this down. this module is getting too long.
+ */
+
 export const convertEngagement = (raw: kcsapi.Engagement): yapi.Unk<yapi.Engagement> => {
   if (raw >= 1 && raw <= 4) {
     return raw as yapi.EngagementE

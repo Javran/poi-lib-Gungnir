@@ -3,6 +3,10 @@ import * as yapi from './yapi'
 import { readJsonSync } from 'fs-extra'
 import { fromPoiBattleDetail, BattleDetailData } from './index'
 
+/*
+  TODO: note that we are not yet need a full sample to test for anything,
+  we should break this down into pieces if possible to have smaller and manageable unit tests.
+ */
 describe('samples', () => {
   test('sample0.json', () => {
     const raw = readJsonSync('./sample/sample0.json') as BattleDetailData
