@@ -1,11 +1,11 @@
-import * as kcsapi from './kcsapi'
-import * as yapi from './yapi'
+import * as kcsapi from '@g/kcsapi'
+import * as yapi from '@g/yapi'
 
 import {
   convertDamageWithFlag,
   convertCritical, convertKoukuPlaneFrom, convertAirpower, convertAaci,
   convertKoukuStagePlaneCount, convertContactPlane, convertKoukuStage3Damage,
-} from './convert'
+} from './index'
 
 describe('convertDamageWithFlag', () => {
   test('samples', () => {

@@ -1,3 +1,7 @@
+/*
+  This module contains things that only involves conversion of simple data types.
+ */
+
 import * as _ from 'lodash'
 
 import * as kcsapi from '@g/kcsapi'
