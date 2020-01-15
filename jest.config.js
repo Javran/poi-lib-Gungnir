@@ -1,5 +1,8 @@
 module.exports = {
   roots: ['<rootDir>/src'],
+  moduleNameMapper: {
+    "^@g/(.*)$": "<rootDir>/src/$1"
+  },
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
