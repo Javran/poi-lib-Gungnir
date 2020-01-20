@@ -15,34 +15,44 @@
 
 /*
   TODO: Listing out API paths that we need to support:
+  (following is arranged as they appear in main.js.)
 
   - /kcsapi/api_req_sortie/battle: normal vs. normal.
-  - /kcsapi/api_req_sortie/airbattle: normal vs. normal, two kouku stages.
-  - /kcsapi/api_req_sortie/ld_airbattle: normal vs. normal, long distance.
-  - /kcsapi/api_req_sortie/ld_shooting: ?
-
-  - /kcsapi/api_req_practice/battle: normal vs normal, pvp.
-  - /kcsapi/api_req_practice/midnight_battle: normal vs. normal, night, pvp.
-
-  - /kcsapi/api_req_battle_midnight/battle: normal vs. normal, night battle.
-  - /kcsapi/api_req_battle_midnight/sp_midnight: ?
+  - /kcsapi/api_req_combined_battle/ec_battle: normal vs combined
 
   - /kcsapi/api_req_combined_battle/battle: CTF vs. single
-  - /kcsapi/api_req_combined_battle/battle_water: STF vs single.
-  - /kcsapi/api_req_combined_battle/midnight_battle: combined vs single, night battle
-
-  - /kcsapi/api_req_combined_battle/airbattle: CTF vs. single (2 kouku stages)
-  - /kcsapi/api_req_combined_battle/ld_airbattle: combined, long distance.
-
   - /kcsapi/api_req_combined_battle/each_battle: CTF vs. combined
+  - /kcsapi/api_req_combined_battle/battle_water: STF vs single.
   - /kcsapi/api_req_combined_battle/each_battle_water: STF vs. combined
 
-  - /kcsapi/api_req_combined_battle/ec_battle: normal vs combined
-  - /kcsapi/api_req_combined_battle/ec_midnight_battle: normal vs combined, night.
-  - /kcsapi/api_req_combined_battle/ec_night_to_day: ?
+  - airbattle: always vs. enemy single, consists of only 2 kouku phases.
 
+    + /kcsapi/api_req_sortie/airbattle: normal vs. normal, two kouku stages.
+    + /kcsapi/api_req_combined_battle/airbattle: combined vs. single (2 kouku stages)
+
+  - ld_airbattle: always vs. enemy single, one kouku phase.
+
+    + /kcsapi/api_req_sortie/ld_airbattle: normal vs. normal, long distance.
+    + /kcsapi/api_req_combined_battle/ld_airbattle: combined vs. normal, long distance.
+
+  - /kcsapi/api_req_combined_battle/ec_night_to_day
+  - /kcsapi/api_req_sortie/night_to_day
   - /kcsapi/api_req_combined_battle/sp_midnight
-  - /kcsapi/api_req_combined_battle/ld_shooting
+  - /kcsapi/api_req_battle_midnight/sp_midnight
+
+  - ld_shooting: this one seems to have only "single or combined" distinct,
+    and enemy fleet is always single.
+
+    + /kcsapi/api_req_sortie/ld_shooting: ?
+    + /kcsapi/api_req_combined_battle/ld_shooting: ?
+
+  - /kcsapi/api_req_practice/battle: normal vs normal, pvp.
+
+  - /kcsapi/api_req_combined_battle/ec_midnight_battle: normal vs combined, night.
+  - /kcsapi/api_req_battle_midnight/battle: normal vs. normal, night battle.
+  - /kcsapi/api_req_combined_battle/midnight_battle: combined vs single, night battle.
+
+  - /kcsapi/api_req_practice/midnight_battle: normal vs. normal, night, pvp.
 
   Note:
   - it seems TE can be treated as CTF.
@@ -50,6 +60,16 @@
     + "ec_" for normal vs. abyssal combined ("ec" probably means "enemy combined")
     + "each_" when two sides are both combined.
     + "_water" are for STFs
+
+  From main.js:
+
+  - isBoss
+  - isNightStart
+  - isNightToDayStart
+  - isAirBattle
+  - isVS12
+  - isAirRaid
+  - isLongRangeFires
 
  */
 
