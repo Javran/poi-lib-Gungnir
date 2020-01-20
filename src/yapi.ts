@@ -14,6 +14,46 @@
  */
 
 /*
+  TODO: Listing out API paths that we need to support:
+
+  - /kcsapi/api_req_sortie/battle: normal vs. normal.
+  - /kcsapi/api_req_sortie/airbattle: normal vs. normal, two kouku stages.
+  - /kcsapi/api_req_sortie/ld_airbattle: normal vs. normal, long distance.
+  - /kcsapi/api_req_sortie/ld_shooting: ?
+
+  - /kcsapi/api_req_practice/battle: normal vs normal, pvp.
+  - /kcsapi/api_req_practice/midnight_battle: normal vs. normal, night, pvp.
+
+  - /kcsapi/api_req_battle_midnight/battle: normal vs. normal, night battle.
+  - /kcsapi/api_req_battle_midnight/sp_midnight: ?
+
+  - /kcsapi/api_req_combined_battle/battle: CTF vs. single
+  - /kcsapi/api_req_combined_battle/battle_water: STF vs single.
+  - /kcsapi/api_req_combined_battle/midnight_battle: combined vs single, night battle
+
+  - /kcsapi/api_req_combined_battle/airbattle: CTF vs. single (2 kouku stages)
+  - /kcsapi/api_req_combined_battle/ld_airbattle: combined, long distance.
+
+  - /kcsapi/api_req_combined_battle/each_battle: CTF vs. combined
+  - /kcsapi/api_req_combined_battle/each_battle_water: STF vs. combined
+
+  - /kcsapi/api_req_combined_battle/ec_battle: normal vs combined
+  - /kcsapi/api_req_combined_battle/ec_midnight_battle: normal vs combined, night.
+  - /kcsapi/api_req_combined_battle/ec_night_to_day: ?
+
+  - /kcsapi/api_req_combined_battle/sp_midnight
+  - /kcsapi/api_req_combined_battle/ld_shooting
+
+  Note:
+  - it seems TE can be treated as CTF.
+  - naming patterns:
+    + "ec_" for normal vs. abyssal combined ("ec" probably means "enemy combined")
+    + "each_" when two sides are both combined.
+    + "_water" are for STFs
+
+ */
+
+/*
   a class for indicating unknown values that
   are not recognized but its value is not critically important.
  */
