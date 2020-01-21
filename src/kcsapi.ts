@@ -129,6 +129,34 @@ export type Raigeki = RaigekiFriend & RaigekiEnemy
 // [<火力>, <雷装>, <対空>, <装甲>]
 export type ShipParam = [number, number, number, number]
 
+export interface SupportInfoCommon {
+  api_deck_id: number
+  api_ship_id: Array<number>
+  api_undressing_flag: Array<number>
+}
+
+/*
+  TODO: Kouku is slightly different that we usually expect:
+  - api_stage1 won't have contact / airpower
+  - api_stage2 won't have plane count from enemy side and no aaci
+  - api_stage3 won't have a friend side.
+  Let's see if we can capture those by type.
+ */
+export interface SupportAirAttack extends SupportInfoCommon, Kouku {
+  api_stage_flag: KoukuStageFlags
+}
+
+export interface SupportHourai {
+  api_cl_list: Array<number>
+  api_damage: Array<number>
+}
+
+export interface SupportInfo {
+  // NOTE: "airatack" is not a misspell.
+  api_support_airatack: SupportAirAttack | null
+  api_support_hourai: SupportHourai | null
+}
+
 export interface Battle {
   api_deck_id: number
   api_formation: [Formation, Formation, Engagement]
@@ -162,8 +190,8 @@ export interface Battle {
   api_stage_flag: KoukuStageFlags
   api_kouku: Kouku
 
-  api_support_flag: IntFlag
-  api_support_info: any | null // TODO
+  api_support_flag: number
+  api_support_info: SupportInfo | null // TODO
   api_opening_taisen_flag: IntFlag
   api_opening_taisen: Hougeki | null // TODO
   api_opening_flag: IntFlag
