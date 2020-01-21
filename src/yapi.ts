@@ -336,6 +336,13 @@ export interface KoukuStages {
   stage3: KoukuStage3 | null,
 }
 
+export enum SupportTypeE {
+  Airstrike = 1,
+  Shelling = 2,
+  Torpedo = 3,
+  AntiSub = 4,
+}
+
 /*
   TODO: some "bare minimal"s to be converted:
 
