@@ -34,12 +34,17 @@ type Damage = number
 // 0=miss, 1=hit, 2=critical
 export type CriticalFlag = number
 
-export interface KoukuPlaneInfo {
+export interface KoukuPlaneInfoFriend {
   api_f_count: number
   api_f_lostcount: number
+}
+
+export interface KoukuPlaneInfoEnemy {
   api_e_count: number
   api_e_lostcount: number
 }
+
+export type KoukuPlaneInfo = KoukuPlaneInfoFriend & KoukuPlaneInfoEnemy
 
 export type ContactPlane = null | Array<number>
 
@@ -142,8 +147,12 @@ export interface SupportInfoCommon {
   - api_stage3 won't have a friend side.
   Let's see if we can capture those by type.
  */
-export interface SupportAirAttack extends SupportInfoCommon, Kouku {
+export interface SupportAirAttack extends SupportInfoCommon {
   api_stage_flag: KoukuStageFlags
+  api_plane_from: KoukuPlaneFrom
+  api_stage1: KoukuPlaneInfo | null
+  api_stage2: KoukuPlaneInfoFriend | null
+  api_stage3: KoukuStage3Enemy | null
 }
 
 export interface SupportHourai {
@@ -191,7 +200,7 @@ export interface Battle {
   api_kouku: Kouku
 
   api_support_flag: number
-  api_support_info: SupportInfo | null // TODO
+  api_support_info: SupportInfo | null
   api_opening_taisen_flag: IntFlag
   api_opening_taisen: Hougeki | null // TODO
   api_opening_flag: IntFlag
