@@ -343,16 +343,33 @@ export enum SupportTypeE {
   AntiSub = 4,
 }
 
-// Some kcsapi sample for playing around:
-// api_support_flag = 2
-// { "api_support_airatack": null, "api_support_hourai": { "api_deck_id": 3, "api_ship_id": [123687, 86122, 29771, 488, 124152, 408], "api_undressing_flag": [0, 0, 0, 0, 0, 0], "api_cl_list": [0, 0, 1, 0, 2, 0, 0], "api_damage": [0, 0, 234, 0, 254, 0, 0] } }
+export type SupportType = Unk<SupportTypeE>
 
-export interface SupportShipInfo {
-  rstId: number, // roster id of the ship.
+export interface SupportInfoCommon<ShipType> {
+  type: SupportType
+  deckId: number
+  ships: Array<ShipType>
+}
+
+export interface SupportInfoShip {
+  rosterId: number,  // roster id of the ship.
   undressing: boolean, // true: moderate damage or worst.
+}
+
+export interface SupportInfoHouraiShip extends SupportInfoShip {
   critical: Critical,
   damage: DamageWithFlag,
 }
+
+export interface SupportHourai extends SupportInfoCommon<SupportInfoHouraiShip> {
+  type: SupportTypeE.Shelling | SupportTypeE.Torpedo
+}
+
+export interface SupportAirAttack extends SupportInfoCommon<SupportInfoShip> {
+  type: SupportTypeE.Airstrike | SupportTypeE.AntiSub
+}
+
+export type SupportInfo = Unk<SupportHourai | SupportAirAttack>
 
 /*
   TODO: some "bare minimal"s to be converted:
