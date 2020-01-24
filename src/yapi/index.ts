@@ -82,9 +82,14 @@
   - isLongRangeFires: 8
 
  */
-import { Unk, TwoSides, Hp, Formation, Engagement } from './basic'
+import {
+  Unk, TwoSides, Hp, Formation, Engagement, ShipIndex,
+  Side, Detection, Critical, AttackType, DamageWithFlag,
+} from './basic'
+import { KoukuStages } from './kouku'
 
 export * from './basic'
+export * from './kouku'
 
 export interface ShipAttributes {
   firepower: number,
@@ -116,70 +121,6 @@ export interface ShipInfoExtra {
 
 export type ShipInfoFriend = ShipInfoCommon
 export type ShipInfoEnemy = ShipInfoCommon & ShipInfoExtra
-
-export interface DetectionInl {
-  success: boolean,
-  // true: plane returned
-  // false: plane not returned
-  // null: without plane
-  planeReturned: boolean | null,
-}
-
-export type Detection = Unk<DetectionInl>
-
-export enum Side {
-  Friend = 0,
-  Enemy = 1,
-}
-
-// a ShipIndex always starts with 0.
-export type ShipIndex = number
-
-export enum AttackTypeE {
-  // 0=通常攻撃
-  Normal = 0,
-  // 1=レーザー攻撃
-  Lazer = 1,
-  // 2=連続射撃
-  Double = 2,
-  // 3=カットイン(主砲/副砲)
-  PrimarySecondaryCutin = 3,
-  // 4=カットイン(主砲/電探)
-  PrimaryRadarCutin = 4,
-  // 5=カットイン(主砲/徹甲)
-  PrimaryApCutin = 5,
-  // 6=カットイン(主砲/主砲)
-  PrimaryPrimaryCutin = 6,
-  // 7=空母カットイン
-  CarrierCutin = 7,
-  // 100=Nelson Touch
-  NelsonTouch = 100,
-  // 101=一斉射かッ…胸が熱いな！
-  NagatoCutin = 101,
-  // 102=長門、いい？ いくわよ！ 主砲一斉射ッ！
-  MutsuCutin = 102,
-  // 103=Colorado (_colorado_cutin)
-  ColoardoCutin = 103,
-  // 200=瑞雲立体攻撃
-  ZuiunCutin = 200,
-  // 201=海空立体攻撃
-  SuiseiCutin = 201,
-}
-
-export type AttackType = Unk<AttackTypeE>
-
-export enum CriticalE {
-  Miss = 0,
-  Hit = 1,
-  Critical = 2,
-}
-
-export type Critical = Unk<CriticalE>
-
-export interface DamageWithFlag {
-  protectFlag: boolean,
-  damage: number,
-}
 
 export interface HougekiDamage {
   target: ShipIndex,
@@ -223,62 +164,6 @@ export interface Raigeki extends TwoSides<Array<RaigekiTurn>> {
 }
 
 export type HouraiPhases = Array<Hougeki | Raigeki>
-
-export type KoukuPlaneFromSide = Array<ShipIndex>
-export type KoukuPlaneFrom = TwoSides<KoukuPlaneFromSide>
-
-export interface PlaneInfo {
-  total: number,
-  lost: number,
-}
-
-export type KoukuStagePlaneCount = TwoSides<PlaneInfo>
-
-export enum AirpowerE {
-  AirParity = 0,
-  AirSupremacy = 1,
-  AirSuperiority = 2,
-  AirDenial = 3,
-  AirIncapability = 4,
-}
-
-export type Airpower = Unk<AirpowerE>
-
-export type ContactPlane = TwoSides<number>
-
-export interface KoukuStage1 extends KoukuStagePlaneCount {
-  airpower: Airpower
-  contactPlane: ContactPlane | null
-}
-
-export interface Aaci {
-  source: ShipIndex,
-  kind: number,
-  equips: Array<number>,
-}
-
-export interface KoukuStage2 extends KoukuStagePlaneCount {
-  aaci: Aaci | null,
-}
-
-// every data of this type describes
-// how a ship is taking damage in stage3
-// (targeted by dive bomber / torpedo bomber, hit/miss/crit, etc.)
-// this data is indexed into an Array to match with ship info.
-export interface KoukuStage3Damage extends DamageWithFlag {
-  raiFlag: boolean,
-  bakFlag: boolean,
-  critical: Critical,
-}
-
-export type KoukuStage3 = TwoSides<Array<KoukuStage3Damage>>
-
-export interface KoukuStages {
-  planeFrom: KoukuPlaneFrom,
-  stage1: KoukuStage1 | null,
-  stage2: KoukuStage2 | null,
-  stage3: KoukuStage3 | null,
-}
 
 export enum SupportTypeE {
   Airstrike = 1,

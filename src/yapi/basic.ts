@@ -56,3 +56,66 @@ export enum FormationE {
 export type Formation = Unk<FormationE>
 
 export type Hp = [number, number] // current and max.
+
+export interface DetectionInl {
+  success: boolean,
+  // true: plane returned
+  // false: plane not returned
+  // null: without plane
+  planeReturned: boolean | null,
+}
+
+export type Detection = Unk<DetectionInl>
+
+export enum Side {
+  Friend = 0,
+  Enemy = 1,
+}
+
+// a ShipIndex always starts with 0.
+export type ShipIndex = number
+export enum AttackTypeE {
+  // 0=通常攻撃
+  Normal = 0,
+  // 1=レーザー攻撃
+  Lazer = 1,
+  // 2=連続射撃
+  Double = 2,
+  // 3=カットイン(主砲/副砲)
+  PrimarySecondaryCutin = 3,
+  // 4=カットイン(主砲/電探)
+  PrimaryRadarCutin = 4,
+  // 5=カットイン(主砲/徹甲)
+  PrimaryApCutin = 5,
+  // 6=カットイン(主砲/主砲)
+  PrimaryPrimaryCutin = 6,
+  // 7=空母カットイン
+  CarrierCutin = 7,
+  // 100=Nelson Touch
+  NelsonTouch = 100,
+  // 101=一斉射かッ…胸が熱いな！
+  NagatoCutin = 101,
+  // 102=長門、いい？ いくわよ！ 主砲一斉射ッ！
+  MutsuCutin = 102,
+  // 103=Colorado (_colorado_cutin)
+  ColoardoCutin = 103,
+  // 200=瑞雲立体攻撃
+  ZuiunCutin = 200,
+  // 201=海空立体攻撃
+  SuiseiCutin = 201,
+}
+
+export type AttackType = Unk<AttackTypeE>
+
+export enum CriticalE {
+  Miss = 0,
+  Hit = 1,
+  Critical = 2,
+}
+
+export type Critical = Unk<CriticalE>
+
+export interface DamageWithFlag {
+  protectFlag: boolean,
+  damage: number,
+}
