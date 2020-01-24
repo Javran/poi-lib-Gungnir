@@ -1,4 +1,4 @@
-import * as yapi from './index'
+import * as yapi from './basic'
 
 describe('Unknown', () => {
   test('enumerable', () => {
