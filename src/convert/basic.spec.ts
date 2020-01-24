@@ -4,6 +4,7 @@ import * as yapi from '@g/yapi'
 import {
   convertEngagement, convertFormation,
   convertHps, convertIntFlag, convertDetection,
+  convertDamageWithFlag, convertCritical,
 } from './basic'
 
 describe('convertEngagement', () => {
@@ -64,5 +65,25 @@ describe('convertDetection', () => {
     expect(convertDetection(4)).toStrictEqual({ success: false, planeReturned: true })
     expect(convertDetection(3)).toStrictEqual({ success: false, planeReturned: false })
     expect(convertDetection(6)).toStrictEqual({ success: false, planeReturned: null })
+  })
+})
+
+describe('convertDamageWithFlag', () => {
+  test('samples', () => {
+    expect(convertDamageWithFlag(0)).toStrictEqual({ protectFlag: false, damage: 0 })
+    expect(convertDamageWithFlag(0.1)).toStrictEqual({ protectFlag: true, damage: 0 })
+    expect(convertDamageWithFlag(123.1)).toStrictEqual({ protectFlag: true, damage: 123 })
+    expect(convertDamageWithFlag(456)).toStrictEqual({ protectFlag: false, damage: 456 })
+  })
+})
+
+describe('convertCritical', () => {
+  test('samples', () => {
+    const testCase = (inp: any, expected: yapi.Critical) =>
+      expect(convertCritical(inp as kcsapi.CriticalFlag)).toBe(expected)
+
+    testCase(0, yapi.CriticalE.Miss)
+    testCase(1, yapi.CriticalE.Hit)
+    testCase(2, yapi.CriticalE.Critical)
   })
 })

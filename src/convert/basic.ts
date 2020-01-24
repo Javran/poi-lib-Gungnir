@@ -58,3 +58,30 @@ export const convertDetection = (v: number): yapi.Detection => {
     default: return new yapi.Unknown(v, 'Detection')
   }
 }
+
+/*
+  damage with protect flag (if there's an extra `.1`)
+
+  main.js extracts these two piece of info using:
+
+  - Math.floor(v)
+  - v % 1 != 0
+
+ */
+export const convertDamageWithFlag = (v: kcsapi.DamageE): yapi.DamageWithFlag =>
+  ({ protectFlag: v % 1 !== 0, damage: Math.floor(v) })
+
+export const convertCritical = (v: kcsapi.CriticalFlag): yapi.Critical => {
+  switch (v) {
+    case 0: return yapi.CriticalE.Miss
+    case 1: return yapi.CriticalE.Hit
+    case 2: return yapi.CriticalE.Critical
+    default: return new yapi.Unknown(v, 'Critical')
+  }
+}
+
+// TODO: being a bit sloppy here.
+export const convertAttackType = (v: kcsapi.AttackType): yapi.AttackType =>
+  (v as yapi.AttackType)
+
+export const convertSide = (v: kcsapi.IntFlag): yapi.Side => (v as yapi.Side)

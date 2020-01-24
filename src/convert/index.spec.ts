@@ -7,25 +7,6 @@ import {
   convertKoukuStagePlaneCount, convertContactPlane, convertKoukuStage3Damage,
 } from './index'
 
-describe('convertDamageWithFlag', () => {
-  test('samples', () => {
-    expect(convertDamageWithFlag(0)).toStrictEqual({ protectFlag: false, damage: 0 })
-    expect(convertDamageWithFlag(0.1)).toStrictEqual({ protectFlag: true, damage: 0 })
-    expect(convertDamageWithFlag(123.1)).toStrictEqual({ protectFlag: true, damage: 123 })
-    expect(convertDamageWithFlag(456)).toStrictEqual({ protectFlag: false, damage: 456 })
-  })
-})
-
-describe('convertCritical', () => {
-  test('samples', () => {
-    const testCase = (inp: any, expected: yapi.Critical) =>
-      expect(convertCritical(inp as kcsapi.CriticalFlag)).toBe(expected)
-
-    testCase(0, yapi.CriticalE.Miss)
-    testCase(1, yapi.CriticalE.Hit)
-    testCase(2, yapi.CriticalE.Critical)
-  })
-})
 
 describe('convertKoukuPlaneFrom', () => {
   test('samples', () => {
