@@ -155,7 +155,7 @@ export interface SupportAirAttack extends SupportInfoCommon {
   api_stage3: KoukuStage3Enemy | null
 }
 
-export interface SupportHourai {
+export interface SupportHourai extends SupportInfoCommon {
   api_cl_list: Array<number>
   api_damage: Array<number>
 }
