@@ -27,6 +27,9 @@ export interface KoukuStage1 extends KoukuStagePlaneCount {
   contactPlane: ContactPlane | null
 }
 
+// Support info only contains plane count from both sides.
+export type KoukuStage1ForSupport = KoukuStagePlaneCount
+
 export interface Aaci {
   source: ShipIndex,
   kind: number,
@@ -35,6 +38,11 @@ export interface Aaci {
 
 export interface KoukuStage2 extends KoukuStagePlaneCount {
   aaci: Aaci | null,
+}
+
+// Support info only contains plane count from friend side.
+export interface KoukuStage2ForSupport {
+  friend: PlaneInfo
 }
 
 // every data of this type describes
@@ -49,9 +57,20 @@ export interface KoukuStage3Damage extends DamageWithFlag {
 
 export type KoukuStage3 = TwoSides<Array<KoukuStage3Damage>>
 
+export interface KoukuStage3ForSupport {
+  enemy: Array<KoukuStage3Damage>
+}
+
 export interface KoukuStages {
   planeFrom: KoukuPlaneFrom,
   stage1: KoukuStage1 | null,
   stage2: KoukuStage2 | null,
   stage3: KoukuStage3 | null,
+}
+
+export interface KoukuStagesForSupport {
+  planeFrom: KoukuPlaneFrom,
+  stage1: KoukuStage1ForSupport | null,
+  stage2: KoukuStage2ForSupport | null,
+  stage3: KoukuStage3ForSupport | null,
 }
