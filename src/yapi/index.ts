@@ -190,13 +190,11 @@ export interface SupportInfoHouraiShip extends SupportInfoShip {
   damage: DamageWithFlag,
 }
 
-export interface SupportHourai extends SupportInfoCommon<SupportInfoHouraiShip> {
-  type: SupportTypeE.Shelling | SupportTypeE.Torpedo
-}
+// tyoe for SupportHourai must be Shelling or Torpedo
+export type SupportHourai = SupportInfoCommon<SupportInfoHouraiShip>
 
-export interface SupportAirAttack extends SupportInfoCommon<SupportInfoShip> {
-  type: SupportTypeE.Airstrike | SupportTypeE.AntiSub
-}
+// type for SupportAirAttack must be Airstrike or AntiSub
+export type SupportAirAttack = SupportInfoCommon<SupportInfoShip>
 
 export type SupportInfo = Unk<SupportHourai | SupportAirAttack>
 
