@@ -170,6 +170,10 @@ export const convertOpeningTorpedo = (flag: kcsapi.IntFlag, raw: kcsapi.Raigeki 
   return null
 }
 
+export const convertSupportInfo = (flag: number, raw: kcsapi.SupportInfo) => {
+  return 'TODO'
+}
+
 export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
   // IIFE for now, until do-expression becomes available.
   const [fForm, eForm, engagement] = raw.api_formation
