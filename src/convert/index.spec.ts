@@ -16,6 +16,6 @@ describe('convertSupportInfo', () => {
           "api_cl_list": [0, 0, 1, 0, 2, 0, 0],
           "api_damage": [0, 0, 234, 0, 254, 0, 0]
         }
-      })).toStrictEqual({ type: 2, deckId: 3, ships: [] })
+      })).toStrictEqual({ type: 2, deckId: 3, ships: [], attackInfo: [] })
   })
 })

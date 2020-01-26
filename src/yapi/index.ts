@@ -174,27 +174,31 @@ export enum SupportTypeE {
 
 export type SupportType = Unk<SupportTypeE>
 
-export interface SupportInfoCommon<ShipType> {
-  type: SupportType
-  deckId: number
-  ships: Array<ShipType>
-}
-
 export interface SupportInfoShip {
   rosterId: number,  // roster id of the ship.
   undressing: boolean, // true: moderate damage or worst.
 }
 
-export interface SupportInfoHouraiShip extends SupportInfoShip {
+export interface SupportInfoCommon {
+  type: SupportType
+  deckId: number
+  ships: Array<SupportInfoShip>
+}
+
+export interface SupportInfoHouraiDamage {
   critical: Critical,
   damage: DamageWithFlag,
 }
 
 // tyoe for SupportHourai must be Shelling or Torpedo
-export type SupportHourai = SupportInfoCommon<SupportInfoHouraiShip>
+export interface SupportHourai extends SupportInfoCommon {
+  attackInfo: Array<SupportInfoHouraiDamage>
+}
 
 // type for SupportAirAttack must be Airstrike or AntiSub
-export type SupportAirAttack = SupportInfoCommon<SupportInfoShip>
+export interface SupportAirAttack extends SupportInfoCommon {
+  todo: 'TODO'
+}
 
 export type SupportInfo = Unk<SupportHourai | SupportAirAttack>
 

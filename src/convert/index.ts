@@ -173,17 +173,17 @@ export const convertOpeningTorpedo = (flag: kcsapi.IntFlag, raw: kcsapi.Raigeki 
 export const convertSupportInfo = (flag: number, raw: kcsapi.SupportInfo): yapi.SupportInfo | null => {
   if (flag === 2 || flag === 3) {
     // should convert to SupportInfoHourai
-    const type: yapi.SupportTypeE = flag as yapi.SupportTypeE
     const rawDetail = raw.api_support_hourai
     if (rawDetail === null) {
       throw new Error(`api_support_hourai shouldn't be null.`)
     }
     // TODO: placeholder here.
-    const ships: Array<yapi.SupportInfoHouraiShip> = []
+    const ships: Array<yapi.SupportInfoShip> = []
     return {
-      type,
+      type: flag as yapi.SupportTypeE,
       deckId: rawDetail.api_deck_id,
       ships,
+      attackInfo: [],
     }
   }
   return new yapi.Unknown({ flag, raw }, 'SupportInfo')
