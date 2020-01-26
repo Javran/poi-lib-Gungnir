@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "lint": "tslint 'src/**/*.ts' 'test/**/*.ts' || true",
+    "lintfix": "tslint --fix 'src/**/*.ts' 'test/**/*.ts' || true",
     "type-check": "tsc"
   },
   "repository": {
