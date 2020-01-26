@@ -177,15 +177,30 @@ export const convertSupportInfo = (flag: number, raw: kcsapi.SupportInfo): yapi.
     if (rawDetail === null) {
       throw new Error(`api_support_hourai shouldn't be null.`)
     }
-    // TODO: placeholder here.
-    const ships: Array<yapi.SupportInfoShip> = []
+    const ships: Array<yapi.SupportInfoShip> = (_.zipWith as any)(
+      rawDetail.api_ship_id,
+      rawDetail.api_undressing_flag,
+      (rosterId: number, uFlg: kcsapi.IntFlag) => ({
+        rosterId,
+        undressing: convertIntFlag(uFlg),
+      })
+    )
+    const attackInfo: Array<yapi.SupportInfoHouraiDamage> = (_.zipWith as any)(
+      rawDetail.api_cl_list,
+      rawDetail.api_damage,
+      (cl: kcsapi.CriticalFlag, dmg: kcsapi.DamageE) => ({
+        critical: convertCritical(cl),
+        damage: convertDamageWithFlag(dmg),
+      })
+    )
     return {
       type: flag as yapi.SupportTypeE,
       deckId: rawDetail.api_deck_id,
       ships,
-      attackInfo: [],
+      attackInfo,
     }
   }
+  // TODO: convert for Airstrike and Antisub.
   return new yapi.Unknown({ flag, raw }, 'SupportInfo')
 }
 

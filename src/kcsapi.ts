@@ -137,7 +137,7 @@ export type ShipParam = [number, number, number, number]
 export interface SupportInfoCommon {
   api_deck_id: number
   api_ship_id: Array<number>
-  api_undressing_flag: Array<number>
+  api_undressing_flag: Array<IntFlag>
 }
 
 /*
