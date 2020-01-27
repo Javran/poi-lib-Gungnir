@@ -154,6 +154,13 @@ export const convertHouraiPhases =
     return ret
   }
 
+/*
+  TODO: we have been seeing this pattern of looking at a 0/1 flag and then check if it is consistent
+  with the actual field. We should probably look into how the game client itself use this piece of info:
+  for example, in my previous studies, api_hourai_flag is not used at all, which makes more sense
+  because it relies on a single source of truth (whether it is null), and
+  I feel we can do something similar to openning antisub and torpedo.
+ */
 export const convertOpeningAntiSub = (flag: kcsapi.IntFlag, raw: kcsapi.Hougeki | null): yapi.Hougeki | null => {
   // TODO: verify
   if (convertIntFlag(flag) && raw) {

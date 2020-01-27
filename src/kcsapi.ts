@@ -211,8 +211,8 @@ export interface Battle {
   // TODO:
   // the following 4 fields are kind of context-sensitive to battle types:
   // STF and CTF has a different ordering of those
-  // which we can guess from how these fields are ordered in the original packet.
-  // I guess for the data structure we'll be using, an Array will be appropriate.
+  // for now I believe it is important to **not** rely on the packet structure itself,
+  // but on name of that API.
   api_hougeki1: Hougeki | null
   api_hougeki2: Hougeki | null
   api_hougeki3: Hougeki | null
