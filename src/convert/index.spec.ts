@@ -1,9 +1,56 @@
 import * as yapi from '@g/yapi'
 
 import {
+  convertOpeningAntiSub,
   convertSupportType,
   convertSupportInfo,
 } from './index'
+
+describe('convertOpeningAntiSub', () => {
+  test('samples', () => {
+    expect(
+      convertOpeningAntiSub(
+        1,
+        {
+          api_at_eflag: [0, 0, 0, 0, 0],
+          api_at_list: [0, 2, 4, 1, 3],
+          api_at_type: [0, 0, 0, 0, 0],
+          api_df_list: [[3], [2], [1], [0], [4]],
+          api_si_list: [['45'], ['45'], ['45'], ['288'], ['287']],
+          api_cl_list: [[1], [1], [1], [2], [1]],
+          api_damage: [[121], [116], [118], [132], [98]],
+        })).toStrictEqual(
+          {
+            type: 'Hougeki',
+            turns: [
+              {
+                source: { side: 0, index: 0 },
+                attackType: 0, slotitems: [45],
+                damages: [{ target: 3, critical: 1, protectFlag: false, damage: 121 }],
+              },
+              {
+                source: { side: 0, index: 2 },
+                attackType: 0, slotitems: [45],
+                damages: [{ target: 2, critical: 1, protectFlag: false, damage: 116 }],
+              },
+              {
+                source: { side: 0, index: 4 }, attackType: 0, slotitems: [45],
+                damages: [{ target: 1, critical: 1, protectFlag: false, damage: 118 }],
+              },
+              {
+                source: { side: 0, index: 1 },
+                attackType: 0, slotitems: [288],
+                damages: [{ target: 0, critical: 2, protectFlag: false, damage: 132 }],
+              },
+              {
+                source: { side: 0, index: 3 },
+                attackType: 0, slotitems: [287],
+                damages: [{ target: 4, critical: 1, protectFlag: false, damage: 98 }],
+              },
+            ],
+          })
+  })
+})
 
 describe('convertSupportType', () => {
   test('samples', () => {

@@ -162,7 +162,6 @@ export const convertHouraiPhases =
   I feel we can do something similar to openning antisub and torpedo.
  */
 export const convertOpeningAntiSub = (flag: kcsapi.IntFlag, raw: kcsapi.Hougeki | null): yapi.Hougeki | null => {
-  // TODO: verify
   if (convertIntFlag(flag) && raw) {
     return convertHougeki(raw)
   }
