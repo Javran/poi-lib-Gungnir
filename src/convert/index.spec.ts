@@ -4,6 +4,7 @@ import {
   convertOpeningAntiSub,
   convertSupportType,
   convertSupportInfo,
+  convertOpeningTorpedo,
 } from './index'
 
 describe('convertOpeningAntiSub', () => {
@@ -49,6 +50,132 @@ describe('convertOpeningAntiSub', () => {
               },
             ],
           })
+  })
+})
+
+describe('convertOpeningTorpedo', () => {
+  test('samples', () => {
+    expect(convertOpeningTorpedo(
+      1,
+      {
+        api_frai: [-1, -1, -1, 0, -1, -1, -1],
+        api_fcl: [0, 0, 0, 1, 0, 0, 0],
+        api_fdam: [0, 0, 0, 0, 0, 0, 0],
+        api_fydam: [0, 0, 0, 27, 0, 0, 0],
+        api_erai: [-1, -1, -1, -1, -1, -1, -1],
+        api_ecl: [0, 0, 0, 0, 0, 0, 0],
+        api_edam: [27, 0, 0, 0, 0, 0, 0],
+        api_eydam: [0, 0, 0, 0, 0, 0, 0],
+      }
+    )).toStrictEqual(
+      {
+        type: 'Raigeki',
+        friend: [
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage:
+            {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: 0, critical: 1,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 27 },
+            },
+          },
+
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          }],
+        enemy: [
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 27 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+          {
+            target: -1, critical: 0,
+            damage: {
+              taken: { protectFlag: false, damage: 0 },
+              dealt: { protectFlag: false, damage: 0 },
+            },
+          },
+        ],
+      }
+    )
+
   })
 })
 

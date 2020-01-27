@@ -169,7 +169,6 @@ export const convertOpeningAntiSub = (flag: kcsapi.IntFlag, raw: kcsapi.Hougeki 
 }
 
 export const convertOpeningTorpedo = (flag: kcsapi.IntFlag, raw: kcsapi.Raigeki | null): yapi.Raigeki | null => {
-  // TODO: verify
   if (convertIntFlag(flag) && raw) {
     return convertRaigeki(raw)
   }
