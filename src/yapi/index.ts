@@ -190,13 +190,13 @@ export interface SupportInfoHouraiDamage {
   damage: DamageWithFlag,
 }
 
-// tyoe for SupportHourai must be Shelling or Torpedo
 export interface SupportHourai extends SupportInfoCommon {
+  type: SupportTypeE.Shelling | SupportTypeE.Torpedo
   attackInfo: Array<SupportInfoHouraiDamage>
 }
 
-// type for SupportAirAttack must be Airstrike or AntiSub
 export interface SupportAirAttack extends SupportInfoCommon {
+  type: SupportTypeE.Airstrike | SupportTypeE.AntiSub
   todo: 'TODO'
 }
 

@@ -170,8 +170,14 @@ export const convertOpeningTorpedo = (flag: kcsapi.IntFlag, raw: kcsapi.Raigeki 
   return null
 }
 
+export const convertSupportType = (flag: number): yapi.SupportType | null =>
+  (flag === 0) ? null
+    : (flag >= 1 && flag <= 4) ? (flag as yapi.SupportTypeE)
+      : new yapi.Unknown(flag, 'SupportType')
+
 export const convertSupportInfo = (flag: number, raw: kcsapi.SupportInfo): yapi.SupportInfo | null => {
-  if (flag === 2 || flag === 3) {
+  const type = convertSupportType(flag)
+  if (type === yapi.SupportTypeE.Shelling || type === yapi.SupportTypeE.Torpedo) {
     // should convert to SupportInfoHourai
     const rawDetail = raw.api_support_hourai
     if (rawDetail === null) {
@@ -194,7 +200,7 @@ export const convertSupportInfo = (flag: number, raw: kcsapi.SupportInfo): yapi.
       })
     )
     return {
-      type: flag as yapi.SupportTypeE,
+      type,
       deckId: rawDetail.api_deck_id,
       ships,
       attackInfo,

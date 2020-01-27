@@ -1,7 +1,24 @@
-import * as kcsapi from '@g/kcsapi'
 import * as yapi from '@g/yapi'
 
-import { convertSupportInfo } from './index'
+import {
+  convertSupportType,
+  convertSupportInfo,
+} from './index'
+
+describe('convertSupportType', () => {
+  test('samples', () => {
+    const testCase = (inp: number, expected: yapi.Unk<yapi.SupportType | null>) =>
+      expect(convertSupportType(inp)).toBe(expected)
+
+    testCase(0, null)
+    testCase(1, yapi.SupportTypeE.Airstrike)
+    testCase(2, yapi.SupportTypeE.Shelling)
+    testCase(3, yapi.SupportTypeE.Torpedo)
+    testCase(4, yapi.SupportTypeE.AntiSub)
+
+    expect(convertSupportType(9999)).toBeInstanceOf(yapi.Unknown)
+  })
+})
 
 describe('convertSupportInfo', () => {
   test('samples', () => {
