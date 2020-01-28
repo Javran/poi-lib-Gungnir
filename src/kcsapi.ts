@@ -147,12 +147,16 @@ export interface SupportInfoCommon {
   - api_stage3 won't have a friend side.
   Let's see if we can capture those by type.
  */
+export type KoukuStage1ForSupport = KoukuPlaneInfo
+export type KoukuStage2ForSupport = KoukuPlaneInfoFriend
+export type KoukuStage3ForSupport = KoukuStage3Enemy
+
 export interface SupportAirAttack extends SupportInfoCommon {
   api_stage_flag: KoukuStageFlags
   api_plane_from: KoukuPlaneFrom
-  api_stage1: KoukuPlaneInfo | null
-  api_stage2: KoukuPlaneInfoFriend | null
-  api_stage3: KoukuStage3Enemy | null
+  api_stage1: KoukuStage1ForSupport | null
+  api_stage2: KoukuStage2ForSupport | null
+  api_stage3: KoukuStage3ForSupport | null
 }
 
 export interface SupportHourai extends SupportInfoCommon {
