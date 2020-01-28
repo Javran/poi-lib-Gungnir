@@ -1,7 +1,7 @@
 import * as _ from 'lodash'
 
-import * as kcsapi from '../kcsapi'
-import * as yapi from '../yapi'
+import * as kcsapi from '@g/kcsapi'
+import * as yapi from '@g/yapi'
 
 import {
   convertIntFlag, convertCritical, convertDamageWithFlag,
@@ -25,16 +25,26 @@ export const convertAirpower = (v: kcsapi.Airpower): yapi.Airpower => {
   }
 }
 
-export const convertKoukuStagePlaneCount = (raw: kcsapi.KoukuPlaneInfo): yapi.KoukuStagePlaneCount => {
-  const {
-    api_f_count: fTotal, api_f_lostcount: fLost,
-    api_e_count: eTotal, api_e_lostcount: eLost,
-  } = raw
-  return {
-    friend: { total: fTotal, lost: fLost },
-    enemy: { total: eTotal, lost: eLost },
-  }
-}
+const [convertPlaneTotalAndLostFriend, convertPlaneTotalAndLostEnemy] = (() => {
+  const convertPlaneCount =
+    <T, K extends keyof T>
+      (fieldNameTotal: string, fieldNameLost: string) =>
+      (raw: T): { total: K, lost: K } => ({
+        total: raw[fieldNameTotal],
+        lost: raw[fieldNameLost],
+      })
+  return [
+    convertPlaneCount('api_f_count', 'api_f_lostcount'),
+    convertPlaneCount('api_e_count', 'api_e_lostcount'),
+  ]
+})()
+
+export const convertKoukuStagePlaneCount =
+  (raw: kcsapi.KoukuPlaneInfo): yapi.KoukuStagePlaneCount => (
+    {
+      friend: convertPlaneTotalAndLostFriend(raw),
+      enemy: convertPlaneTotalAndLostEnemy(raw),
+    })
 
 export const convertContactPlane = (raw?: kcsapi.ContactPlane): yapi.ContactPlane => {
   if (raw) {
@@ -51,6 +61,9 @@ export const convertKoukuStage1 =
     airpower: convertAirpower(raw.api_disp_seiku),
     contactPlane: convertContactPlane(raw.api_touch_plane),
   })
+
+export const convertKoukuStage1ForSupport: (raw: kcsapi.KoukuStage1ForSupport) => yapi.KoukuStage1ForSupport =
+  convertKoukuStagePlaneCount
 
 export const convertAaci = (raw: kcsapi.Aaci): yapi.Aaci => {
   const { api_idx: source, api_kind: kind, api_use_items: equips } = raw
