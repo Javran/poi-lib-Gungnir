@@ -62,8 +62,13 @@ export const convertKoukuStage1 =
     contactPlane: convertContactPlane(raw.api_touch_plane),
   })
 
-export const convertKoukuStage1ForSupport: (raw: kcsapi.KoukuStage1ForSupport) => yapi.KoukuStage1ForSupport =
+export const convertKoukuStage1ForSupport:
+  (raw: kcsapi.KoukuStage1ForSupport) => yapi.KoukuStage1ForSupport =
   convertKoukuStagePlaneCount
+
+export const convertKoukuStage2ForSupport =
+  (raw: kcsapi.KoukuStage2ForSupport): yapi.KoukuStage2ForSupport =>
+    ({ friend: convertPlaneTotalAndLostFriend(raw) })
 
 export const convertAaci = (raw: kcsapi.Aaci): yapi.Aaci => {
   const { api_idx: source, api_kind: kind, api_use_items: equips } = raw
