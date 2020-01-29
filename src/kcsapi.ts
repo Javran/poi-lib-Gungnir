@@ -140,13 +140,6 @@ export interface SupportInfoCommon {
   api_undressing_flag: Array<IntFlag>
 }
 
-/*
-  TODO: Kouku is slightly different that we usually expect:
-  - api_stage1 won't have contact / airpower
-  - api_stage2 won't have plane count from enemy side and no aaci
-  - api_stage3 won't have a friend side.
-  Let's see if we can capture those by type.
- */
 export type KoukuStage1ForSupport = KoukuPlaneInfo
 export type KoukuStage2ForSupport = KoukuPlaneInfoFriend
 export type KoukuStage3ForSupport = KoukuStage3Enemy
