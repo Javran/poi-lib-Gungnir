@@ -117,6 +117,16 @@ export const convertKoukuStage3 =
         convertKoukuStage3Damage),
   })
 
+export const convertKoukuStage3ForSupport =
+  (raw: kcsapi.KoukuStage3ForSupport): yapi.KoukuStage3ForSupport => ({
+    enemy: (_.zipWith as any)(
+      raw.api_erai_flag || [],
+      raw.api_ebak_flag || [],
+      raw.api_ecl_flag || [],
+      raw.api_edam || [],
+      convertKoukuStage3Damage),
+  })
+
 export const convertKoukuStages =
   ([f1, f2, f3]: kcsapi.KoukuStageFlags, raw: kcsapi.Kouku): yapi.KoukuStages => {
     const ret: yapi.KoukuStages = {
