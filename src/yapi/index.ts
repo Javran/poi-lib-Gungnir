@@ -86,7 +86,7 @@ import {
   Unk, TwoSides, Hp, Formation, Engagement, ShipIndex,
   Side, Detection, Critical, AttackType, DamageWithFlag,
 } from './basic'
-import { KoukuStages } from './kouku'
+import { KoukuStages, KoukuStagesForSupport } from './kouku'
 
 export * from './basic'
 export * from './kouku'
@@ -197,18 +197,10 @@ export interface SupportHourai extends SupportInfoCommon {
 
 export interface SupportAirAttack extends SupportInfoCommon {
   type: SupportTypeE.Airstrike | SupportTypeE.AntiSub
-  todo: 'TODO'
+  koukuStages: KoukuStagesForSupport
 }
 
 export type SupportInfo = Unk<SupportHourai | SupportAirAttack>
-
-/*
-  TODO: some "bare minimal"s to be converted:
-
-  api_support_flag
-  api_support_info
-
- */
 
 export interface Battle {
   deckId: number,
