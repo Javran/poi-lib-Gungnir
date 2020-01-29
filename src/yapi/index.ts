@@ -195,6 +195,8 @@ export interface SupportHourai extends SupportInfoCommon {
   attackInfo: Array<SupportInfoHouraiDamage>
 }
 
+// TODO: the naming is confusing for now
+// because kcsapi.SupportAirAttack does not correspond to yapi.SupportAirAttack.
 export interface SupportAirAttack extends SupportInfoCommon {
   type: SupportTypeE.Airstrike | SupportTypeE.AntiSub
   koukuStages: KoukuStagesForSupport
