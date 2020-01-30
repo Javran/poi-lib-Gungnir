@@ -13,6 +13,7 @@ import {
 
 import {
   convertKoukuStages,
+  convertKoukuStagesForSupport,
 } from './kouku'
 
 export * from './basic'
@@ -180,6 +181,7 @@ export const convertSupportType = (flag: number): yapi.SupportType | null =>
     : (flag >= 1 && flag <= 4) ? (flag as yapi.SupportTypeE)
       : new yapi.Unknown(flag, 'SupportType')
 
+// TODO: test.
 export const convertSupportInfo = (flag: number, raw: kcsapi.SupportInfo): yapi.SupportInfo | null => {
   const type = convertSupportType(flag)
   if (type === yapi.SupportTypeE.Shelling || type === yapi.SupportTypeE.Torpedo) {
@@ -211,7 +213,26 @@ export const convertSupportInfo = (flag: number, raw: kcsapi.SupportInfo): yapi.
       attackInfo,
     }
   }
-  // TODO: convert for Airstrike and Antisub.
+  if (type === yapi.SupportTypeE.Airstrike || type === yapi.SupportTypeE.AntiSub) {
+    const rawDetail = raw.api_support_airatack
+    if (rawDetail === null) {
+      throw new Error(`api_support_airatack shouldn't be null.`)
+    }
+    const ships: Array<yapi.SupportInfoShip> = (_.zipWith as any)(
+      rawDetail.api_ship_id,
+      rawDetail.api_undressing_flag,
+      (rosterId: number, uFlg: kcsapi.IntFlag) => ({
+        rosterId,
+        undressing: convertIntFlag(uFlg),
+      })
+    )
+    return {
+      type,
+      deckId: rawDetail.api_deck_id,
+      ships,
+      koukuStages: convertKoukuStagesForSupport(rawDetail),
+    }
+  }
   return new yapi.Unknown({ flag, raw }, 'SupportInfo')
 }
 
