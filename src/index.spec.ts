@@ -82,6 +82,7 @@ describe('samples', () => {
         stage2: null,
         stage3: null,
       },
+      supportInfo: null,
       openingAntiSub: null,
       openingTorpedo: null,
       houraiPhases: [
@@ -533,6 +534,7 @@ describe('samples', () => {
           },
         ],
       },
+      supportInfo: null,
       houraiPhases: [
         {
           type: 'Hougeki',

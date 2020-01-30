@@ -183,7 +183,10 @@ export const convertSupportType = (flag: number): yapi.SupportType | null =>
 
 // TODO: test.
 export const convertSupportInfo =
-  (flag: number, raw: kcsapi.SupportInfo): yapi.SupportInfo | null => {
+  (flag: number, raw: kcsapi.SupportInfo | null): yapi.SupportInfo | null => {
+    if (raw === null) {
+      return null
+    }
     const type = convertSupportType(flag)
     const convertShips =
       (
@@ -269,6 +272,7 @@ export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
     pursueFlag: convertIntFlag(raw.api_midnight_flag),
     detection,
     koukuStages: convertKoukuStages(raw.api_stage_flag, raw.api_kouku),
+    supportInfo: convertSupportInfo(raw.api_support_flag, raw.api_support_info),
     openingAntiSub: convertOpeningAntiSub(raw.api_opening_taisen_flag, raw.api_opening_taisen || null),
     openingTorpedo: convertOpeningTorpedo(raw.api_opening_flag, raw.api_opening_atack || null),
     houraiPhases: convertHouraiPhases(

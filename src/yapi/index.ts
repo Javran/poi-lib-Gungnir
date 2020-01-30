@@ -216,6 +216,7 @@ export interface Battle {
   pursueFlag: boolean,
   detection: TwoSides<Detection>,
   koukuStages: KoukuStages,
+  supportInfo: SupportInfo | null,
   openingAntiSub: Hougeki | null,
   openingTorpedo: Raigeki | null,
   houraiPhases: HouraiPhases,
