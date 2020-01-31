@@ -140,6 +140,11 @@ export interface SupportInfoCommon {
   api_undressing_flag: Array<IntFlag>
 }
 
+/*
+  TODO: we should start to split kcsapi into multiple modules as well,
+  because now we have multiple variants of Kouku info.
+ */
+
 export type KoukuStage1ForSupport = KoukuPlaneInfo
 export type KoukuStage2ForSupport = KoukuPlaneInfoFriend
 export type KoukuStage3ForSupport = KoukuStage3Enemy
@@ -193,13 +198,17 @@ export interface Battle {
 
   api_midnight_flag: IntFlag
   api_search: [Detection, Detection]
+  api_air_base_injection?: any // TODO
+  api_injection_kouku?: Kouku // TODO
+  api_air_base_attack?: Array<KoukuLbas> // TODO
+
   api_stage_flag: KoukuStageFlags
   api_kouku: Kouku
 
   api_support_flag: number
   api_support_info: SupportInfo | null
   api_opening_taisen_flag: IntFlag
-  api_opening_taisen: Hougeki | null // TODO
+  api_opening_taisen: Hougeki | null
   api_opening_flag: IntFlag
   // No I'm not misspelling "atack", the API has been keeping it this way.
   api_opening_atack: Raigeki | null
@@ -220,10 +229,6 @@ export interface Battle {
   api_escape_idx_combined?: any
   api_combat_ration: any
   api_combat_ration_combined: any
-
-  api_air_base_injection?: any
-  api_injection_kouku?: Kouku
-  api_air_base_attack: Array<KoukuLbas>
 
   api_stage_flag2?: KoukuStageFlags
   api_kouku2?: Kouku
