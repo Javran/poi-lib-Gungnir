@@ -6,77 +6,19 @@
 
  */
 import {
-  Airpower, IntFlag, CriticalFlag,
+  IntFlag, CriticalFlag,
   ShipIndex, AttackType,
   Formation, Engagement, Detection,
   Damage, DamageE,
 } from './basic'
 
-export interface KoukuPlaneInfoFriend {
-  api_f_count: number
-  api_f_lostcount: number
-}
+import {
+  KoukuStageFlags,
+  Kouku, KoukuLbas, KoukuForSupport,
+} from './kouku'
 
-export interface KoukuPlaneInfoEnemy {
-  api_e_count: number
-  api_e_lostcount: number
-}
-
-export type KoukuPlaneInfo = KoukuPlaneInfoFriend & KoukuPlaneInfoEnemy
-
-export type ContactPlane = null | Array<number>
-
-export interface KoukuStage1 extends KoukuPlaneInfo {
-  api_disp_seiku: Airpower
-  api_touch_plane?: ContactPlane
-}
-
-export interface Aaci {
-  api_idx: number,
-  api_kind: number,
-  api_use_items: Array<number>, // TODO
-}
-
-export interface KoukuStage2 extends KoukuPlaneInfo {
-  api_air_fire?: Aaci
-}
-
-interface KoukuStage3Enemy {
-  api_erai_flag: Array<IntFlag> | null
-  api_ebak_flag: Array<IntFlag> | null
-  api_ecl_flag: Array<IntFlag> | null
-  api_edam: Array<number> | null
-}
-
-interface KoukuStage3Friend {
-  api_frai_flag: Array<IntFlag> | null
-  api_fbak_flag: Array<IntFlag> | null
-  api_fcl_flag: Array<IntFlag> | null
-  api_fdam: Array<number> | null
-}
-
-export type KoukuStage3 = KoukuStage3Friend & KoukuStage3Enemy
-
-// there are in total 3 stages per air battle,
-// this flag is used as an indicate whether a particular stage exists
-// (a non-existing one has that corresponding stage set to null)
-export type KoukuStageFlags = [IntFlag, IntFlag, IntFlag]
-
-export type KoukuPlaneFrom = Array<Array<number> | null> | null
-
-export interface Kouku {
-  api_plane_from: KoukuPlaneFrom
-  api_stage1: KoukuStage1 | null
-  api_stage2: KoukuStage2 | null
-  api_stage3: KoukuStage3 | null
-  // api_stage3_combined?: KoukuStage3 | null
-}
-
-interface KoukuLbas extends Kouku {
-  api_base_id: number
-  api_stage_flag: KoukuStageFlags
-  api_squadron_plane: any
-}
+export * from './basic'
+export * from './kouku'
 
 export type HougekiSlotitems = Array<number | string> | null
 
@@ -118,22 +60,7 @@ export interface SupportInfoCommon {
   api_undressing_flag: Array<IntFlag>
 }
 
-/*
-  TODO: we should start to split kcsapi into multiple modules as well,
-  because now we have multiple variants of Kouku info.
- */
-
-export type KoukuStage1ForSupport = KoukuPlaneInfo
-export type KoukuStage2ForSupport = KoukuPlaneInfoFriend
-export type KoukuStage3ForSupport = KoukuStage3Enemy
-
-export interface SupportAirAttack extends SupportInfoCommon {
-  api_stage_flag: KoukuStageFlags
-  api_plane_from: KoukuPlaneFrom
-  api_stage1: KoukuStage1ForSupport | null
-  api_stage2: KoukuStage2ForSupport | null
-  api_stage3: KoukuStage3ForSupport | null
-}
+export type SupportAirAttack = SupportInfoCommon & KoukuForSupport
 
 export interface SupportHourai extends SupportInfoCommon {
   api_cl_list: Array<number>
