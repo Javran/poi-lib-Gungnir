@@ -92,3 +92,14 @@ export interface KoukuForSupport {
   api_stage2: KoukuStage2ForSupport | null
   api_stage3: KoukuStage3ForSupport | null
 }
+
+export type KoukuStage1ForInjection = KoukuPlaneInfo
+export type KoukuStage2ForInjection = KoukuPlaneInfo
+export type KoukuStage3ForInjection = KoukuStage3
+
+export interface KoukuForInjection {
+  api_plane_from: KoukuPlaneFrom
+  api_stage1: KoukuStage1ForInjection
+  api_stage2: KoukuStage2ForInjection
+  api_stage3: KoukuStage3ForInjection
+}
