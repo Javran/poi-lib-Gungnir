@@ -74,3 +74,14 @@ export interface KoukuStagesForSupport {
   stage2: KoukuStage2ForSupport | null,
   stage3: KoukuStage3ForSupport | null,
 }
+
+export type KoukuStage1ForInjection = KoukuStagePlaneCount
+export type KoukuStage2ForInjection = KoukuStagePlaneCount
+export type KoukuStage3ForInjection = KoukuStage3
+
+export interface KoukuStagesForInjection {
+  planeFrom: KoukuPlaneFrom,
+  stage1: KoukuStage1ForInjection,
+  stage2: KoukuStage2ForInjection,
+  stage3: KoukuStage3ForInjection,
+}

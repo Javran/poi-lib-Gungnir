@@ -182,3 +182,35 @@ export const convertKoukuStagesForSupport =
     }
     return ret
   }
+
+export const convertKoukuStage1ForInjection:
+  (raw: kcsapi.KoukuStage1ForInjection) => yapi.KoukuStage1ForInjection =
+  convertKoukuStagePlaneCount
+
+export const convertKoukuStage2ForInjection:
+  (raw: kcsapi.KoukuStage2ForInjection) => yapi.KoukuStage2ForInjection =
+  convertKoukuStagePlaneCount
+
+export const convertKoukuStage3ForInjection:
+  (raw: kcsapi.KoukuStage3ForInjection) => yapi.KoukuStage3ForInjection =
+  convertKoukuStage3
+
+// TODO: test coverage
+export const convertKoukuStagesForInjection =
+  (raw: kcsapi.KoukuForInjection): yapi.KoukuStagesForInjection => {
+    if (raw.api_stage1 === null) {
+      throw new Error(`Cannnot convert stage1: null`)
+    }
+    if (raw.api_stage2 === null) {
+      throw new Error(`Cannnot convert stage2: null`)
+    }
+    if (raw.api_stage3 === null) {
+      throw new Error(`Cannnot convert stage3: null`)
+    }
+    return {
+      planeFrom: convertKoukuPlaneFrom(raw.api_plane_from),
+      stage1: convertKoukuStage1ForInjection(raw.api_stage1),
+      stage2: convertKoukuStage2ForInjection(raw.api_stage2),
+      stage3: convertKoukuStage3ForInjection(raw.api_stage3),
+    }
+  }
