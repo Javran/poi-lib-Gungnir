@@ -3,7 +3,7 @@ import * as yapi from '@g/yapi'
 
 import {
   convertKoukuPlaneFrom, convertAirpower, convertAaci,
-  convertKoukuStagePlaneCount, convertContactPlane, convertKoukuStage3Damage,
+  convertKoukuStagePlaneCount, convertContactPlane, convertKoukuStage3Damage, convertKoukuStagesForInjection,
 } from './kouku'
 
 describe('convertKoukuPlaneFrom', () => {
@@ -93,6 +93,44 @@ describe('convertKoukuStage3Damage', () => {
       critical: yapi.CriticalE.Miss,
       damage: 0,
       protectFlag: false,
+    })
+  })
+})
+
+describe('convertKoukuStagesForInjection', () => {
+  test('samples', () => {
+    expect(convertKoukuStagesForInjection({
+      api_plane_from: [[2], null],
+      api_stage1: { api_f_count: 9, api_f_lostcount: 0, api_e_count: 0, api_e_lostcount: 0 },
+      api_stage2: { api_f_count: 9, api_f_lostcount: 2, api_e_count: 0, api_e_lostcount: 0 },
+      api_stage3: {
+        api_frai_flag: [0, 0, 0, 0, 0, 0], api_erai_flag: [0, 0, 0, 0, 0, 0],
+        api_fbak_flag: [0, 0, 0, 0, 0, 0], api_ebak_flag: [0, 0, 0, 0, 0, 1],
+        api_fcl_flag: [0, 0, 0, 0, 0, 0], api_ecl_flag: [0, 0, 0, 0, 0, 0],
+        api_fdam: [0, 0, 0, 0, 0, 0], api_edam: [0, 0, 0, 0, 0, 10],
+      },
+    })).toStrictEqual({
+      planeFrom: { friend: [1], enemy: [] },
+      stage1: { friend: { total: 9, lost: 0 }, enemy: { total: 0, lost: 0 } },
+      stage2: { friend: { total: 9, lost: 2 }, enemy: { total: 0, lost: 0 } },
+      stage3: {
+        friend: [
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+        ],
+        enemy: [
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+          { raiFlag: false, bakFlag: true, critical: 0, protectFlag: false, damage: 10 },
+        ],
+      },
     })
   })
 })

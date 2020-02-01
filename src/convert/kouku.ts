@@ -62,7 +62,6 @@ export const convertKoukuStage1 =
     contactPlane: convertContactPlane(raw.api_touch_plane),
   })
 
-
 export const convertAaci = (raw: kcsapi.Aaci): yapi.Aaci => {
   const { api_idx: source, api_kind: kind, api_use_items: equips } = raw
   return { source, kind, equips }
@@ -195,7 +194,6 @@ export const convertKoukuStage3ForInjection:
   (raw: kcsapi.KoukuStage3ForInjection) => yapi.KoukuStage3ForInjection =
   convertKoukuStage3
 
-// TODO: test coverage
 export const convertKoukuStagesForInjection =
   (raw: kcsapi.KoukuForInjection): yapi.KoukuStagesForInjection => {
     if (raw.api_stage1 === null) {
