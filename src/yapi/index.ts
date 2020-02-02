@@ -92,22 +92,22 @@ export * from './basic'
 export * from './kouku'
 
 export interface ShipAttributes {
-  firepower: number,
-  torpedo: number,
-  antiAir: number,
-  armor: number,
+  firepower: number
+  torpedo: number
+  antiAir: number
+  armor: number
 }
 
 export interface ShipInfoCommon {
   // api_fParam & api_eParam
-  attrib: ShipAttributes,
+  attrib: ShipAttributes
 }
 
 export interface ShipInfoExtra {
   // api_ship_ke
-  mstId: number,
+  mstId: number
   // api_ship_lv
-  level: number,
+  level: number
   /*
     the equipment array, if present, will be kept as it is.
     this is because number 0, -1 can be used to indicate
@@ -116,17 +116,17 @@ export interface ShipInfoExtra {
     but for now let's just make sure the conversion does not drop any info.
    */
   // api_eSlot
-  equips: Array<number>,
+  equips: Array<number>
 }
 
 export type ShipInfoFriend = ShipInfoCommon
 export type ShipInfoEnemy = ShipInfoCommon & ShipInfoExtra
 
 export interface HougekiDamage {
-  target: ShipIndex,
-  critical: Unk<Critical>,
-  protectFlag: boolean,
-  damage: number,
+  target: ShipIndex
+  critical: Unk<Critical>
+  protectFlag: boolean
+  damage: number
 }
 
 // either a non-empty list or null
@@ -137,26 +137,26 @@ export type HougekiSlotitems = Array<number> | null
 // with a fixed attack type.
 export interface HougekiTurn {
   source: {
-    side: Side,
-    index: ShipIndex,
-  },
-  attackType: AttackType,
-  slotitems: HougekiSlotitems,
-  damages: Array<HougekiDamage>,
+    side: Side
+    index: ShipIndex
+  }
+  attackType: AttackType
+  slotitems: HougekiSlotitems
+  damages: Array<HougekiDamage>
 }
 
 export interface Hougeki {
   type: 'Hougeki'
-  turns: Array<HougekiTurn>,
+  turns: Array<HougekiTurn>
 }
 
 export interface RaigekiTurn {
-  target: ShipIndex,
-  critical: Unk<Critical>,
+  target: ShipIndex
+  critical: Unk<Critical>
   damage: {
-    taken: DamageWithFlag,
-    dealt: DamageWithFlag,
-  },
+    taken: DamageWithFlag
+    dealt: DamageWithFlag
+  }
 }
 
 export interface Raigeki extends TwoSides<Array<RaigekiTurn>> {
@@ -175,8 +175,8 @@ export enum SupportTypeE {
 export type SupportType = Unk<SupportTypeE>
 
 export interface SupportInfoShip {
-  rosterId: number,  // roster id of the ship.
-  undressing: boolean, // true: moderate damage or worst.
+  rosterId: number // roster id of the ship.
+  undressing: boolean // true: moderate damage or worst.
 }
 
 export interface SupportInfoCommon {
@@ -186,8 +186,8 @@ export interface SupportInfoCommon {
 }
 
 export interface SupportInfoHouraiDamage {
-  critical: Critical,
-  damage: DamageWithFlag,
+  critical: Critical
+  damage: DamageWithFlag
 }
 
 export interface SupportHourai extends SupportInfoCommon {
@@ -205,24 +205,24 @@ export interface SupportAirAttack extends SupportInfoCommon {
 export type SupportInfo = Unk<SupportHourai | SupportAirAttack>
 
 export interface Battle {
-  deckId: number,
-  engagement: Engagement,
-  formation: TwoSides<Formation>,
-  hps: TwoSides<Array<Hp>>,
+  deckId: number
+  engagement: Engagement
+  formation: TwoSides<Formation>
+  hps: TwoSides<Array<Hp>>
   shipInfo: {
-    friend: Array<ShipInfoFriend>,
-    enemy: Array<ShipInfoEnemy>,
-  },
-  pursueFlag: boolean,
-  detection: TwoSides<Detection>,
+    friend: Array<ShipInfoFriend>
+    enemy: Array<ShipInfoEnemy>
+  }
+  pursueFlag: boolean
+  detection: TwoSides<Detection>
   // TODO: air base injection
   // TODO: injection kouku
   // TODO: air base attack
-  koukuStages: KoukuStages,
-  supportInfo: SupportInfo | null,
-  openingAntiSub: Hougeki | null,
-  openingTorpedo: Raigeki | null,
-  houraiPhases: HouraiPhases,
+  koukuStages: KoukuStages
+  supportInfo: SupportInfo | null
+  openingAntiSub: Hougeki | null
+  openingTorpedo: Raigeki | null
+  houraiPhases: HouraiPhases
 }
 
 // TODO: night battle.

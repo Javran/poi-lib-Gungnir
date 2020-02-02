@@ -27,8 +27,8 @@ export type Unk<T> = T | Unknown
   and "enemy" side.
  */
 export interface TwoSides<T> {
-  friend: T,
-  enemy: T,
+  friend: T
+  enemy: T
 }
 
 export enum EngagementE {
@@ -58,11 +58,11 @@ export type Formation = Unk<FormationE>
 export type Hp = [number, number] // current and max.
 
 export interface DetectionInl {
-  success: boolean,
+  success: boolean
   // true: plane returned
   // false: plane not returned
   // null: without plane
-  planeReturned: boolean | null,
+  planeReturned: boolean | null
 }
 
 export type Detection = Unk<DetectionInl>
@@ -116,6 +116,6 @@ export enum CriticalE {
 export type Critical = Unk<CriticalE>
 
 export interface DamageWithFlag {
-  protectFlag: boolean,
-  damage: number,
+  protectFlag: boolean
+  damage: number
 }
