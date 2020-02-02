@@ -215,9 +215,14 @@ export interface Battle {
   },
   pursueFlag: boolean,
   detection: TwoSides<Detection>,
+  // TODO: air base injection
+  // TODO: injection kouku
+  // TODO: air base attack
   koukuStages: KoukuStages,
   supportInfo: SupportInfo | null,
   openingAntiSub: Hougeki | null,
   openingTorpedo: Raigeki | null,
   houraiPhases: HouraiPhases,
 }
+
+// TODO: night battle.
