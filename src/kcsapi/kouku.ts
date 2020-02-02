@@ -110,6 +110,7 @@ export interface AirBaseSquadron {
 export interface KoukuForAirBase {
   api_base_id: number
   api_stage_flag: KoukuStageFlags
+  api_plane_from: KoukuPlaneFrom
   api_squadron_plane: Array<AirBaseSquadron>
   api_stage1: KoukuStage1ForAirBase
   api_stage2: KoukuStage2ForAirBase

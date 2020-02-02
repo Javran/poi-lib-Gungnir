@@ -57,9 +57,11 @@ export interface KoukuStage3Damage extends DamageWithFlag {
 
 export type KoukuStage3 = TwoSides<Array<KoukuStage3Damage>>
 
-export interface KoukuStage3ForSupport {
+export interface KoukuStage3EnemyOnly {
   enemy: Array<KoukuStage3Damage>
 }
+
+export type KoukuStage3ForSupport = KoukuStage3EnemyOnly
 
 export interface KoukuStages {
   planeFrom: KoukuPlaneFrom,
@@ -84,4 +86,23 @@ export interface KoukuStagesForInjection {
   stage1: KoukuStage1ForInjection,
   stage2: KoukuStage2ForInjection,
   stage3: KoukuStage3ForInjection,
+}
+
+export type KoukuStage1ForAirBase = KoukuStage1
+export type KoukuStage2ForAirBase = KoukuStagePlaneCount
+export type KoukuStage3ForAirBase = KoukuStage3EnemyOnly
+
+// TODO: consistent style: drop commas or not?
+export interface AirBaseSquadron {
+  masterId: number,
+  count: number,
+}
+
+export interface KoukuStagesForAirBase {
+  baseId: number,
+  planeFrom: KoukuPlaneFrom,
+  squadrons: Array<AirBaseSquadron>,
+  stage1: KoukuStage1ForAirBase | null,
+  stage2: KoukuStage2ForAirBase | null,
+  stage3: KoukuStage3ForAirBase | null,
 }
