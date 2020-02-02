@@ -75,12 +75,6 @@ export interface Kouku {
   // api_stage3_combined?: KoukuStage3 | null
 }
 
-export interface KoukuLbas extends Kouku {
-  api_base_id: number
-  api_stage_flag: KoukuStageFlags
-  api_squadron_plane: any
-}
-
 export type KoukuStage1ForSupport = KoukuPlaneInfo
 export type KoukuStage2ForSupport = KoukuPlaneInfoFriend
 export type KoukuStage3ForSupport = KoukuStage3Enemy
@@ -102,4 +96,22 @@ export interface KoukuForInjection {
   api_stage1: KoukuStage1ForInjection
   api_stage2: KoukuStage2ForInjection
   api_stage3: KoukuStage3ForInjection
+}
+
+export type KoukuStage1ForAirBase = KoukuStage1
+export type KoukuStage2ForAirBase = KoukuPlaneInfo
+export type KoukuStage3ForAirBase = KoukuStage3Enemy
+
+export interface AirBaseSquadron {
+  api_mst_id: number
+  api_count: number
+}
+
+export interface KoukuForAirBase {
+  api_base_id: number
+  api_stage_flag: KoukuStageFlags
+  api_squadron_plane: Array<AirBaseSquadron>
+  api_stage1: KoukuStage1ForAirBase
+  api_stage2: KoukuStage2ForAirBase
+  api_stage3: KoukuStage3ForAirBase
 }

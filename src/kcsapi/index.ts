@@ -14,7 +14,7 @@ import {
 
 import {
   KoukuStageFlags,
-  Kouku, KoukuLbas, KoukuForSupport, KoukuForInjection,
+  Kouku, KoukuForSupport, KoukuForInjection, KoukuForAirBase,
 } from './kouku'
 
 export * from './basic'
@@ -105,7 +105,7 @@ export interface Battle {
   api_search: [Detection, Detection]
   api_air_base_injection?: any // TODO
   api_injection_kouku?: KoukuForInjection
-  api_air_base_attack?: Array<KoukuLbas> // TODO
+  api_air_base_attack?: Array<KoukuForAirBase>
 
   api_stage_flag: KoukuStageFlags
   api_kouku: Kouku
