@@ -228,3 +228,39 @@ export const convertKoukuStage2ForAirBase:
 export const convertKoukuStage3ForAirBase:
   (raw: kcsapi.KoukuStage3ForAirBase) => yapi.KoukuStage3ForAirBase =
   convertKoukuStage3EnemyOnly
+
+export const convertAirBaseSquadron =
+  (
+    { api_mst_id: masterId, api_count: count }: kcsapi.AirBaseSquadron
+  ): yapi.AirBaseSquadron =>
+    ({ masterId, count })
+
+export const convertKoukuStagesForAirBase =
+  (raw: kcsapi.KoukuForAirBase): yapi.KoukuStagesForAirBase => {
+    const [f1, f2, f3] = raw.api_stage_flag
+    const ret: yapi.KoukuStagesForAirBase = {
+      baseId: raw.api_base_id,
+      planeFrom: convertKoukuPlaneFrom(raw.api_plane_from),
+      squadrons: raw.api_squadron_plane.map(convertAirBaseSquadron),
+      stage1: null, stage2: null, stage3: null,
+    }
+    if (f1) {
+      if (raw.api_stage1 === null) {
+        throw new Error(`Cannnot convert stage1: null`)
+      }
+      ret.stage1 = convertKoukuStage1ForAirBase(raw.api_stage1)
+    }
+    if (f2) {
+      if (raw.api_stage2 === null) {
+        throw new Error(`Cannnot convert stage2: null`)
+      }
+      ret.stage2 = convertKoukuStage2ForAirBase(raw.api_stage2)
+    }
+    if (f3) {
+      if (raw.api_stage3 === null) {
+        throw new Error(`Cannnot convert stage3: null`)
+      }
+      ret.stage3 = convertKoukuStage3ForAirBase(raw.api_stage3)
+    }
+    return ret
+  }
