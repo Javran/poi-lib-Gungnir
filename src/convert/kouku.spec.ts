@@ -3,7 +3,7 @@ import * as yapi from '@g/yapi'
 
 import {
   convertKoukuPlaneFrom, convertAirpower, convertAaci,
-  convertKoukuStagePlaneCount, convertContactPlane, convertKoukuStage3Damage, convertKoukuStagesForInjection,
+  convertKoukuStagePlaneCount, convertContactPlane, convertKoukuStage3Damage, convertKoukuStagesForInjection, convertKoukuStagesForAirBase,
 } from './kouku'
 
 describe('convertKoukuPlaneFrom', () => {
@@ -129,6 +129,65 @@ describe('convertKoukuStagesForInjection', () => {
           { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
           { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
           { raiFlag: false, bakFlag: true, critical: 0, protectFlag: false, damage: 10 },
+        ],
+      },
+    })
+  })
+})
+
+describe('convertKoukuStagesForAirBase', () => {
+  test('samples', () => {
+    expect(convertKoukuStagesForAirBase({
+      api_base_id: 1,
+      api_stage_flag: [1, 1, 1],
+      api_plane_from: [null, [1, 2, 3, 4, 7, 8, 9]],
+      api_squadron_plane: [
+        { api_mst_id: 225, api_count: 18 }, { api_mst_id: 222, api_count: 18 },
+        { api_mst_id: 170, api_count: 18 }, { api_mst_id: 187, api_count: 18 },
+      ],
+      api_stage1: {
+        api_f_count: 72, api_f_lostcount: 10,
+        api_e_count: 373, api_e_lostcount: 119,
+        api_disp_seiku: 0, api_touch_plane: [-1, -1],
+      },
+      api_stage2: {
+        api_f_count: 31, api_f_lostcount: 0,
+        api_e_count: 0, api_e_lostcount: 0,
+      },
+      api_stage3: {
+        api_erai_flag: [0, 0, 0, 0, 0, 0],
+        api_ebak_flag: [0, 0, 0, 0, 0, 0],
+        api_ecl_flag: [0, 0, 0, 0, 0, 0],
+        api_edam: [0, 0, 0, 0, 0, 0],
+      },
+      /*
+        TODO: we are not yet ready for "_combined"
+        "api_stage3_combined": { "api_erai_flag": [1, 0, 0, 0, 1, 0], "api_ebak_flag": [0, 0, 0, 0, 0, 0], "api_ecl_flag": [0, 0, 0, 0, 0, 0], "api_edam": [107, 0, 0, 0, 132, 0]
+       */
+    })).toStrictEqual({
+      baseId: 1,
+      planeFrom: {
+        friend: [],
+        enemy: [0, 1, 2, 3, 6, 7, 8],
+      },
+      squadrons: [
+        { masterId: 225, count: 18 }, { masterId: 222, count: 18 },
+        { masterId: 170, count: 18 }, { masterId: 187, count: 18 },
+      ],
+      stage1: {
+        friend: { total: 72, lost: 10 },
+        enemy: { total: 373, lost: 119 },
+        airpower: 0, contactPlane: { friend: -1, enemy: -1 },
+      },
+      stage2: { friend: { total: 31, lost: 0 }, enemy: { total: 0, lost: 0 } },
+      stage3: {
+        enemy: [
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+          { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
         ],
       },
     })
