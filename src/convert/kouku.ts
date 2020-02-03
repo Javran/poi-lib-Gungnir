@@ -144,8 +144,8 @@ export const convertKoukuStage2ForSupport =
   (raw: kcsapi.KoukuStage2ForSupport): yapi.KoukuStage2ForSupport =>
     ({ friend: convertPlaneTotalAndLostFriend(raw) })
 
-export const convertKoukuStage3ForSupport =
-  (raw: kcsapi.KoukuStage3ForSupport): yapi.KoukuStage3ForSupport => ({
+export const convertKoukuStage3EnemyOnly =
+  (raw: kcsapi.KoukuStage3Enemy): yapi.KoukuStage3EnemyOnly => ({
     enemy: (_.zipWith as any)(
       raw.api_erai_flag || [],
       raw.api_ebak_flag || [],
@@ -153,6 +153,10 @@ export const convertKoukuStage3ForSupport =
       raw.api_edam || [],
       convertKoukuStage3Damage),
   })
+
+export const convertKoukuStage3ForSupport:
+  (raw: kcsapi.KoukuStage3ForSupport) => yapi.KoukuStage3ForSupport =
+  convertKoukuStage3EnemyOnly
 
 export const convertKoukuStagesForSupport =
   (raw: kcsapi.SupportAirAttack): yapi.KoukuStagesForSupport => {
@@ -212,3 +216,15 @@ export const convertKoukuStagesForInjection =
       stage3: convertKoukuStage3ForInjection(raw.api_stage3),
     }
   }
+
+export const convertKoukuStage1ForAirBase:
+  (raw: kcsapi.KoukuStage1ForAirBase) => yapi.KoukuStage1ForAirBase =
+  convertKoukuStage1
+
+export const convertKoukuStage2ForAirBase:
+  (raw: kcsapi.KoukuStage2ForAirBase) => yapi.KoukuStage2ForAirBase =
+  convertKoukuStagePlaneCount
+
+export const convertKoukuStage3ForAirBase:
+  (raw: kcsapi.KoukuStage3ForAirBase) => yapi.KoukuStage3ForAirBase =
+  convertKoukuStage3EnemyOnly

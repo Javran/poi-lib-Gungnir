@@ -44,14 +44,14 @@ export interface KoukuStage2 extends KoukuPlaneInfo {
   api_air_fire?: Aaci
 }
 
-interface KoukuStage3Enemy {
+export interface KoukuStage3Enemy {
   api_erai_flag: Array<IntFlag> | null
   api_ebak_flag: Array<IntFlag> | null
   api_ecl_flag: Array<IntFlag> | null
   api_edam: Array<number> | null
 }
 
-interface KoukuStage3Friend {
+export interface KoukuStage3Friend {
   api_frai_flag: Array<IntFlag> | null
   api_fbak_flag: Array<IntFlag> | null
   api_fcl_flag: Array<IntFlag> | null
