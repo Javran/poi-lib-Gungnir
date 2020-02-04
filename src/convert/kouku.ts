@@ -266,5 +266,5 @@ export const convertKoukuStagesForAirBase =
   }
 
 export const convertKoukuForLbas =
-  (raw: Array<kcsapi.KoukuForAirBase>): Array<yapi.KoukuStagesForAirBase> =>
+  (raw: Array<kcsapi.KoukuForAirBase>): Array<yapi.GKouku<yapi.KoukuType.AirBase>> =>
     raw.map(convertKoukuStagesForAirBase)

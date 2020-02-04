@@ -105,3 +105,18 @@ export interface KoukuStagesForAirBase {
   stage2: KoukuStage2ForAirBase | null
   stage3: KoukuStage3ForAirBase | null
 }
+
+export enum KoukuType {
+  Normal,
+  Injection,
+  AirBase,
+}
+
+export type GKouku<T>
+  = T extends KoukuType.Normal ? KoukuStages
+  : T extends KoukuType.Injection ? KoukuStagesForInjection
+  : T extends KoukuType.AirBase ? KoukuStagesForAirBase
+  : never
+
+// the following is a demo for refering to fields in a generic type
+export type AirStageDemo = (GKouku<KoukuType.AirBase>)['stage1']
