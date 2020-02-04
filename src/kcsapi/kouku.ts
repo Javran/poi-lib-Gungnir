@@ -37,7 +37,7 @@ export interface KoukuStage1 extends KoukuPlaneInfo {
 export interface Aaci {
   api_idx: number
   api_kind: number
-  api_use_items: Array<number> // TODO
+  api_use_items: Array<number>
 }
 
 export interface KoukuStage2 extends KoukuPlaneInfo {
