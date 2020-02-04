@@ -3,7 +3,8 @@ import * as yapi from '@g/yapi'
 
 import {
   convertKoukuPlaneFrom, convertAirpower, convertAaci,
-  convertKoukuStagePlaneCount, convertContactPlane, convertKoukuStage3Damage, convertKoukuStagesForInjection, convertKoukuStagesForAirBase,
+  convertKoukuStagePlaneCount, convertContactPlane, convertKoukuStage3Damage,
+  convertKoukuStagesForInjection, convertKoukuStagesForAirBase,
 } from './kouku'
 
 describe('convertKoukuPlaneFrom', () => {

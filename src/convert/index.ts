@@ -14,6 +14,7 @@ import {
 import {
   convertKoukuStages,
   convertKoukuStagesForSupport,
+  convertKoukuForLbas,
 } from './kouku'
 
 export * from './basic'
@@ -271,6 +272,7 @@ export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
     },
     pursueFlag: convertIntFlag(raw.api_midnight_flag),
     detection,
+    lbasStages: raw.api_air_base_attack ? convertKoukuForLbas(raw.api_air_base_attack) : null,
     koukuStages: convertKoukuStages(raw.api_stage_flag, raw.api_kouku),
     supportInfo: convertSupportInfo(raw.api_support_flag, raw.api_support_info),
     openingAntiSub: convertOpeningAntiSub(raw.api_opening_taisen_flag, raw.api_opening_taisen || null),

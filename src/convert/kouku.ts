@@ -264,3 +264,7 @@ export const convertKoukuStagesForAirBase =
     }
     return ret
   }
+
+export const convertKoukuForLbas =
+  (raw: Array<kcsapi.KoukuForAirBase>): Array<yapi.KoukuStagesForAirBase> =>
+    raw.map(convertKoukuStagesForAirBase)

@@ -73,6 +73,7 @@ describe('samples', () => {
         friend: { success: true, planeReturned: null },
         enemy: { success: true, planeReturned: true },
       },
+      lbasStages: null,
       koukuStages: {
         planeFrom: { friend: [], enemy: [] },
         stage1: {
@@ -386,6 +387,7 @@ describe('samples', () => {
         friend: { success: true, planeReturned: true },
         enemy: { success: true, planeReturned: true },
       },
+      lbasStages: null,
       koukuStages: {
         planeFrom: { friend: [0, 1, 2], enemy: [0] },
         stage1: {

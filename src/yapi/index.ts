@@ -86,7 +86,8 @@ import {
   Unk, TwoSides, Hp, Formation, Engagement, ShipIndex,
   Side, Detection, Critical, AttackType, DamageWithFlag,
 } from './basic'
-import { KoukuStages, KoukuStagesForSupport } from './kouku'
+import { KoukuStages, KoukuStagesForSupport, KoukuStagesForAirBase } from './kouku'
+import { KoukuStage1ForInjection } from '@g/kcsapi'
 
 export * from './basic'
 export * from './kouku'
@@ -218,6 +219,7 @@ export interface Battle {
   // TODO: air base injection
   // TODO: injection kouku
   // TODO: air base attack
+  lbasStages: Array<KoukuStagesForAirBase> | null
   koukuStages: KoukuStages
   supportInfo: SupportInfo | null
   openingAntiSub: Hougeki | null
