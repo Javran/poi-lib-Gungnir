@@ -72,16 +72,21 @@ export const convertDamageWithFlag = (v: kcsapi.DamageE): yapi.DamageWithFlag =>
   ({ protectFlag: v % 1 !== 0, damage: Math.floor(v) })
 
 export const convertCritical = (v: kcsapi.CriticalFlag): yapi.Critical => {
-  switch (v) {
-    case 0: return yapi.CriticalE.Miss
-    case 1: return yapi.CriticalE.Hit
-    case 2: return yapi.CriticalE.Critical
-    default: return new yapi.Unknown(v, 'Critical')
+  if (yapi.CriticalE[v] != null) {
+    return v
+  } else {
+    return new yapi.Unknown(v, 'Critical')
   }
 }
 
-// TODO: being a bit sloppy here.
-export const convertAttackType = (v: kcsapi.AttackType): yapi.AttackType =>
-  (v as yapi.AttackType)
+// TODO: avoid conditions and use the following technique if possible:
+// https://stackoverflow.com/a/55258341/315302
+export const convertAttackType = (v: kcsapi.AttackType): yapi.AttackType => {
+  if (yapi.AttackTypeE[v] != null) {
+    return v
+  } else {
+    return new yapi.Unknown(v, 'AttackType')
+  }
+}
 
 export const convertSide = (v: kcsapi.IntFlag): yapi.Side => (v as yapi.Side)
