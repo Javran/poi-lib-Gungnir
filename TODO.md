@@ -20,6 +20,34 @@ formatting them to make sure things are indeed what we expect them to be.
 
 I currently does not have a satisfying solution to include combined fields.
 
+Listing fields that could have a "_combined" counterpart:
+
+- api_ship_ke_combined
+- api_ship_lv_combined
+- api_nowhps_combined
+- api_maxhps_combined
+- api_eSlot_combined
+- api_eParam_combined
+- api_fParam_combined
+- api_air_base_attack.api_stage3_combined
+- api_kouku.api_stage3_combined
+- api_escape_idx_combined
+- api_combat_ration_combined
+- note that api_support_info does not use `api_stage3_combined` but instead `api_stage3` is extended.
+
+Night battle:
+
+- api_f_nowhps_combined
+- api_f_maxhps_combined
+- api_fParam_combined
+- api_ship_ke_combined
+- api_ship_lv_combined
+- api_e_nowhps_combined
+- api_e_maxhps_combined
+- api_escape_idx_combined
+
+For all these cases, we want to be able to convert them correctly given our fleet type (single / STF / CTF) and their fleet type (single / combined).
+
 # Use interface for property existency?
 
 For example, having some interfaces like:
