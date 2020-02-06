@@ -74,3 +74,80 @@
     (use of a different API path might be due to having to apply hourai phases differently)
 
  */
+
+/*
+  This type determines what field does a specific type of battle have,
+  ignoring "_combined" fields.
+ */
+export enum BattleType {
+  DayHourai,
+  DayAir,
+  DayLongDistAir,
+  DayLongDistShooting,
+  Night,
+  NightToDay,
+}
+
+export enum SideType {
+  Normal,
+  Combined,
+  // Carrier Task Force or Transport Escort, only used for DayHourai.
+  CTF,
+  // Surface Task Force, only used for DayHourai.
+  STF,
+}
+
+type GAirBattle<FS>
+  = FS extends SideType.Normal ? 'TODO: normal air battle'
+  : FS extends SideType.Combined ? 'TODO: combined air battle'
+  : never
+
+type GLongDistAirBattle<FS>
+  = FS extends SideType.Normal ? 'TODO: ld_airbattle for normal'
+  : FS extends SideType.Combined ? 'TODO: ld_airbattle for combined'
+  : never
+
+type GLongDistShootingBattle<FS>
+  = FS extends SideType.Normal ? 'TODO: ld_shooting for normal'
+  : FS extends SideType.Combined ? 'TODO: ld_shooting for combined'
+  : never
+
+type GNightBattle<FS>
+  = FS extends SideType.Normal ? 'TODO: night battle for normal'
+  : FS extends SideType.Combined ? 'TODO: night battle for combined'
+  : never
+
+type GNightToDayBattle<FS>
+  = FS extends SideType.Normal ? 'TODO: night to day battle for normal'
+  : FS extends SideType.Combined ? 'TODO: night to day battle for combined'
+  : never
+
+type GHouraiBattle<FS, ES>
+  = FS extends SideType.Normal ? (
+    ES extends SideType.Normal ? 'TODO: 6 vs 6'
+    : ES extends SideType.Combined ? 'TODO: 6 vs 12'
+    : never
+  ) : FS extends SideType.CTF ? (
+    ES extends SideType.Normal ? 'TODO: CTF vs 6'
+    : ES extends SideType.Combined ? 'TODO: CTF vs 12'
+    : never
+  ) : FS extends SideType.STF ? (
+    ES extends SideType.Normal ? 'TODO: STF vs 6'
+    : ES extends SideType.Combined ? 'TODO: STF vs 12'
+    : never
+  ) : never
+
+/* aux type to limit enemy side to Normal or Combined */
+type LimitEnemySide<ES, ThenType>
+  = ES extends SideType.Normal ? ThenType
+  : ES extends SideType.Combined ? ThenType
+  : never
+
+export type GBattle<BT, FS, ES>
+  = BT extends BattleType.DayHourai ? GHouraiBattle<FS, ES>
+  : BT extends BattleType.DayAir ? LimitEnemySide<ES, GAirBattle<FS>>
+  : BT extends BattleType.DayLongDistAir ? LimitEnemySide<ES, GLongDistAirBattle<FS>>
+  : BT extends BattleType.DayLongDistShooting ? LimitEnemySide<ES, GLongDistShootingBattle<FS>>
+  : BT extends BattleType.Night ? LimitEnemySide<ES, GNightBattle<FS>>
+  : BT extends BattleType.NightToDay ? LimitEnemySide<ES, GNightToDayBattle<FS>>
+  : never
