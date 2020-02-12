@@ -119,3 +119,34 @@ export interface DamageWithFlag {
   protectFlag: boolean
   damage: number
 }
+
+export interface ShipAttributes {
+  firepower: number
+  torpedo: number
+  antiAir: number
+  armor: number
+}
+
+export interface ShipInfoCommon {
+  // api_fParam & api_eParam
+  attrib: ShipAttributes
+}
+
+export interface ShipInfoExtra {
+  // api_ship_ke
+  mstId: number
+  // api_ship_lv
+  level: number
+  /*
+    the equipment array, if present, will be kept as it is.
+    this is because number 0, -1 can be used to indicate
+    that a slot is available but is unequipped.
+    maybe there is something more clever we can do,
+    but for now let's just make sure the conversion does not drop any info.
+   */
+  // api_eSlot
+  equips: Array<number>
+}
+
+export type ShipInfoFriend = ShipInfoCommon
+export type ShipInfoEnemy = ShipInfoCommon & ShipInfoExtra
