@@ -143,6 +143,9 @@ type LimitEnemySide<ES, ThenType>
   : ES extends SideType.Combined ? ThenType
   : never
 
+/*
+  GBattle merges all types of battles into one, parameterized by various things.
+ */
 export type GBattle<BT, FS, ES>
   = BT extends BattleType.DayHourai ? GHouraiBattle<FS, ES>
   : BT extends BattleType.DayAir ? LimitEnemySide<ES, GAirBattle<FS>>

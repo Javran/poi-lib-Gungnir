@@ -136,7 +136,12 @@ export interface SupportAirAttack extends SupportInfoCommon {
 
 export type SupportInfo = Unk<SupportHourai | SupportAirAttack>
 
-export interface Battle {
+// Common fields all types of battles are supposed to have.
+/*
+  TODO: here the plan is to have fine-grained interfaces,
+  and let those battle types be a combination of them.
+ */
+export interface BattleCommon {
   deckId: number
   engagement: Engagement
   formation: TwoSides<Formation>
@@ -145,14 +150,21 @@ export interface Battle {
     friend: Array<ShipInfoFriend>
     enemy: Array<ShipInfoEnemy>
   }
+  lbasStages: Array<KoukuStagesForAirBase> | null
+  supportInfo: SupportInfo | null
+}
+
+export interface HasKoukuStages {
+  koukuStages: KoukuStages
+}
+
+export interface Battle extends BattleCommon, HasKoukuStages {
   pursueFlag: boolean
   detection: TwoSides<Detection>
   // TODO: air base injection
   // TODO: injection kouku
   // TODO: air base attack
-  lbasStages: Array<KoukuStagesForAirBase> | null
-  koukuStages: KoukuStages
-  supportInfo: SupportInfo | null
+
   openingAntiSub: Hougeki | null
   openingTorpedo: Raigeki | null
   houraiPhases: HouraiPhases
