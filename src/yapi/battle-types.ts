@@ -19,35 +19,6 @@
     + /kcsapi/api_req_combined_battle/battle_water: STF vs single.
     + /kcsapi/api_req_combined_battle/each_battle_water: STF vs. combined
 
-  - airbattle: always vs. enemy single, consists of only 2 kouku phases.
-
-    + /kcsapi/api_req_sortie/airbattle: normal vs. normal, two kouku stages.
-    + /kcsapi/api_req_combined_battle/airbattle: combined vs. single (2 kouku stages)
-
-  - ld_airbattle: always vs. enemy single, one kouku phase.
-
-    + /kcsapi/api_req_sortie/ld_airbattle: normal vs. normal, long distance.
-    + /kcsapi/api_req_combined_battle/ld_airbattle: combined vs. normal, long distance.
-
-  - openning with night battle:
-    + /kcsapi/api_req_combined_battle/sp_midnight: openning with night battle, combined vs. single.
-    + /kcsapi/api_req_battle_midnight/sp_midnight: openning with night battle, single vs. single.
-
-    + /kcsapi/api_req_sortie/night_to_day: proceed to day, single vs. single (I doubt if we have any sample for this).
-    + /kcsapi/api_req_combined_battle/ec_night_to_day: proceed to day, single vs. combined
-
-  - ld_shooting: this one seems to have only "single or combined" distinct,
-    and enemy fleet is always single.
-
-    + /kcsapi/api_req_sortie/ld_shooting: ?
-    + /kcsapi/api_req_combined_battle/ld_shooting: ?
-
-  - proceeding to night battle:
-
-    + /kcsapi/api_req_combined_battle/ec_midnight_battle: combined vs combined, night.
-    + /kcsapi/api_req_battle_midnight/battle: normal vs. normal, night battle.
-    + /kcsapi/api_req_combined_battle/midnight_battle: combined vs single, night battle.
-
   - practice:
 
     + /kcsapi/api_req_practice/battle: normal vs normal, pvp.
@@ -88,6 +59,12 @@ export enum BattleType {
   NightToDay,
 }
 
+/*
+  This type takes care of normal vs combined.
+  - DayHourai is a bit special because some fields must be interpreted
+    in different orders therefore we have to distinct between Normal, CTF and STF.
+  - for all the other types, it is irrelevant therefore Normal vs Combined will do.
+ */
 export enum SideType {
   Normal,
   Combined,
@@ -97,21 +74,58 @@ export enum SideType {
   STF,
 }
 
+/*
+  airbattle: always vs. enemy single, consists of only 2 kouku phases.
+
+  - api_req_sortie/airbattle: normal vs. normal, two kouku stages.
+  - api_req_combined_battle/airbattle: combined vs. single (2 kouku stages)
+ */
 type GAirBattle<FS>
-  = FS extends SideType.Normal ? 'TODO: normal air battle'
+  =
+  FS extends SideType.Normal ? 'TODO: normal air battle'
   : FS extends SideType.Combined ? 'TODO: combined air battle'
   : never
 
+/*
+  ld_airbattle: always vs. enemy single, one kouku phase.
+
+  - api_req_sortie/ld_airbattle: normal vs. normal, long distance.
+  - api_req_combined_battle/ld_airbattle: combined vs. normal, long distance.
+ */
 type GLongDistAirBattle<FS>
   = FS extends SideType.Normal ? 'TODO: ld_airbattle for normal'
   : FS extends SideType.Combined ? 'TODO: ld_airbattle for combined'
   : never
 
+/*
+  ld_shooting: this one seems to have only "single or combined" distinct,
+  and enemy fleet is always single.
+
+  - api_req_sortie/ld_shooting: ?
+  - api_req_combined_battle/ld_shooting: ?
+ */
 type GLongDistShootingBattle<FS>
   = FS extends SideType.Normal ? 'TODO: ld_shooting for normal'
   : FS extends SideType.Combined ? 'TODO: ld_shooting for combined'
   : never
 
+/*
+  proceeding to night battle:
+
+  - api_req_combined_battle/ec_midnight_battle: combined vs combined, night.
+  - api_req_battle_midnight/battle: normal vs. normal, night battle.
+  - api_req_combined_battle/midnight_battle: combined vs single, night battle.
+
+  openning with night battle:
+  - /kcsapi/api_req_combined_battle/sp_midnight: openning with night battle, combined vs. single.
+  - /kcsapi/api_req_battle_midnight/sp_midnight: openning with night battle, single vs. single.
+
+  - /kcsapi/api_req_sortie/night_to_day: proceed to day, single vs. single (I doubt if we have any sample for this).
+  - /kcsapi/api_req_combined_battle/ec_night_to_day: proceed to day, single vs. combined
+
+  TODO: typing is not quite right here. we'll need to get both FriendSide and EnemySide involved.
+
+ */
 type GNightBattle<FS>
   = FS extends SideType.Normal ? 'TODO: night battle for normal'
   : FS extends SideType.Combined ? 'TODO: night battle for combined'
@@ -145,6 +159,8 @@ type LimitEnemySide<ES, ThenType>
 
 /*
   GBattle merges all types of battles into one, parameterized by various things.
+
+  FS for "Friend side", ES for "Enemy side".
  */
 export type GBattle<BT, FS, ES>
   = BT extends BattleType.DayHourai ? GHouraiBattle<FS, ES>
