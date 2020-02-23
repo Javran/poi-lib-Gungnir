@@ -572,4 +572,12 @@ describe('samples', () => {
     })
   })
 
+  /*
+  test('sample2.json', () => {
+    const raw = readJsonSync('./sample/sample2.json') as BattleDetailData
+    const packets = fromPoiBattleDetail(raw)
+    const battleRaw = packets[0]
+    // console.log(JSON.stringify(convert.convertBattle(battleRaw)))
+  })
+   */
 })
