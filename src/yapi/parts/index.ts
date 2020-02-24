@@ -40,21 +40,24 @@ export interface BattleCommon {
     friend: Array<ShipInfoFriend>
     enemy: Array<ShipInfoEnemy>
   }
-  lbasStages: Array<KoukuStagesForAirBase> | null
-  supportInfo: SupportInfo | null
 }
 
 export interface HasKoukuStages {
+  lbasStages: Array<KoukuStagesForAirBase> | null
+}
+
+export interface DayBattleCommon extends BattleCommon {
+  pursueFlag: boolean
+  detection: TwoSides<Detection>
+  supportInfo: SupportInfo | null
+  // TODO: persumably, all day battle could support (excluding ld_shooting perhaps)
+  // - api_air_base_injection
+  // - api_air_base_attack
+  // - api_injection_kouku
   koukuStages: KoukuStages
 }
 
-export interface Battle extends BattleCommon, HasKoukuStages {
-  pursueFlag: boolean
-  detection: TwoSides<Detection>
-  // TODO: air base injection
-  // TODO: injection kouku
-  // TODO: air base attack
-
+export interface Battle extends DayBattleCommon, HasKoukuStages {
   openingAntiSub: Hougeki | null
   openingTorpedo: Raigeki | null
   houraiPhases: HouraiPhases

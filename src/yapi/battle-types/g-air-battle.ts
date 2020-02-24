@@ -1,31 +1,13 @@
 import { SideType } from './base'
-
+import { DayBattleCommon, HasKoukuStages, KoukuStages } from '@g/yapi/parts'
 /*
-  fields:
-  - api_deck_id
-  - api_formation
-  - api_f_nowhps
-  - api_f_maxhps
-  - api_fParam
-  - api_ship_ke
-  - api_ship_lv
-  - api_e_nowhps
-  - api_e_maxhps
-  - api_eSlot
-  - api_eParam
-  - api_midnight_flag
-  - api_search
-  - api_air_base_injection (presumably)
-  - api_air_base_attack (presumably)
-  - api_injection_kouku (presumably)
-  - api_stage_flag
-  - api_kouku
-  - api_support_flag
-  - api_support_info
+  extra fields:
   - api_stage_flag2
   - api_kouku2
  */
-interface AirBattleNormal { } // TODO
+interface AirBattleNormal extends DayBattleCommon, HasKoukuStages {
+  koukuStagesExtra: KoukuStages
+}
 
 /*
   airbattle: always vs. enemy single, consists of only 2 kouku phases.
