@@ -42,13 +42,10 @@ export interface BattleCommon {
   }
 }
 
-export interface HasKoukuStages {
-  lbasStages: Array<KoukuStagesForAirBase> | null
-}
-
 export interface DayBattleCommon extends BattleCommon {
   pursueFlag: boolean
   detection: TwoSides<Detection>
+  lbasStages: Array<KoukuStagesForAirBase> | null
   supportInfo: SupportInfo | null
   // TODO: persumably, all day battle could support (excluding ld_shooting perhaps)
   // - api_air_base_injection
@@ -57,7 +54,7 @@ export interface DayBattleCommon extends BattleCommon {
   koukuStages: KoukuStages
 }
 
-export interface Battle extends DayBattleCommon, HasKoukuStages {
+export interface Battle extends DayBattleCommon {
   openingAntiSub: Hougeki | null
   openingTorpedo: Raigeki | null
   houraiPhases: HouraiPhases

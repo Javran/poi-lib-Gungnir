@@ -61,14 +61,11 @@ export interface DayBattleCommon extends BattleCommon {
 
   api_support_flag: number
   api_support_info: SupportInfo | null
-}
-
-export interface HasKoukuStages {
   api_stage_flag: KoukuStageFlags
   api_kouku: Kouku
 }
 
-export interface Battle extends DayBattleCommon, HasKoukuStages {
+export interface Battle extends DayBattleCommon {
   api_ship_ke_combined?: Array<number>
   api_ship_lv_combined?: Array<number>
   // those two only exists if the enemy fleet is combined.
@@ -102,7 +99,7 @@ export interface Battle extends DayBattleCommon, HasKoukuStages {
   api_kouku2?: Kouku
 }
 
-export interface AirBattleNormal extends DayBattleCommon, HasKoukuStages {
+export interface AirBattleNormal extends DayBattleCommon {
   api_stage_flag2: KoukuStageFlags
   api_kouku2: Kouku
 }

@@ -265,7 +265,7 @@ export const convertBattleCommon = (raw: kcsapi.BattleCommon): yapi.BattleCommon
   }
 }
 
-export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
+export const convertDayBattleCommon = (raw: kcsapi.DayBattleCommon): yapi.DayBattleCommon => {
   const detection = (() => {
     const [f, e] = raw.api_search
     return {
@@ -281,6 +281,12 @@ export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
     lbasStages: raw.api_air_base_attack ? convertKoukuForLbas(raw.api_air_base_attack) : null,
     koukuStages: convertKoukuStages(raw.api_stage_flag, raw.api_kouku),
     supportInfo: convertSupportInfo(raw.api_support_flag, raw.api_support_info),
+  }
+}
+
+export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
+  return {
+    ...convertDayBattleCommon(raw),
     openingAntiSub: convertOpeningAntiSub(raw.api_opening_taisen_flag, raw.api_opening_taisen || null),
     openingTorpedo: convertOpeningTorpedo(raw.api_opening_flag, raw.api_opening_atack || null),
     houraiPhases: convertHouraiPhases(
