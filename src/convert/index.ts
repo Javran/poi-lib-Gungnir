@@ -1,7 +1,7 @@
 import * as _ from 'lodash'
 
-import * as kcsapi from '../kcsapi'
-import * as yapi from '../yapi'
+import * as kcsapi from '@g/kcsapi'
+import * as yapi from '@g/yapi'
 
 import {
   convertIntFlag, convertHps, convertDetection,

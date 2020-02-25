@@ -6,74 +6,28 @@
 
  */
 import {
-  IntFlag, CriticalFlag,
-  ShipIndex, AttackType,
+  IntFlag,
   Formation, Engagement, Detection,
-  Damage, DamageE,
 } from './basic'
 
 import {
   KoukuStageFlags,
-  Kouku, KoukuForSupport, KoukuForInjection, KoukuForAirBase,
+  Kouku,
+  KoukuForInjection, KoukuForAirBase,
 } from './kouku'
+
+import {
+  ShipParam, SupportInfo, Hougeki, Raigeki,
+} from './parts'
 
 export * from './basic'
 export * from './kouku'
+export * from './parts'
 
-export type HougekiSlotitems = Array<number | string> | null
-
-export interface Hougeki {
-  // Note: all those top-level arrays are of the same length.
-  api_at_eflag: Array<IntFlag>
-  api_at_list: Array<ShipIndex>
-  api_at_type: Array<AttackType>
-  api_df_list: Array<Array<ShipIndex>>
-  api_si_list: Array<HougekiSlotitems>
-  api_cl_list: Array<Array<CriticalFlag>>
-  api_damage: Array<Array<DamageE>>
-}
-
-type RaiIndex = ShipIndex | -1
-
-interface RaigekiFriend {
-  api_frai: Array<RaiIndex>
-  api_fcl: Array<CriticalFlag>
-  api_fdam: Array<Damage>
-  api_fydam: Array<Damage>
-}
-
-interface RaigekiEnemy {
-  api_erai: Array<RaiIndex>
-  api_ecl: Array<CriticalFlag>
-  api_edam: Array<Damage>
-  api_eydam: Array<Damage>
-}
-
-export type Raigeki = RaigekiFriend & RaigekiEnemy
-
-// [<火力>, <雷装>, <対空>, <装甲>]
-export type ShipParam = [number, number, number, number]
-
-export interface SupportInfoCommon {
-  api_deck_id: number
-  api_ship_id: Array<number>
-  api_undressing_flag: Array<IntFlag>
-}
-
-export type SupportAirAttack = SupportInfoCommon & KoukuForSupport
-
-export interface SupportHourai extends SupportInfoCommon {
-  api_cl_list: Array<number>
-  api_damage: Array<number>
-}
-
-export interface SupportInfo {
-  // NOTE: "airatack" is not a misspell.
-  api_support_airatack: SupportAirAttack | null
-  api_support_hourai: SupportHourai | null
-}
-
-export interface Battle {
+/*
+  Structure that are shared between day and night battles.
+ */
+export interface BattleCommon {
   api_deck_id: number
   api_formation: [Formation, Formation, Engagement]
 
@@ -83,35 +37,44 @@ export interface Battle {
 
   api_fParam: Array<ShipParam>
 
+  api_eSlot: Array<Array<number>>
+  api_eParam: Array<ShipParam>
+
   // enemy ship ids.
   api_ship_ke: Array<number>
   // enemy ship levels.
   api_ship_lv: Array<number>
 
-  api_ship_ke_combined?: Array<number>
-  api_ship_lv_combined?: Array<number>
-
   api_e_nowhps: Array<number>
   api_e_maxhps: Array<number>
+}
 
-  // those two only exists if the enemy fleet is combined.
-  api_e_nowhps_combined?: Array<number>
-  api_e_maxhps_combined?: Array<number>
-
-  api_eSlot: Array<Array<number>>
-  api_eParam: Array<ShipParam>
-
+/*
+  Structure that are shared among all day time battles.
+ */
+export interface DayBattleCommon extends BattleCommon {
   api_midnight_flag: IntFlag
   api_search: [Detection, Detection]
   api_air_base_injection?: any // TODO
   api_injection_kouku?: KoukuForInjection
   api_air_base_attack?: Array<KoukuForAirBase>
 
-  api_stage_flag: KoukuStageFlags
-  api_kouku: Kouku
-
   api_support_flag: number
   api_support_info: SupportInfo | null
+}
+
+export interface HasKoukuStages {
+  api_stage_flag: KoukuStageFlags
+  api_kouku: Kouku
+}
+
+export interface Battle extends DayBattleCommon, HasKoukuStages {
+  api_ship_ke_combined?: Array<number>
+  api_ship_lv_combined?: Array<number>
+  // those two only exists if the enemy fleet is combined.
+  api_e_nowhps_combined?: Array<number>
+  api_e_maxhps_combined?: Array<number>
+
   api_opening_taisen_flag: IntFlag
   api_opening_taisen: Hougeki | null
   api_opening_flag: IntFlag
@@ -137,4 +100,9 @@ export interface Battle {
 
   api_stage_flag2?: KoukuStageFlags
   api_kouku2?: Kouku
+}
+
+export interface AirBattleNormal extends DayBattleCommon, HasKoukuStages {
+  api_stage_flag2: KoukuStageFlags
+  api_kouku2: Kouku
 }
