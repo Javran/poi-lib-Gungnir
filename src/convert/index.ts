@@ -235,7 +235,7 @@ export const convertSupportInfo =
     return new yapi.Unknown({ flag, raw }, 'SupportInfo')
   }
 
-export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
+export const convertBattleCommon = (raw: kcsapi.BattleCommon): yapi.BattleCommon => {
   // IIFE for now, until do-expression becomes available.
   const [fForm, eForm, engagement] = raw.api_formation
 
@@ -245,14 +245,6 @@ export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
       throw new Error(`Cannot convert enemy ship info, some array lengths are mismatching.`)
     }
     return _.zipWith(raw.api_eParam, raw.api_ship_ke, raw.api_ship_lv, raw.api_eSlot, convertShipInfoEnemy)
-  })()
-
-  const detection = (() => {
-    const [f, e] = raw.api_search
-    return {
-      friend: convertDetection(f),
-      enemy: convertDetection(e),
-    }
   })()
 
   return {
@@ -270,6 +262,20 @@ export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
       friend: _.map(raw.api_fParam, convertShipInfoFriend),
       enemy: enemyShipInfo,
     },
+  }
+}
+
+export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
+  const detection = (() => {
+    const [f, e] = raw.api_search
+    return {
+      friend: convertDetection(f),
+      enemy: convertDetection(e),
+    }
+  })()
+
+  return {
+    ...convertBattleCommon(raw),
     pursueFlag: convertIntFlag(raw.api_midnight_flag),
     detection,
     lbasStages: raw.api_air_base_attack ? convertKoukuForLbas(raw.api_air_base_attack) : null,
