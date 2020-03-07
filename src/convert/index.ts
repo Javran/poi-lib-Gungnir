@@ -298,3 +298,13 @@ export const convertBattle = (raw: kcsapi.Battle): yapi.Battle => {
     ),
   }
 }
+
+// TODO: definitely need some shorthands on use sites.
+type AirBattleNormal = yapi.GBattle<yapi.BattleType.DayAir, yapi.SideType.Normal, yapi.SideType.Normal>
+
+export const convertAirBattleNormal = (raw: kcsapi.AirBattleNormal): AirBattleNormal => {
+  return {
+    ...convertDayBattleCommon(raw),
+    koukuStagesExtra: convertKoukuStages(raw.api_stage_flag2, raw.api_kouku2),
+  }
+}
