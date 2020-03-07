@@ -1,11 +1,12 @@
 import { SideType } from './base'
-import { DayBattleCommon, HasKoukuStages, KoukuStages } from '@g/yapi/parts'
+import { DayBattleCommon, KoukuStages } from '@g/yapi/parts'
+
 /*
   extra fields:
   - api_stage_flag2
   - api_kouku2
  */
-interface AirBattleNormal extends DayBattleCommon, HasKoukuStages {
+interface AirBattleNormal extends DayBattleCommon {
   koukuStagesExtra: KoukuStages
 }
 
