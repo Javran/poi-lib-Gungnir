@@ -572,12 +572,115 @@ describe('samples', () => {
     })
   })
 
-  /*
   test('sample2.json', () => {
     const raw = readJsonSync('./sample/sample2.json') as BattleDetailData
     const packets = fromPoiBattleDetail(raw)
     const battleRaw = packets[0]
-    // console.log(JSON.stringify(convert.convertBattle(battleRaw)))
+    expect(convert.convertAirBattleNormal(battleRaw as any)).toStrictEqual({
+      deckId: 1, engagement: 2, formation: { friend: 3, enemy: 3 },
+      hps: {
+        friend: [[53, 53], [45, 45], [29, 36], [31, 38], [37, 37], [36, 40]],
+        enemy: [[96, 96], [60, 60], [20, 20], [20, 20], [20, 20], [20, 20]],
+      },
+      shipInfo: {
+        friend: [
+          { attrib: { firepower: 70, torpedo: 79, antiAir: 74, armor: 69 } },
+          { attrib: { firepower: 66, torpedo: 68, antiAir: 69, armor: 56 } },
+          { attrib: { firepower: 69, torpedo: 87, antiAir: 71, armor: 50 } },
+          { attrib: { firepower: 67, torpedo: 87, antiAir: 66, armor: 53 } },
+          { attrib: { firepower: 73, torpedo: 93, antiAir: 59, armor: 52 } },
+          { attrib: { firepower: 54, torpedo: 72, antiAir: 91, armor: 52 } },
+        ],
+        enemy: [
+          {
+            attrib: { firepower: 25, torpedo: 0, antiAir: 50, armor: 80 },
+            mstId: 1528, level: 1, equips: [520, 517, 524, -1, -1],
+          },
+          {
+            attrib: { firepower: 58, torpedo: 42, antiAir: 30, armor: 60 },
+            mstId: 1522, level: 1, equips: [505, 506, 525, 525, -1],
+          },
+          {
+            attrib: { firepower: 5, torpedo: 15, antiAir: 6, armor: 5 },
+            mstId: 1501, level: 1, equips: [501, -1, -1, -1, -1],
+          },
+          {
+            attrib: { firepower: 5, torpedo: 15, antiAir: 6, armor: 5 },
+            mstId: 1501, level: 1, equips: [501, -1, -1, -1, -1],
+          },
+          {
+            attrib: { firepower: 5, torpedo: 15, antiAir: 6, armor: 5 },
+            mstId: 1501, level: 1, equips: [501, -1, -1, -1, -1],
+          },
+          {
+            attrib: { firepower: 5, torpedo: 15, antiAir: 6, armor: 5 },
+            mstId: 1501, level: 1, equips: [501, -1, -1, -1, -1],
+          }],
+      },
+      pursueFlag: true,
+      detection: {
+        friend: { success: true, planeReturned: true },
+        enemy: { success: true, planeReturned: true },
+      },
+      lbasStages: null,
+      koukuStages: {
+        planeFrom: { friend: [0], enemy: [0] },
+        stage1: {
+          friend: { total: 6, lost: 0 },
+          enemy: { total: 96, lost: 35 },
+          airpower: 0, contactPlane: { friend: -1, enemy: -1 },
+        },
+        stage2: {
+          friend: { total: 6, lost: 0 },
+          enemy: { total: 47, lost: 24 },
+          aaci: { source: 5, kind: 34, equips: [308, 308] },
+        },
+        stage3: {
+          friend: [
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: true, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: false, bakFlag: true, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 }],
+          enemy: [
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: false, bakFlag: true, critical: 1, protectFlag: true, damage: 8 },
+            { raiFlag: false, bakFlag: true, critical: 0, protectFlag: true, damage: 24 },
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: false, bakFlag: true, critical: 0, protectFlag: false, damage: 25 },
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 }],
+        },
+      }, supportInfo: null,
+      koukuStagesExtra: {
+        planeFrom: { friend: [0], enemy: [0] },
+        stage1: {
+          friend: { total: 6, lost: 0 },
+          enemy: { total: 37, lost: 7 },
+          airpower: 0, contactPlane: { friend: -1, enemy: -1 },
+        },
+        stage2: {
+          friend: { total: 6, lost: 1 },
+          enemy: { total: 17, lost: 17 },
+          aaci: null,
+        },
+        stage3: {
+          friend: [
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 }],
+          enemy: [
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: false, bakFlag: true, critical: 0, protectFlag: false, damage: 5 },
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: false, bakFlag: false, critical: 0, protectFlag: false, damage: 0 },
+            { raiFlag: false, bakFlag: true, critical: 1, protectFlag: true, damage: 72 }],
+        },
+      },
+    })
   })
-   */
 })
