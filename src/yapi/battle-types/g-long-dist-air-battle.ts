@@ -1,5 +1,7 @@
 import { SideType } from './base'
-import { DayBattleCommon, KoukuStages } from '@g/yapi/parts'
+import { DayBattleCommon } from '@g/yapi/parts'
+
+type LongDistAirBattle = DayBattleCommon
 
 /*
   ld_airbattle: always vs. enemy single, one kouku phase.
@@ -8,6 +10,6 @@ import { DayBattleCommon, KoukuStages } from '@g/yapi/parts'
   - api_req_combined_battle/ld_airbattle: combined vs. normal, long distance.
  */
 export type GLongDistAirBattle<FS>
-  = FS extends SideType.Normal ? 'TODO: ld_airbattle for normal'
+  = FS extends SideType.Normal ? LongDistAirBattle
   : FS extends SideType.Combined ? 'TODO: ld_airbattle for combined'
   : never
