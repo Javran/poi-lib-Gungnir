@@ -2,20 +2,10 @@ import {
   BattleType, SideType,
 } from './base'
 import { GAirBattle } from './g-air-battle'
+import { GLongDistAirBattle } from './g-long-dist-air-battle'
 
 export * from './base'
 export * from './g-air-battle'
-
-/*
-  ld_airbattle: always vs. enemy single, one kouku phase.
-
-  - api_req_sortie/ld_airbattle: normal vs. normal, long distance.
-  - api_req_combined_battle/ld_airbattle: combined vs. normal, long distance.
- */
-type GLongDistAirBattle<FS>
-  = FS extends SideType.Normal ? 'TODO: ld_airbattle for normal'
-  : FS extends SideType.Combined ? 'TODO: ld_airbattle for combined'
-  : never
 
 /*
   ld_shooting: this one seems to have only "single or combined" distinct,
