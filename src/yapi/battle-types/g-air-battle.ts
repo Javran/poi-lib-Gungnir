@@ -15,6 +15,7 @@ interface AirBattleNormal extends DayBattleCommon {
 
   - api_req_sortie/airbattle: normal vs. normal, two kouku stages.
   - api_req_combined_battle/airbattle: combined vs. single (2 kouku stages)
+    (note that we don't have sample for this api yet)
  */
 export type GAirBattle<FS>
   =

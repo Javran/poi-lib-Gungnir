@@ -2,6 +2,29 @@ There are various TODOs scattered around this codebase for things that needs imp
 this document keeps track of the majority of them and other higher-level or more structured plans that I otherwise
 cannot find a good place to put them.
 
+# existing samples
+
+perhaps first work out those that we have samples:
+
+- "/kcsapi/api_req_battle_midnight/battle"
+- "/kcsapi/api_req_battle_midnight/sp_midnight"
+- "/kcsapi/api_req_combined_battle/battle"
+- "/kcsapi/api_req_combined_battle/battle_water"
+- "/kcsapi/api_req_combined_battle/each_battle"
+- "/kcsapi/api_req_combined_battle/each_battle_water"
+- "/kcsapi/api_req_combined_battle/ec_battle"
+- "/kcsapi/api_req_combined_battle/ec_midnight_battle"
+- "/kcsapi/api_req_combined_battle/ec_night_to_day"
+- "/kcsapi/api_req_combined_battle/ld_airbattle"
+- "/kcsapi/api_req_combined_battle/midnight_battle"
+- "/kcsapi/api_req_combined_battle/sp_midnight"
+- "/kcsapi/api_req_practice/battle"
+- "/kcsapi/api_req_practice/midnight_battle"
+- "/kcsapi/api_req_sortie/airbattle"
+- "/kcsapi/api_req_sortie/battle"
+- "/kcsapi/api_req_sortie/ld_airbattle"
+- "/kcsapi/api_req_sortie/ld_shooting"
+
 # code style concerns regarding interface
 
 A linter option to enforce that we don't put unnecessary `;` or `,` in interfaces would be ideal.
