@@ -7,93 +7,14 @@ import {
   convertIntFlag, convertHps, convertDetection,
   convertEngagement, convertFormation,
   convertShipInfoFriend, convertShipInfoEnemy,
-  convertCritical, convertDamageWithFlag,
   convertKoukuStages,
-  convertKoukuStagesForSupport,
+  convertSupportInfo,
   convertKoukuForLbas,
-  convertHougeki, convertRaigeki, convertHouraiPhases,
+  convertOpeningAntiSub, convertOpeningTorpedo,
+  convertHouraiPhases,
 } from './parts'
 
 export * from './parts'
-
-/*
-  TODO: we have been seeing this pattern of looking at a 0/1 flag and then check if it is consistent
-  with the actual field. We should probably look into how the game client itself use this piece of info:
-  for example, in my previous studies, api_hourai_flag is not used at all, which makes more sense
-  because it relies on a single source of truth (whether it is null), and
-  I feel we can do something similar to openning antisub and torpedo.
- */
-export const convertOpeningAntiSub = (flag: kcsapi.IntFlag, raw: kcsapi.Hougeki | null): yapi.Hougeki | null => {
-  if (convertIntFlag(flag) && raw) {
-    return convertHougeki(raw)
-  }
-  return null
-}
-
-export const convertOpeningTorpedo = (flag: kcsapi.IntFlag, raw: kcsapi.Raigeki | null): yapi.Raigeki | null => {
-  if (convertIntFlag(flag) && raw) {
-    return convertRaigeki(raw)
-  }
-  return null
-}
-
-export const convertSupportType = (flag: number): yapi.SupportType | null =>
-  (flag === 0) ? null
-    : (flag >= 1 && flag <= 4) ? (flag as yapi.SupportTypeE)
-      : new yapi.Unknown(flag, 'SupportType')
-
-// TODO: test.
-export const convertSupportInfo =
-  (flag: number, raw: kcsapi.SupportInfo | null): yapi.SupportInfo | null => {
-    if (raw === null) {
-      return null
-    }
-    const type = convertSupportType(flag)
-    const convertShips =
-      (
-        shipIds: Array<number>,
-        undressingFlags: Array<kcsapi.IntFlag>
-      ): Array<yapi.SupportInfoShip> => (_.zipWith as any)(
-        shipIds, undressingFlags,
-        (rosterId: number, uFlg: kcsapi.IntFlag) => ({
-          rosterId,
-          undressing: convertIntFlag(uFlg),
-        }))
-    if (type === yapi.SupportTypeE.Shelling || type === yapi.SupportTypeE.Torpedo) {
-      // should convert to SupportInfoHourai
-      const rawDetail = raw.api_support_hourai
-      if (rawDetail === null) {
-        throw new Error(`api_support_hourai shouldn't be null.`)
-      }
-      const attackInfo: Array<yapi.SupportInfoHouraiDamage> = (_.zipWith as any)(
-        rawDetail.api_cl_list,
-        rawDetail.api_damage,
-        (cl: kcsapi.CriticalFlag, dmg: kcsapi.DamageE) => ({
-          critical: convertCritical(cl),
-          damage: convertDamageWithFlag(dmg),
-        })
-      )
-      return {
-        type,
-        deckId: rawDetail.api_deck_id,
-        ships: convertShips(rawDetail.api_ship_id, rawDetail.api_undressing_flag),
-        attackInfo,
-      }
-    }
-    if (type === yapi.SupportTypeE.Airstrike || type === yapi.SupportTypeE.AntiSub) {
-      const rawDetail = raw.api_support_airatack
-      if (rawDetail === null) {
-        throw new Error(`api_support_airatack shouldn't be null.`)
-      }
-      return {
-        type,
-        deckId: rawDetail.api_deck_id,
-        ships: convertShips(rawDetail.api_ship_id, rawDetail.api_undressing_flag),
-        koukuStages: convertKoukuStagesForSupport(rawDetail),
-      }
-    }
-    return new yapi.Unknown({ flag, raw }, 'SupportInfo')
-  }
 
 export const convertBattleCommon = (raw: kcsapi.BattleCommon): yapi.BattleCommon => {
   // IIFE for now, until do-expression becomes available.
