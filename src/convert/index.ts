@@ -8,19 +8,13 @@ import {
   convertEngagement, convertFormation,
   convertShipInfoFriend, convertShipInfoEnemy,
   convertCritical, convertDamageWithFlag,
-} from './basic'
-
-import {
   convertKoukuStages,
   convertKoukuStagesForSupport,
   convertKoukuForLbas,
-} from './kouku'
+  convertHougeki, convertRaigeki, convertHouraiPhases,
+} from './parts'
 
-import { convertHougeki, convertRaigeki, convertHouraiPhases } from './hourai'
-
-export * from './basic'
-export * from './kouku'
-export * from './hourai'
+export * from './parts'
 
 /*
   TODO: we have been seeing this pattern of looking at a 0/1 flag and then check if it is consistent
