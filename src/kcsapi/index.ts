@@ -103,3 +103,5 @@ export interface AirBattleNormal extends DayBattleCommon {
   api_stage_flag2: KoukuStageFlags
   api_kouku2: Kouku
 }
+
+export type LongDistAirBattleNormal = DayBattleCommon

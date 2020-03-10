@@ -89,3 +89,9 @@ export const convertAirBattleNormal = (raw: kcsapi.AirBattleNormal): AirBattleNo
     koukuStagesExtra: convertKoukuStages(raw.api_stage_flag2, raw.api_kouku2),
   }
 }
+
+type LongDistAirBattleNormal = yapi.GBattle<yapi.BattleType.DayLongDistAir, yapi.SideType.Normal, yapi.SideType.Normal>
+
+export const convertLongDistAirBattleNormal:
+  (raw: kcsapi.LongDistAirBattleNormal) => LongDistAirBattleNormal
+  = convertDayBattleCommon
