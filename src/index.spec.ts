@@ -8,8 +8,8 @@ import { fromPoiBattleDetail, BattleDetailData } from './index'
   we should break this down into pieces if possible to have smaller and manageable unit tests.
  */
 describe('samples', () => {
-  test('sample0.json', () => {
-    const raw = readJsonSync('./sample/sample0.json') as BattleDetailData
+  test('battle-normal_0.json', () => {
+    const raw = readJsonSync('./sample/battle-normal_0.json') as BattleDetailData
     const packets = fromPoiBattleDetail(raw)
     expect(packets.length).toBe(1)
     const [battleRaw] = packets
@@ -326,8 +326,8 @@ describe('samples', () => {
       ],
     })
   })
-  test('sample1.json', () => {
-    const raw = readJsonSync('./sample/sample1.json') as BattleDetailData
+  test('battle-normal_1.json', () => {
+    const raw = readJsonSync('./sample/battle-normal_1.json') as BattleDetailData
     const packets = fromPoiBattleDetail(raw)
     // the second one is battleresult packet, which we cannot handle yet.
     expect(packets.length).toBe(2)
@@ -572,8 +572,8 @@ describe('samples', () => {
     })
   })
 
-  test('sample2.json', () => {
-    const raw = readJsonSync('./sample/sample2.json') as BattleDetailData
+  test('airbattle-normal_0.json', () => {
+    const raw = readJsonSync('./sample/airbattle-normal_0.json') as BattleDetailData
     const packets = fromPoiBattleDetail(raw)
     const battleRaw = packets[0]
     expect(convert.convertAirBattleNormal(battleRaw as any)).toStrictEqual({
